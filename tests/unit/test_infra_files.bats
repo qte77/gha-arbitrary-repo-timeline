@@ -8,11 +8,11 @@
 }
 
 @test "action.yaml has repos input" {
-    grep -q 'repos:' action.yaml
+    grep -qi 'repos:' action.yaml
 }
 
 @test "action.yaml has output_file input" {
-    grep -q 'output_file:' action.yaml
+    grep -qi 'output_file:' action.yaml
 }
 
 @test "action.yaml has token input with empty default" {
