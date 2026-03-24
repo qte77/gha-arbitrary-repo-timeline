@@ -1,0 +1,44 @@
+# https://docs.github.com/en/actions/sharing-automations/creating-actions/creating-a-composite-action
+name: "Arbitrary Repo Timeline"
+description: "Generate a timeline from issues, PRs, and git log across arbitrary repos."
+author: "qte77"
+branding:
+  icon: "clock"
+  color: "blue"
+inputs:
+  REPOS:
+    description: "Comma-separated list of owner/repo pairs to monitor."
+    required: true
+  OUTPUT_FILE:
+    description: "Path to write timeline markdown."
+    default: "TIMELINE.md"
+  TOKEN:
+    description: "GitHub token with read access to monitored repos."
+    default: ""
+  INCLUDE_GIT_LOG:
+    description: "Include recent git log entries in timeline."
+    default: "false"
+  DAYS:
+    description: "Number of days to look back."
+    default: "7"
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 1
+        token: ${{ inputs.TOKEN || github.token }}
+
+    - name: Generate timeline
+      shell: bash
+      env:
+        INPUT_REPOS: ${{ inputs.REPOS }}
+        INPUT_OUTPUT_FILE: ${{ inputs.OUTPUT_FILE }}
+        INPUT_INCLUDE_GIT_LOG: ${{ inputs.INCLUDE_GIT_LOG }}
+        INPUT_DAYS: ${{ inputs.DAYS }}
+        GH_TOKEN: ${{ inputs.TOKEN || github.token }}
+      run: |
+        chmod +x "${{ github.action_path }}/scripts/"*.sh
+        source "${{ github.action_path }}/scripts/common.sh"
+        "${{ github.action_path }}/scripts/generate-timeline.sh"

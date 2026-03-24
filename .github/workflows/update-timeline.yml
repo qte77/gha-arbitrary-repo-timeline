@@ -1,0 +1,22 @@
+---
+name: Update Timeline
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./
+        with:
+          REPOS: ${{ vars.TIMELINE_REPOS }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+...
