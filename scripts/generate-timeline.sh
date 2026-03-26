@@ -6,20 +6,23 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/common.sh"
 
 REPOS="${INPUT_REPOS:?REPOS input required}"
-OUTPUT_FILE="${INPUT_OUTPUT_FILE:-TIMELINE.md}"
 DAYS="${INPUT_DAYS:-7}"
 SINCE=$(days_ago "$DAYS")
-
-echo "# Timeline (last ${DAYS} days)" > "$OUTPUT_FILE"
-echo "" >> "$OUTPUT_FILE"
-echo "Generated: $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$OUTPUT_FILE"
-echo "" >> "$OUTPUT_FILE"
 
 IFS=',' read -ra REPO_LIST <<< "$REPOS"
 for repo in "${REPO_LIST[@]}"; do
     repo=$(echo "$repo" | xargs) # trim whitespace
+    # Reason: replace / with - to form a flat directory name under projects/
+    repo_dir="projects/${repo//\//-}"
+    mkdir -p "$repo_dir"
+    OUTPUT_FILE="${repo_dir}/TIMELINE.md"
+
     echo "Collecting from $repo..."
 
+    echo "# Timeline (last ${DAYS} days)" > "$OUTPUT_FILE"
+    echo "" >> "$OUTPUT_FILE"
+    echo "Generated: $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$OUTPUT_FILE"
+    echo "" >> "$OUTPUT_FILE"
     echo "## $repo" >> "$OUTPUT_FILE"
     echo "" >> "$OUTPUT_FILE"
 
@@ -40,6 +43,5 @@ for repo in "${REPO_LIST[@]}"; do
     fi
 
     echo "" >> "$OUTPUT_FILE"
+    echo "Timeline written to $OUTPUT_FILE"
 done
-
-echo "Timeline written to $OUTPUT_FILE"
