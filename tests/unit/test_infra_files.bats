@@ -87,3 +87,11 @@
     [ -f LICENSE ]
     grep -q 'MIT' LICENSE
 }
+
+@test "update-timeline workflow has a commit step" {
+    grep -q 'git/blobs\|Commit.*changed' .github/workflows/update-timeline.yml
+}
+
+@test "update-timeline workflow has REPOS fallback" {
+    grep -q '||' .github/workflows/update-timeline.yml
+}
