@@ -1,13 +1,33 @@
 ---
 name: Bug report
-about: Report a bug
+about: Report a problem
+title: ''
 labels: bug
+assignees: ''
 ---
 
-**Describe the bug**
+## Description
 
-**Steps to reproduce**
+<!-- A clear and concise description of the bug -->
 
-**Expected behavior**
+## Steps to Reproduce
 
-**Environment**
+1. Run `...`
+2. ...
+
+## Expected Behavior
+
+<!-- What you expected to happen -->
+
+## Actual Behavior
+
+<!-- What actually happened. Include error traces if applicable -->
+
+## Environment
+
+- OS/Runner:
+- Version:
+
+## Additional Context
+
+<!-- Screenshots, logs, related issues, etc. -->
