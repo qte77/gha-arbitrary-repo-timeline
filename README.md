@@ -1,6 +1,6 @@
 # gha-arbitrary-repo-timeline
 
-![Version](https://img.shields.io/badge/version-0.0.0-8A2BE2)
+![Version](https://img.shields.io/badge/version-0.1.0-8A2BE2)
 
 Generate a timeline from issues, PRs, and git log across arbitrary repos.
 
