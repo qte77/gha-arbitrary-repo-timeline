@@ -95,3 +95,28 @@
 @test "update-timeline workflow has REPOS fallback" {
     grep -q '||' .github/workflows/update-timeline.yml
 }
+
+@test "workflow_dispatch accepts repos input" {
+    grep -q 'repos:' .github/workflows/update-timeline.yml
+}
+
+@test "update-timeline workflow uses timelines/ path" {
+    grep -q 'git add timelines/' .github/workflows/update-timeline.yml
+}
+
+@test "collect-issues.sh fetches all states" {
+    grep -q 'state=all' scripts/collect-issues.sh
+}
+
+@test "collect-prs.sh fetches all states" {
+    grep -q 'state=all' scripts/collect-prs.sh
+}
+
+@test "generate-timeline.sh supports git log" {
+    grep -q 'INCLUDE_GIT_LOG' scripts/generate-timeline.sh
+}
+
+@test "generate-timeline.sh outputs to timelines/ directory" {
+    grep -q 'timelines/' scripts/generate-timeline.sh
+    ! grep -q 'projects/' scripts/generate-timeline.sh
+}
