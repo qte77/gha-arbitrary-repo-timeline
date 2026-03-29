@@ -83,9 +83,9 @@
     [ -f .github/pull_request_template.md ]
 }
 
-@test "LICENSE exists with MIT" {
+@test "LICENSE exists with Apache-2.0" {
     [ -f LICENSE ]
-    grep -q 'MIT' LICENSE
+    grep -q 'Apache License' LICENSE
 }
 
 @test "update-timeline workflow has a commit step" {
