@@ -16,10 +16,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: Cache bats
+        uses: actions/cache@v4
+        with:
+          path: ~/.local
+          key: bats-${{ runner.os }}
       - name: Install bats
         run: |
-          git clone https://github.com/bats-core/bats-core.git /tmp/bats-core
-          /tmp/bats-core/install.sh "$HOME/.local"
+          if ! command -v bats &>/dev/null; then
+            git clone https://github.com/bats-core/bats-core.git /tmp/bats-core
+            /tmp/bats-core/install.sh "$HOME/.local"
+          fi
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Run bats tests
         run: bats tests/unit/
