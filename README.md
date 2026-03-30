@@ -1,12 +1,12 @@
 # gha-arbitrary-repo-timeline
 
+Generate a timeline from issues, PRs, and git log across arbitrary repos.
+
+![Version](https://img.shields.io/badge/version-0.1.0-8A2BE2)
+[![Update Timeline](https://github.com/qte77/gha-arbitrary-repo-timeline/actions/workflows/update-timeline.yml/badge.svg)](https://github.com/qte77/gha-arbitrary-repo-timeline/actions/workflows/update-timeline.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/qte77/gha-arbitrary-repo-timeline/badge)](https://www.codefactor.io/repository/github/qte77/gha-arbitrary-repo-timeline)
 [![CodeQL](https://github.com/qte77/gha-arbitrary-repo-timeline/actions/workflows/codeql.yaml/badge.svg)](https://github.com/qte77/gha-arbitrary-repo-timeline/actions/workflows/codeql.yaml)
 [![Dependabot](https://img.shields.io/badge/dependabot-enabled-blue?logo=dependabot)](https://github.com/qte77/gha-arbitrary-repo-timeline/security/dependabot)
-
-![Version](https://img.shields.io/badge/version-0.1.0-8A2BE2)
-
-Generate a timeline from issues, PRs, and git log across arbitrary repos.
 
 ## Usage
 
