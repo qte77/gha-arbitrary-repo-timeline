@@ -100,8 +100,8 @@
     grep -q 'repos:' .github/workflows/update-timeline.yml
 }
 
-@test "update-timeline workflow uses timelines/ path" {
-    grep -q 'git add timelines/' .github/workflows/update-timeline.yml
+@test "update-timeline workflow uses projects/ path" {
+    grep -q 'git add projects/' .github/workflows/update-timeline.yml
 }
 
 @test "collect-issues.sh fetches all states" {
@@ -116,7 +116,6 @@
     grep -q 'INCLUDE_GIT_LOG' scripts/generate-timeline.sh
 }
 
-@test "generate-timeline.sh outputs to timelines/ directory" {
-    grep -q 'timelines/' scripts/generate-timeline.sh
-    ! grep -q 'projects/' scripts/generate-timeline.sh
+@test "generate-timeline.sh outputs to projects/ directory" {
+    grep -q 'projects/' scripts/generate-timeline.sh
 }

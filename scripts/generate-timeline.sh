@@ -14,8 +14,8 @@ for repo in "${REPO_LIST[@]}"; do
     repo=$(echo "$repo" | xargs) # trim whitespace
     owner="${repo%%/*}"
     name="${repo##*/}"
-    mkdir -p "timelines/${owner}"
-    OUTPUT_FILE="timelines/${owner}/${name}.md"
+    mkdir -p "projects/${owner}"
+    OUTPUT_FILE="projects/${owner}/${name}_timeline.md"
 
     echo "Collecting from $repo..."
 
