@@ -1,8 +1,8 @@
 # Timeline (last 7 days)
 
-Generated: 2026-03-29T23:01:27Z
+Generated: 2026-03-30T06:39:21Z
 
 ## qte77/gha-arbitrary-repo-timeline
 
-- No activity in the last 7 days
+- [PR #15] fix: dispatch input, nested timelines/ paths, state=all, git log (2026-03-29)
 
