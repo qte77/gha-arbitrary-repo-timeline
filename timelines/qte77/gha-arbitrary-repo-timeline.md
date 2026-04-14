@@ -274,3 +274,14 @@
 - [PR #33] chore: update timelines (2026-04-07) [closed]
 - [PR #32] chore: update timelines (2026-04-06) [closed]
 
+## 2026-04-14
+
+- [PR #40] chore: rename plugin references to claude-code-plugins (2026-04-13) [closed]
+- [PR #39] chore: update timelines (2026-04-13) [closed]
+- [PR #38] chore: update timelines (2026-04-12) [closed]
+- [PR #37] chore: update timelines (2026-04-11) [closed]
+- [PR #36] chore: update timelines (2026-04-10) [closed]
+- [PR #35] chore: update timelines (2026-04-09) [closed]
+- [PR #34] chore: update timelines (2026-04-08) [closed]
+- [PR #33] chore: update timelines (2026-04-07) [closed]
+
