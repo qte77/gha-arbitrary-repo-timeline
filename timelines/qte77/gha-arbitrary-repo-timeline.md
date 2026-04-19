@@ -329,3 +329,15 @@
 - [PR #38] chore: update timelines (2026-04-12) [closed]
 - [PR #37] chore: update timelines (2026-04-11) [closed]
 
+## 2026-04-19
+
+- [PR #47] docs: standardize README to GHA conventions (2026-04-18) [closed]
+- [PR #46] chore: update timelines (2026-04-18) [closed]
+- [PR #45] chore: update timelines (2026-04-17) [closed]
+- [PR #44] chore: update timelines (2026-04-16) [closed]
+- [PR #43] chore: update timelines (2026-04-15) [closed]
+- [PR #42] chore: update timelines (2026-04-14) [closed]
+- [PR #40] chore: rename plugin references to claude-code-plugins (2026-04-13) [closed]
+- [PR #39] chore: update timelines (2026-04-13) [closed]
+- [PR #38] chore: update timelines (2026-04-12) [closed]
+
