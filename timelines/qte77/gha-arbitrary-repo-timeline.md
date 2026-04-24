@@ -386,3 +386,8 @@
 - [PR #45] chore: update timelines (2026-04-17) [closed]
 - [PR #44] chore: update timelines (2026-04-16) [closed]
 
+## 2026-04-24
+
+- [PR #54] fix: dedup timeline entries by ID token, merge same-day sections (2026-04-23) [closed]
+- [PR #53] chore: align LICENSE with canonical ASF Apache-2.0 text (2026-04-23) [closed]
+- [PR #52] chore: update timelines (2026-04-23) [closed]
