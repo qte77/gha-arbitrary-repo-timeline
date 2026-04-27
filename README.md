@@ -17,7 +17,7 @@ Generate a timeline from issues, PRs, and git log across arbitrary repos.
   with:
     REPOS: "owner/repo1,owner/repo2"
     TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
+```bash
 
 ## What it does
 
