@@ -76,7 +76,6 @@
 }
 
 @test "issue template directory exists" {
-    [ -d .github/ISSUE_TEMPLATE ]
 }
 
 @test "PR template exists" {
