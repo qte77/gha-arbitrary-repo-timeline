@@ -400,3 +400,13 @@
 ## 2026-04-27
 
 - [PR #57] chore: update timelines (2026-04-26) [closed]
+## 2026-04-28
+
+- [PR #65] chore(lint): bump SHA pin and apply inference fixes (2026-04-27) [closed]
+- [PR #64] revert(ci): remove lint-monitor scaffold (2026-04-27) [closed]
+- [PR #63] ci(lint): bump SHA pin and add scheduled monitor (2026-04-27) [closed]
+- [PR #62] ci(lint): adopt centralized markdown + link checking (2026-04-27) [closed]
+- [PR #61] test(bats): drop assertion on .github/ISSUE_TEMPLATE presence (2026-04-27) [closed]
+- [PR #60] chore(cascade): remove redundant community files (2026-04-27) [closed]
+- [PR #59] fix(plugins): correct marketplace name to qte77-claude-code-utils (2026-04-27) [closed]
+- [PR #58] chore: update timelines (2026-04-27) [closed]
