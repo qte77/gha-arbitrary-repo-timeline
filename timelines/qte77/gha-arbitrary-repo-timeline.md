@@ -427,4 +427,6 @@
 - [PR #72] chore: update timelines (2026-05-01) [closed]
 ## 2026-05-03
 
+- [PR #75] chore: local dev infra (Makefile, CONTRIBUTING, plugins) (2026-05-03) [open]
+- [PR #74] chore: update timelines (2026-05-03) [closed]
 - [PR #73] chore: update timelines (2026-05-02) [closed]
