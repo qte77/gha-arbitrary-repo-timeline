@@ -141,6 +141,12 @@
     grep -qE 'bats[[:space:]]' Makefile
 }
 
+@test "CONTRIBUTING.md exists and documents make lint_sh and format_sh" {
+    [ -f CONTRIBUTING.md ]
+    grep -q 'make lint_sh' CONTRIBUTING.md
+    grep -q 'make format_sh' CONTRIBUTING.md
+}
+
 @test "Makefile has setup_shellcheck recipe" {
     grep -qE '^setup_shellcheck:' Makefile
     grep -qE 'shellcheck' Makefile
