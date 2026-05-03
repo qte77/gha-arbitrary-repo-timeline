@@ -76,6 +76,7 @@
 }
 
 @test "issue template directory exists" {
+    skip "not implemented"
 }
 
 @test "PR template exists" {
@@ -117,4 +118,41 @@
 
 @test "generate-timeline.sh outputs to timelines/ directory" {
     grep -q 'timelines/' scripts/generate-timeline.sh
+}
+
+@test "Makefile exists with lint_sh recipe" {
+    [ -f Makefile ]
+    grep -qE '^lint_sh:' Makefile
+    grep -q 'shellcheck' Makefile
+}
+
+@test "Makefile has format_sh recipe using shfmt" {
+    grep -qE '^format_sh:' Makefile
+    grep -q 'shfmt' Makefile
+}
+
+@test "Makefile has format_sh_check recipe (non-mutating)" {
+    grep -qE '^format_sh_check:' Makefile
+    grep -qE 'shfmt[^\n]+-d' Makefile
+}
+
+@test "Makefile has test recipe invoking bats" {
+    grep -qE '^test:' Makefile
+    grep -qE 'bats[[:space:]]' Makefile
+}
+
+@test "CONTRIBUTING.md exists and documents make lint_sh and format_sh" {
+    [ -f CONTRIBUTING.md ]
+    grep -q 'make lint_sh' CONTRIBUTING.md
+    grep -q 'make format_sh' CONTRIBUTING.md
+}
+
+@test "Makefile has setup_shellcheck recipe" {
+    grep -qE '^setup_shellcheck:' Makefile
+    grep -qE 'shellcheck' Makefile
+}
+
+@test "Makefile has setup_shfmt recipe" {
+    grep -qE '^setup_shfmt:' Makefile
+    grep -q 'shfmt' Makefile
 }
