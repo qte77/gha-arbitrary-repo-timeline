@@ -106,32 +106,28 @@ main() {
             fi
         fi
 
-        # Skip if no new activity
-        if [[ -z "${NEW_ITEMS// /}" ]]; then
+        # Update the timeline MD if there's anything new (dedup-aware).
+        if [[ -n "${NEW_ITEMS// /}" ]]; then
+            NEW_ITEMS=$(dedup_items "$NEW_ITEMS" "$OUTPUT_FILE")
+            if [[ -n "${NEW_ITEMS// /}" ]]; then
+                if [[ ! -f "$OUTPUT_FILE" ]]; then
+                    {
+                        echo "# $repo — Timeline"
+                        echo ""
+                    } > "$OUTPUT_FILE"
+                fi
+                append_section "$OUTPUT_FILE" "$RUN_DATE" "$NEW_ITEMS"
+                echo "Timeline updated: $OUTPUT_FILE"
+            else
+                echo "No new unique items for $repo"
+            fi
+        else
             echo "No new activity for $repo"
-            continue
         fi
 
-        # Dedup against existing file
-        NEW_ITEMS=$(dedup_items "$NEW_ITEMS" "$OUTPUT_FILE")
-
-        # Skip if all items already exist
-        if [[ -z "${NEW_ITEMS// /}" ]]; then
-            echo "No new unique items for $repo"
-            continue
-        fi
-
-        # Create header if file doesn't exist
-        if [[ ! -f "$OUTPUT_FILE" ]]; then
-            {
-                echo "# $repo — Timeline"
-                echo ""
-            } > "$OUTPUT_FILE"
-        fi
-
-        append_section "$OUTPUT_FILE" "$RUN_DATE" "$NEW_ITEMS"
-
-        # Generate / refresh the themed activity SVG and embed once.
+        # Always refresh the activity SVG — its 30-day window is wider than
+        # the timeline lookback, so the chart goes stale if we only refresh
+        # when MD items are appended. Embed is idempotent (marker-guarded).
         local ASSETS_DIR="assets/${owner}"
         local ASSET_FILE="${ASSETS_DIR}/${name}-activity.svg"
         local TSV
@@ -145,8 +141,6 @@ main() {
             echo "WARN: failed to collect activity counts for $repo (skipping SVG)"
         fi
         rm -f "$TSV"
-
-        echo "Timeline updated: $OUTPUT_FILE"
     done
 }
 
