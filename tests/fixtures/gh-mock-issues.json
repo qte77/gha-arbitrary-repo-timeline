@@ -1,6 +1,6 @@
 [
-  {"created_at": "2026-04-04T10:00:00Z", "pull_request": null, "title": "issue a"},
-  {"created_at": "2026-04-04T11:00:00Z", "pull_request": null, "title": "issue b"},
-  {"created_at": "2026-04-10T09:00:00Z", "pull_request": null, "title": "issue c"},
-  {"created_at": "2026-04-04T12:00:00Z", "pull_request": {"url": "x"}, "title": "pr-as-issue (must be filtered)"}
+  {"created_at": "2026-04-04T10:00:00Z", "state": "open", "closed_at": null, "state_reason": null, "pull_request": null, "title": "still open"},
+  {"created_at": "2026-04-04T11:00:00Z", "state": "closed", "closed_at": "2026-04-09T13:00:00Z", "state_reason": "completed", "pull_request": null, "title": "resolved"},
+  {"created_at": "2026-04-10T09:00:00Z", "state": "closed", "closed_at": "2026-04-11T09:00:00Z", "state_reason": "not_planned", "pull_request": null, "title": "closed not_planned"},
+  {"created_at": "2026-04-04T12:00:00Z", "state": "closed", "closed_at": null, "state_reason": null, "pull_request": {"url": "x"}, "title": "pr-as-issue (must be filtered)"}
 ]

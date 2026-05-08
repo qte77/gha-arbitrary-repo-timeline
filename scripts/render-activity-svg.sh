@@ -4,8 +4,12 @@
 # Usage:
 #   render-activity-svg.sh [owner/repo] < activity.tsv > activity.svg
 #
-# Input (stdin): TSV with columns date<TAB>type<TAB>count
-#   date: YYYY-MM-DD; type: pr | issue | commit; count: positive integer
+# Input (stdin): TSV with columns date<TAB>event<TAB>count
+#   date: YYYY-MM-DD
+#   event: pr-opened | pr-merged | pr-closed |
+#          issue-opened | issue-resolved | issue-closed |
+#          commit
+#   count: positive integer
 #
 # Output (stdout): SVG mirroring qte77/qte77/assets/images styling —
 #   inline <style> with @media (prefers-color-scheme: dark),
@@ -16,11 +20,11 @@ set -euo pipefail
 REPO="${1:-}"
 
 W=760
-H=220
+H=240
 LEFT=30
 RIGHT=10
 TOP=40
-BOTTOM=40
+BOTTOM=60
 CHART_H=$((H - TOP - BOTTOM))
 CHART_W=$((W - LEFT - RIGHT))
 GAP=2
@@ -31,15 +35,21 @@ emit_style_block() {
     .page-bg { fill: #ffffff; }
     .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 600; fill: #1f2328; }
     .axis-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9px; fill: #656d76; }
+    .legend-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9px; fill: #656d76; }
     .axis { stroke: #d0d7de; stroke-width: 1; fill: none; }
-    .bar-pr { fill: #3fb950; }
-    .bar-issue { fill: #a371f7; }
-    .bar-commit { fill: #1f6feb; }
+    .bar-pr-opened { fill: #3fb950; }
+    .bar-pr-merged { fill: #a371f7; }
+    .bar-pr-closed { fill: #f85149; }
+    .bar-issue-opened { fill: #1f6feb; }
+    .bar-issue-resolved { fill: #56d364; }
+    .bar-issue-closed { fill: #8b949e; }
+    .bar-commit { fill: #d29922; }
     a:hover .day rect { opacity: 0.85; }
     @media (prefers-color-scheme: dark) {
       .page-bg { fill: #0d1117; }
       .title { fill: #e6edf3; }
       .axis-label { fill: #8b949e; }
+      .legend-label { fill: #8b949e; }
       .axis { stroke: #30363d; }
     }
   </style>
@@ -52,6 +62,27 @@ emit_empty_svg() {
     printf '  <rect class="page-bg" width="%d" height="%d" rx="6"/>\n' "$W" "$H"
     printf '  <text class="title" x="%d" y="%d" text-anchor="middle">no activity in window</text>\n' "$((W / 2))" "$((H / 2))"
     printf '</svg>\n'
+}
+
+emit_legend() {
+    local y=$((H - 16))
+    local sw=8 ty=$((H - 8))
+    local i=0
+    local entry
+    # Order matches typical stack: PR opened/merged/closed, Issue opened/resolved/closed
+    for entry in \
+        "bar-pr-opened|PR opened" \
+        "bar-pr-merged|PR merged" \
+        "bar-pr-closed|PR closed" \
+        "bar-issue-opened|Issue opened" \
+        "bar-issue-resolved|Issue resolved" \
+        "bar-issue-closed|Issue closed"; do
+        local cls="${entry%%|*}" label="${entry##*|}"
+        local x=$((LEFT + i * 120))
+        printf '    <rect class="%s" x="%d" y="%d" width="%d" height="%d"/>\n' "$cls" "$x" "$y" "$sw" "$sw"
+        printf '    <text class="legend-label" x="%d" y="%d">%s</text>\n' "$((x + 12))" "$ty" "$label"
+        i=$((i + 1))
+    done
 }
 
 TMP=$(mktemp)
@@ -86,16 +117,25 @@ printf '    <line class="axis" x1="%d" y1="%d" x2="%d" y2="%d"/>\n' "$LEFT" "$BA
 
 awk -F'\t' -v left="$LEFT" -v top="$TOP" -v ch="$CHART_H" -v bw="$BAR_W" -v gap="$GAP" -v maxH="$MAX_STACK" '
 function order(t) {
-    if (t == "issue") return 1
-    if (t == "pr") return 2
-    if (t == "commit") return 3
+    # Stack order from bottom up: closures first, fresh on top
+    if (t == "pr-closed") return 1
+    if (t == "pr-merged") return 2
+    if (t == "pr-opened") return 3
+    if (t == "issue-closed") return 4
+    if (t == "issue-resolved") return 5
+    if (t == "issue-opened") return 6
+    if (t == "commit") return 7
     return 9
 }
 function class_for(t) {
-    if (t == "pr") return "bar-pr"
-    if (t == "issue") return "bar-issue"
+    if (t == "pr-opened") return "bar-pr-opened"
+    if (t == "pr-merged") return "bar-pr-merged"
+    if (t == "pr-closed") return "bar-pr-closed"
+    if (t == "issue-opened") return "bar-issue-opened"
+    if (t == "issue-resolved") return "bar-issue-resolved"
+    if (t == "issue-closed") return "bar-issue-closed"
     if (t == "commit") return "bar-commit"
-    return "bar-pr"
+    return "bar-pr-opened"
 }
 {
     counts[$1, $2] = $3 + 0
@@ -141,4 +181,5 @@ fi
 
 printf '  <text class="axis-label" x="%d" y="%d">%s</text>\n' "$LEFT" "$((BASELINE + 14))" "$FIRST_DATE"
 printf '  <text class="axis-label" x="%d" y="%d" text-anchor="end">%s</text>\n' "$((W - RIGHT))" "$((BASELINE + 14))" "$LAST_DATE"
+emit_legend
 printf '</svg>\n'

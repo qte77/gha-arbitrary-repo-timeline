@@ -18,7 +18,7 @@ setup() {
     [[ "$output" == *'<svg'* ]]
     [[ "$output" == *'xmlns="http://www.w3.org/2000/svg"'* ]]
     [[ "$output" == *'xmlns:xlink="http://www.w3.org/1999/xlink"'* ]]
-    [[ "$output" == *'viewBox="0 0 760 220"'* ]]
+    [[ "$output" == *'viewBox="0 0 760 240"'* ]]
 }
 
 @test "embeds prefers-color-scheme dark media query" {
@@ -44,13 +44,28 @@ setup() {
     [[ "$output" == *'#30363d'* ]]
 }
 
-@test "applies bar fill colors per type" {
+@test "applies distinct fill colors per event token" {
     run bash -c "'$SCRIPT' qte77/example < '$FIXTURE'"
     [ "$status" -eq 0 ]
-    # PR / issue / commit fills: green / purple / blue (color-blind safe)
-    [[ "$output" == *'#3fb950'* ]]
-    [[ "$output" == *'#a371f7'* ]]
-    [[ "$output" == *'#1f6feb'* ]]
+    # PR events
+    [[ "$output" == *'.bar-pr-opened'* && "$output" == *'#3fb950'* ]]      # green
+    [[ "$output" == *'.bar-pr-merged'* && "$output" == *'#a371f7'* ]]      # purple
+    [[ "$output" == *'.bar-pr-closed'* && "$output" == *'#f85149'* ]]      # red
+    # Issue events
+    [[ "$output" == *'.bar-issue-opened'* && "$output" == *'#1f6feb'* ]]   # blue
+    [[ "$output" == *'.bar-issue-resolved'* && "$output" == *'#56d364'* ]] # light green
+    [[ "$output" == *'.bar-issue-closed'* && "$output" == *'#8b949e'* ]]   # gray
+}
+
+@test "renders legend with PR and Issue event labels" {
+    run bash -c "'$SCRIPT' qte77/example < '$FIXTURE'"
+    [ "$status" -eq 0 ]
+    [[ "$output" == *'PR opened'* ]]
+    [[ "$output" == *'PR merged'* ]]
+    [[ "$output" == *'PR closed'* ]]
+    [[ "$output" == *'Issue opened'* ]]
+    [[ "$output" == *'Issue resolved'* ]]
+    [[ "$output" == *'Issue closed'* ]]
 }
 
 @test "renders one column group per distinct date in fixture" {
