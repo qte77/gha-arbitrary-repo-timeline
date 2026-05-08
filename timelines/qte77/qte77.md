@@ -1,5 +1,7 @@
 # qte77 — Timeline
 
+<!-- activity-svg-embed -->
+![activity](../../assets/qte77/qte77-activity.svg)
 ## 2026-04-29
 
 - [ISSUE #null] null (null) [null]
@@ -45,4 +47,7 @@
 - [PR #42] chore: add workspace governance files + .claude rules + statusline (2026-04-25) [closed]
 - [PR #40] feat(brand): social preview pipeline, qte77 logo, image-theming docs (2026-04-24) [closed]
 - [PR #37] docs: README audit — sync SVGs and Topics with current repo state (2026-04-24) [closed]
-- [PR #34] docs: add persistence layer to toolchain diagram (2026-04-13) [closed]
+- [PR #34] docs: add persistence layer to toolchain diagram (2026-04-13) [closed]## 2026-05-08
+
+- [ISSUE #94] arch: agent knowledge persistence — unified layer vs fragmented stack (2026-05-02) [open]
+- [ISSUE #93] design: clarify MEMORY.md role vs AGENT_LEARNINGS.md in compound learning infra (2026-05-02) [open]
