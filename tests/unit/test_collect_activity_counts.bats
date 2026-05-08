@@ -17,14 +17,16 @@ setup() {
 set -e
 JQ=""
 URL=""
+PAGINATE=0
 while [[ \$# -gt 0 ]]; do
     case "\$1" in
         --jq) JQ="\$2"; shift 2 ;;
+        --paginate) PAGINATE=1; shift ;;
         api) shift ;;
         *) [[ -z "\$URL" ]] && URL="\$1"; shift ;;
     esac
 done
-echo "\$URL" >> "$MOCK_LOG"
+echo "PAGINATE=\$PAGINATE \$URL" >> "$MOCK_LOG"
 case "\$URL" in
     *"/issues?"*) FX="$FIXTURE_DIR/gh-mock-issues.json" ;;
     *"/pulls?"*) FX="$FIXTURE_DIR/gh-mock-prs.json" ;;
@@ -127,6 +129,14 @@ count_for() {
     run "$SCRIPT" qte77/example 9999
     [ "$status" -eq 0 ]
     grep -q 'since=' "$MOCK_LOG"
+}
+
+@test "paginates the /issues call so issues are not lost behind PRs" {
+    run "$SCRIPT" qte77/example 9999
+    [ "$status" -eq 0 ]
+    # The /issues endpoint mixes issues and PRs ordered by updated_at.
+    # Heavy-PR repos push real issues past page 1 — must paginate.
+    grep -q '^PAGINATE=1 .*/issues?' "$MOCK_LOG"
 }
 
 @test "skips commits unless INPUT_INCLUDE_GIT_LOG=true" {

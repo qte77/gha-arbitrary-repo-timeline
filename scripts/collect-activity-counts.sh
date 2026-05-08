@@ -48,7 +48,9 @@ emit_issue_events() {
   (if .closed_at != null and (.state_reason != "completed") and .closed_at[:10] >= "$SINCE" then "\(.closed_at[:10])\tissue-closed" else empty end)
 EOF
 )
-    gh api "repos/${REPO}/issues?state=all&since=${SINCE}T00:00:00Z&per_page=100" --jq "$filter" | bucket
+    # --paginate: /issues mixes issues+PRs ordered by updated_at; on PR-heavy
+    # repos issues fall past page 1 if we don't sweep all pages.
+    gh api --paginate "repos/${REPO}/issues?state=all&since=${SINCE}T00:00:00Z&per_page=100" --jq "$filter" | bucket
 }
 
 emit_commits() {

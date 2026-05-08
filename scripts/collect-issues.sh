@@ -6,5 +6,7 @@ set -euo pipefail
 REPO="${1:?Usage: collect-issues.sh owner/repo since-date}"
 SINCE="${2:?Missing since date}"
 
-gh api "repos/$REPO/issues?state=all&since=${SINCE}T00:00:00Z&per_page=100" \
+# --paginate: /issues mixes issues+PRs ordered by updated_at; on PR-heavy
+# repos real issues fall past page 1 if we don't sweep all pages.
+gh api --paginate "repos/$REPO/issues?state=all&since=${SINCE}T00:00:00Z&per_page=100" \
     --jq '.[] | select(.pull_request == null) | {date: .created_at[:10], repo: "'"$REPO"'", type: "issue", number: .number, title: .title, state: .state, url: .html_url}'
