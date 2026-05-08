@@ -1,149 +1,199 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 760 220" width="760" height="220">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 760 240" width="760" height="240">
   <style>
     .page-bg { fill: #ffffff; }
     .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 600; fill: #1f2328; }
     .axis-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9px; fill: #656d76; }
+    .legend-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9px; fill: #656d76; }
     .axis { stroke: #d0d7de; stroke-width: 1; fill: none; }
-    .bar-pr { fill: #3fb950; }
-    .bar-issue { fill: #a371f7; }
-    .bar-commit { fill: #1f6feb; }
+    .bar-pr-opened { fill: #3fb950; }
+    .bar-pr-merged { fill: #a371f7; }
+    .bar-pr-closed { fill: #f85149; }
+    .bar-issue-opened { fill: #1f6feb; }
+    .bar-issue-resolved { fill: #56d364; }
+    .bar-issue-closed { fill: #8b949e; }
+    .bar-commit { fill: #d29922; }
     a:hover .day rect { opacity: 0.85; }
     @media (prefers-color-scheme: dark) {
       .page-bg { fill: #0d1117; }
       .title { fill: #e6edf3; }
       .axis-label { fill: #8b949e; }
+      .legend-label { fill: #8b949e; }
       .axis { stroke: #30363d; }
     }
   </style>
-  <rect class="page-bg" width="760" height="220" rx="6"/>
+  <rect class="page-bg" width="760" height="240" rx="6"/>
   <text class="title" x="30" y="24">Activity</text>
   <a xlink:href="https://github.com/qte77/gha-arbitrary-repo-timeline">
     <line class="axis" x1="30" y1="180" x2="750" y2="180"/>
     <g class="day" transform="translate(30,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-08 pr: 1</title></rect>
-      <title>2026-04-08 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-08 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-08 pr-opened: 1</title></rect>
+      <title>2026-04-08 total: 2</title>
     </g>
     <g class="day" transform="translate(53,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-09 pr: 1</title></rect>
-      <title>2026-04-09 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-09 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-09 pr-opened: 1</title></rect>
+      <title>2026-04-09 total: 2</title>
     </g>
     <g class="day" transform="translate(76,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-10 pr: 1</title></rect>
-      <title>2026-04-10 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-10 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-10 pr-opened: 1</title></rect>
+      <title>2026-04-10 total: 2</title>
     </g>
     <g class="day" transform="translate(99,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-11 pr: 1</title></rect>
-      <title>2026-04-11 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-11 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-11 pr-opened: 1</title></rect>
+      <title>2026-04-11 total: 2</title>
     </g>
     <g class="day" transform="translate(122,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-12 pr: 1</title></rect>
-      <title>2026-04-12 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-12 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-12 pr-opened: 1</title></rect>
+      <title>2026-04-12 total: 2</title>
     </g>
     <g class="day" transform="translate(145,0)">
-      <rect class="bar-pr" x="0" y="145.0" width="21" height="35.0"><title>2026-04-13 pr: 2</title></rect>
-      <title>2026-04-13 total: 2</title>
+      <rect class="bar-pr-merged" x="0" y="162.5" width="21" height="17.5"><title>2026-04-13 pr-merged: 2</title></rect>
+      <rect class="bar-pr-opened" x="0" y="145.0" width="21" height="17.5"><title>2026-04-13 pr-opened: 2</title></rect>
+      <title>2026-04-13 total: 4</title>
     </g>
     <g class="day" transform="translate(168,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-14 pr: 1</title></rect>
-      <title>2026-04-14 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-14 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-14 pr-opened: 1</title></rect>
+      <title>2026-04-14 total: 2</title>
     </g>
     <g class="day" transform="translate(191,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-15 pr: 1</title></rect>
-      <title>2026-04-15 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-15 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-15 pr-opened: 1</title></rect>
+      <title>2026-04-15 total: 2</title>
     </g>
     <g class="day" transform="translate(214,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-16 pr: 1</title></rect>
-      <title>2026-04-16 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-16 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-16 pr-opened: 1</title></rect>
+      <title>2026-04-16 total: 2</title>
     </g>
     <g class="day" transform="translate(237,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-17 pr: 1</title></rect>
-      <title>2026-04-17 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-17 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-17 pr-opened: 1</title></rect>
+      <title>2026-04-17 total: 2</title>
     </g>
     <g class="day" transform="translate(260,0)">
-      <rect class="bar-pr" x="0" y="145.0" width="21" height="35.0"><title>2026-04-18 pr: 2</title></rect>
-      <title>2026-04-18 total: 2</title>
+      <rect class="bar-pr-merged" x="0" y="162.5" width="21" height="17.5"><title>2026-04-18 pr-merged: 2</title></rect>
+      <rect class="bar-pr-opened" x="0" y="145.0" width="21" height="17.5"><title>2026-04-18 pr-opened: 2</title></rect>
+      <title>2026-04-18 total: 4</title>
     </g>
     <g class="day" transform="translate(283,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-19 pr: 1</title></rect>
-      <title>2026-04-19 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-19 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-19 pr-opened: 1</title></rect>
+      <title>2026-04-19 total: 2</title>
     </g>
     <g class="day" transform="translate(306,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-20 pr: 1</title></rect>
-      <title>2026-04-20 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-20 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-20 pr-opened: 1</title></rect>
+      <title>2026-04-20 total: 2</title>
     </g>
     <g class="day" transform="translate(329,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-21 pr: 1</title></rect>
-      <title>2026-04-21 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-21 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-21 pr-opened: 1</title></rect>
+      <title>2026-04-21 total: 2</title>
     </g>
     <g class="day" transform="translate(352,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-22 pr: 1</title></rect>
-      <title>2026-04-22 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-22 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-22 pr-opened: 1</title></rect>
+      <title>2026-04-22 total: 2</title>
     </g>
     <g class="day" transform="translate(375,0)">
-      <rect class="bar-pr" x="0" y="127.5" width="21" height="52.5"><title>2026-04-23 pr: 3</title></rect>
-      <title>2026-04-23 total: 3</title>
+      <rect class="bar-pr-merged" x="0" y="153.8" width="21" height="26.2"><title>2026-04-23 pr-merged: 3</title></rect>
+      <rect class="bar-pr-opened" x="0" y="127.5" width="21" height="26.2"><title>2026-04-23 pr-opened: 3</title></rect>
+      <title>2026-04-23 total: 6</title>
     </g>
     <g class="day" transform="translate(398,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-24 pr: 1</title></rect>
-      <title>2026-04-24 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-24 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-24 pr-opened: 1</title></rect>
+      <title>2026-04-24 total: 2</title>
     </g>
     <g class="day" transform="translate(421,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-25 pr: 1</title></rect>
-      <title>2026-04-25 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-25 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-25 pr-opened: 1</title></rect>
+      <title>2026-04-25 total: 2</title>
     </g>
     <g class="day" transform="translate(444,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-26 pr: 1</title></rect>
-      <title>2026-04-26 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-26 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-26 pr-opened: 1</title></rect>
+      <title>2026-04-26 total: 2</title>
     </g>
     <g class="day" transform="translate(467,0)">
-      <rect class="bar-pr" x="0" y="40.0" width="21" height="140.0"><title>2026-04-27 pr: 8</title></rect>
-      <title>2026-04-27 total: 8</title>
+      <rect class="bar-pr-closed" x="0" y="171.2" width="21" height="8.8"><title>2026-04-27 pr-closed: 1</title></rect>
+      <rect class="bar-pr-merged" x="0" y="110.0" width="21" height="61.2"><title>2026-04-27 pr-merged: 7</title></rect>
+      <rect class="bar-pr-opened" x="0" y="40.0" width="21" height="70.0"><title>2026-04-27 pr-opened: 8</title></rect>
+      <title>2026-04-27 total: 16</title>
     </g>
     <g class="day" transform="translate(490,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-28 pr: 1</title></rect>
-      <title>2026-04-28 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-28 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-28 pr-opened: 1</title></rect>
+      <title>2026-04-28 total: 2</title>
     </g>
     <g class="day" transform="translate(513,0)">
-      <rect class="bar-pr" x="0" y="110.0" width="21" height="70.0"><title>2026-04-29 pr: 4</title></rect>
-      <title>2026-04-29 total: 4</title>
+      <rect class="bar-pr-merged" x="0" y="145.0" width="21" height="35.0"><title>2026-04-29 pr-merged: 4</title></rect>
+      <rect class="bar-pr-opened" x="0" y="110.0" width="21" height="35.0"><title>2026-04-29 pr-opened: 4</title></rect>
+      <title>2026-04-29 total: 8</title>
     </g>
     <g class="day" transform="translate(536,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-04-30 pr: 1</title></rect>
-      <title>2026-04-30 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-04-30 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-04-30 pr-opened: 1</title></rect>
+      <title>2026-04-30 total: 2</title>
     </g>
     <g class="day" transform="translate(559,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-05-01 pr: 1</title></rect>
-      <title>2026-05-01 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-05-01 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-05-01 pr-opened: 1</title></rect>
+      <title>2026-05-01 total: 2</title>
     </g>
     <g class="day" transform="translate(582,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-05-02 pr: 1</title></rect>
-      <title>2026-05-02 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-05-02 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-05-02 pr-opened: 1</title></rect>
+      <title>2026-05-02 total: 2</title>
     </g>
     <g class="day" transform="translate(605,0)">
-      <rect class="bar-pr" x="0" y="127.5" width="21" height="52.5"><title>2026-05-03 pr: 3</title></rect>
-      <title>2026-05-03 total: 3</title>
+      <rect class="bar-pr-merged" x="0" y="153.8" width="21" height="26.2"><title>2026-05-03 pr-merged: 3</title></rect>
+      <rect class="bar-pr-opened" x="0" y="127.5" width="21" height="26.2"><title>2026-05-03 pr-opened: 3</title></rect>
+      <title>2026-05-03 total: 6</title>
     </g>
     <g class="day" transform="translate(628,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-05-04 pr: 1</title></rect>
-      <title>2026-05-04 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-05-04 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-05-04 pr-opened: 1</title></rect>
+      <title>2026-05-04 total: 2</title>
     </g>
     <g class="day" transform="translate(651,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-05-05 pr: 1</title></rect>
-      <title>2026-05-05 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-05-05 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-05-05 pr-opened: 1</title></rect>
+      <title>2026-05-05 total: 2</title>
     </g>
     <g class="day" transform="translate(674,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-05-06 pr: 1</title></rect>
-      <title>2026-05-06 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-05-06 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-05-06 pr-opened: 1</title></rect>
+      <title>2026-05-06 total: 2</title>
     </g>
     <g class="day" transform="translate(697,0)">
-      <rect class="bar-pr" x="0" y="162.5" width="21" height="17.5"><title>2026-05-07 pr: 1</title></rect>
-      <title>2026-05-07 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="171.2" width="21" height="8.8"><title>2026-05-07 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="162.5" width="21" height="8.8"><title>2026-05-07 pr-opened: 1</title></rect>
+      <title>2026-05-07 total: 2</title>
     </g>
     <g class="day" transform="translate(720,0)">
-      <rect class="bar-pr" x="0" y="110.0" width="21" height="70.0"><title>2026-05-08 pr: 4</title></rect>
-      <title>2026-05-08 total: 4</title>
+      <rect class="bar-pr-merged" x="0" y="136.2" width="21" height="43.8"><title>2026-05-08 pr-merged: 5</title></rect>
+      <rect class="bar-pr-opened" x="0" y="83.8" width="21" height="52.5"><title>2026-05-08 pr-opened: 6</title></rect>
+      <title>2026-05-08 total: 11</title>
     </g>
   </a>
   <text class="axis-label" x="30" y="194">2026-04-08</text>
   <text class="axis-label" x="750" y="194" text-anchor="end">2026-05-08</text>
+    <rect class="bar-pr-opened" x="30" y="224" width="8" height="8"/>
+    <text class="legend-label" x="42" y="232">PR opened</text>
+    <rect class="bar-pr-merged" x="150" y="224" width="8" height="8"/>
+    <text class="legend-label" x="162" y="232">PR merged</text>
+    <rect class="bar-pr-closed" x="270" y="224" width="8" height="8"/>
+    <text class="legend-label" x="282" y="232">PR closed</text>
+    <rect class="bar-issue-opened" x="390" y="224" width="8" height="8"/>
+    <text class="legend-label" x="402" y="232">Issue opened</text>
+    <rect class="bar-issue-resolved" x="510" y="224" width="8" height="8"/>
+    <text class="legend-label" x="522" y="232">Issue resolved</text>
+    <rect class="bar-issue-closed" x="630" y="224" width="8" height="8"/>
+    <text class="legend-label" x="642" y="232">Issue closed</text>
 </svg>
