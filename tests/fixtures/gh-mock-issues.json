@@ -1,0 +1,6 @@
+[
+  {"created_at": "2026-04-04T10:00:00Z", "pull_request": null, "title": "issue a"},
+  {"created_at": "2026-04-04T11:00:00Z", "pull_request": null, "title": "issue b"},
+  {"created_at": "2026-04-10T09:00:00Z", "pull_request": null, "title": "issue c"},
+  {"created_at": "2026-04-04T12:00:00Z", "pull_request": {"url": "x"}, "title": "pr-as-issue (must be filtered)"}
+]

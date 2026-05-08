@@ -156,3 +156,15 @@
     grep -qE '^setup_shfmt:' Makefile
     grep -q 'shfmt' Makefile
 }
+
+@test "scripts/render-activity-svg.sh exists and is executable" {
+    [ -x scripts/render-activity-svg.sh ]
+}
+
+@test "scripts/collect-activity-counts.sh exists and is executable" {
+    [ -x scripts/collect-activity-counts.sh ]
+}
+
+@test "tests/fixtures/activity-30d.tsv fixture exists" {
+    [ -f tests/fixtures/activity-30d.tsv ]
+}

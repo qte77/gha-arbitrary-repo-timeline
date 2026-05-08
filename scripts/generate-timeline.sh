@@ -24,6 +24,23 @@ dedup_items() {
     printf '%s' "$filtered"
 }
 
+# Insert an activity-SVG image reference once after the H1 of the timeline
+# file, guarded by a marker comment so re-runs don't duplicate the embed.
+# Args: $1 = output file, $2 = relative path to SVG (used in markdown image)
+prepend_activity_embed() {
+    local file="$1" rel="$2"
+    [[ ! -f "$file" ]] && return 0
+    grep -qF '<!-- activity-svg-embed -->' "$file" && return 0
+    local tmp
+    tmp=$(mktemp)
+    awk -v rel="$rel" '
+        NR == 1 { print; print ""; print "<!-- activity-svg-embed -->"; print "![activity](" rel ")"; next }
+        NR == 2 && $0 == "" { next }  # collapse the blank line that originally followed H1
+        { print }
+    ' "$file" > "$tmp"
+    mv "$tmp" "$file"
+}
+
 # Append items to the output file. If a '## RUN_DATE' header already exists,
 # append without a new header; otherwise create a new date section.
 # Args: $1 = output file, $2 = run date, $3 = items
@@ -113,6 +130,21 @@ main() {
         fi
 
         append_section "$OUTPUT_FILE" "$RUN_DATE" "$NEW_ITEMS"
+
+        # Generate / refresh the themed activity SVG and embed once.
+        local ASSETS_DIR="assets/${owner}"
+        local ASSET_FILE="${ASSETS_DIR}/${name}-activity.svg"
+        local TSV
+        TSV=$(mktemp)
+        if "${SCRIPT_DIR}/collect-activity-counts.sh" "$repo" 30 > "$TSV" 2>/dev/null; then
+            mkdir -p "$ASSETS_DIR"
+            "${SCRIPT_DIR}/render-activity-svg.sh" "$repo" < "$TSV" > "$ASSET_FILE"
+            prepend_activity_embed "$OUTPUT_FILE" "../../${ASSET_FILE}"
+            echo "Activity SVG updated: $ASSET_FILE"
+        else
+            echo "WARN: failed to collect activity counts for $repo (skipping SVG)"
+        fi
+        rm -f "$TSV"
 
         echo "Timeline updated: $OUTPUT_FILE"
     done
