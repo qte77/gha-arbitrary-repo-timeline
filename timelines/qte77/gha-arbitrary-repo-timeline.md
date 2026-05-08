@@ -450,4 +450,5 @@
 - [PR #84] feat: themed activity SVG per repo (2026-05-08) [open]
 - [PR #82] fix(ci): bump lint workflow SHA pin to 55ea1a99 (2026-05-08) [closed]
 - [PR #81] chore: update timelines (2026-05-08) [closed]
-- [PR #85] chore: update timelines (2026-05-08) [closed]
+- [PR #85] chore: update timelines (2026-05-08) [closed]- [PR #90] feat: event-based activity categories with color-coded legend (2026-05-08) [open]
+- [PR #89] chore: update timelines (2026-05-08) [closed]
