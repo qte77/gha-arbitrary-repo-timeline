@@ -1,0 +1,5 @@
+[
+  {"sha": "aaa1111", "commit": {"author": {"date": "2026-04-08T08:00:00Z"}, "message": "c1"}},
+  {"sha": "bbb2222", "commit": {"author": {"date": "2026-04-08T09:00:00Z"}, "message": "c2"}},
+  {"sha": "ccc3333", "commit": {"author": {"date": "2026-04-12T10:00:00Z"}, "message": "c3"}}
+]

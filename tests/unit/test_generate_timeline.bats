@@ -80,6 +80,25 @@ teardown() {
     [ "$(grep -c 'ISSUE #42' "$OUTPUT_FILE")" -eq 1 ]
 }
 
+@test "prepend_activity_embed inserts marker and image after H1" {
+    printf '# qte77/foo — Timeline\n\n## 2026-04-23\n\n- [PR #1] x (2026-04-23) [open]\n' > "$OUTPUT_FILE"
+    prepend_activity_embed "$OUTPUT_FILE" "../../assets/qte77/foo-activity.svg"
+    grep -q '<!-- activity-svg-embed -->' "$OUTPUT_FILE"
+    grep -q '!\[activity\](\.\./\.\./assets/qte77/foo-activity\.svg)' "$OUTPUT_FILE"
+    # H1 must remain on line 1
+    [ "$(head -1 "$OUTPUT_FILE")" = "# qte77/foo — Timeline" ]
+    # Date header must still be present
+    grep -q '^## 2026-04-23$' "$OUTPUT_FILE"
+}
+
+@test "prepend_activity_embed is idempotent (no double insert)" {
+    printf '# qte77/foo — Timeline\n\n' > "$OUTPUT_FILE"
+    prepend_activity_embed "$OUTPUT_FILE" "../../assets/qte77/foo-activity.svg"
+    prepend_activity_embed "$OUTPUT_FILE" "../../assets/qte77/foo-activity.svg"
+    [ "$(grep -c '<!-- activity-svg-embed -->' "$OUTPUT_FILE")" -eq 1 ]
+    [ "$(grep -c '!\[activity\]' "$OUTPUT_FILE")" -eq 1 ]
+}
+
 @test "dedup + append: two runs same day produce single date header" {
     printf '# repo — Timeline\n\n' > "$OUTPUT_FILE"
     # Run 1
