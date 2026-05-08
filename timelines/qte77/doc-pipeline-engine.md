@@ -1,5 +1,7 @@
 # qte77/doc-pipeline-engine — Timeline
 
+<!-- activity-svg-embed -->
+![activity](../../assets/qte77/doc-pipeline-engine-activity.svg)
 ## 2026-04-29
 
 - [PR #61] feat: external one-shot evaluators (Anthropic SDK + CC CLI) (§0.2.3 PR B) (2026-04-27) [open]
@@ -57,3 +59,6 @@
 - [PR #6] feat: DiscoveryManifest fixtures + migrate scraping-landscape to polyfetch-scrape (2026-04-23) [closed]
 - [PR #5] docs: consolidate planning docs into architecture and roadmap (2026-04-22) [closed]
 - [PR #3] refactor: v0.1 cleanup, standalone framing, samples, and docs (2026-04-22) [closed]
+## 2026-05-08
+
+- [PR #65] docs: update SBOM (2026-05-03) [open]
