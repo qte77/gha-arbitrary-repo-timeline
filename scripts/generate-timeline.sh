@@ -11,7 +11,10 @@ source "${SCRIPT_DIR}/common.sh"
 # Prints: filtered items (only those whose ID is absent from the file)
 dedup_items() {
     local items="$1" file="$2"
-    [[ ! -f "$file" ]] && { printf '%s' "$items"; return; }
+    [[ ! -f "$file" ]] && {
+        printf '%s' "$items"
+        return
+    }
     local filtered="" line id
     while IFS= read -r line; do
         [[ -z "$line" ]] && continue
@@ -20,7 +23,7 @@ dedup_items() {
             continue
         fi
         filtered+="$line"$'\n'
-    done <<< "$items"
+    done <<<"$items"
     printf '%s' "$filtered"
 }
 
@@ -37,7 +40,7 @@ prepend_activity_embed() {
         NR == 1 { print; print ""; print "<!-- activity-svg-embed -->"; print "![activity](" rel ")"; next }
         NR == 2 && $0 == "" { next }  # collapse the blank line that originally followed H1
         { print }
-    ' "$file" > "$tmp"
+    ' "$file" >"$tmp"
     mv "$tmp" "$file"
 }
 
@@ -47,14 +50,14 @@ prepend_activity_embed() {
 append_section() {
     local file="$1" run_date="$2" items="$3"
     if grep -qxF "## $run_date" "$file" 2>/dev/null; then
-        printf '%s' "$items" >> "$file"
+        printf '%s' "$items" >>"$file"
     else
         {
             echo "## $run_date"
             echo ""
             printf '%s' "$items"
             echo ""
-        } >> "$file"
+        } >>"$file"
     fi
 }
 
@@ -66,7 +69,7 @@ main() {
     local RUN_DATE
     RUN_DATE=$(date -u +%Y-%m-%d)
 
-    IFS=',' read -ra REPO_LIST <<< "$REPOS"
+    IFS=',' read -ra REPO_LIST <<<"$REPOS"
     for repo in "${REPO_LIST[@]}"; do
         repo=$(echo "$repo" | xargs) # trim whitespace
         local owner="${repo%%/*}"
@@ -114,7 +117,7 @@ main() {
                     {
                         echo "# $repo — Timeline"
                         echo ""
-                    } > "$OUTPUT_FILE"
+                    } >"$OUTPUT_FILE"
                 fi
                 append_section "$OUTPUT_FILE" "$RUN_DATE" "$NEW_ITEMS"
                 echo "Timeline updated: $OUTPUT_FILE"
@@ -132,9 +135,9 @@ main() {
         local ASSET_FILE="${ASSETS_DIR}/${name}-activity.svg"
         local TSV
         TSV=$(mktemp)
-        if "${SCRIPT_DIR}/collect-activity-counts.sh" "$repo" 30 > "$TSV" 2>/dev/null; then
+        if "${SCRIPT_DIR}/collect-activity-counts.sh" "$repo" 30 >"$TSV" 2>/dev/null; then
             mkdir -p "$ASSETS_DIR"
-            "${SCRIPT_DIR}/render-activity-svg.sh" "$repo" < "$TSV" > "$ASSET_FILE"
+            "${SCRIPT_DIR}/render-activity-svg.sh" "$repo" <"$TSV" >"$ASSET_FILE"
             prepend_activity_embed "$OUTPUT_FILE" "../../${ASSET_FILE}"
             echo "Activity SVG updated: $ASSET_FILE"
         else

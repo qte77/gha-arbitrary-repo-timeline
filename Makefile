@@ -85,7 +85,7 @@ setup_shfmt:  ## Install shfmt (apt / dnf / pacman / brew)
 
 lint_sh:  ## Run shellcheck on scripts/ and .github/scripts/
 	echo "--- lint_sh"
-	shellcheck $(SH_SOURCES)
+	shellcheck -e SC1091 $(SH_SOURCES)
 
 format_sh:  ## Format shell scripts in place with shfmt
 	echo "--- format_sh"

@@ -29,25 +29,27 @@ bucket() {
 
 emit_pr_events() {
     local filter
-    filter=$(cat <<EOF
+    filter=$(
+        cat <<EOF
 .[] |
   (if .created_at[:10] >= "$SINCE" then "\(.created_at[:10])\tpr-opened" else empty end),
   (if .merged_at != null and .merged_at[:10] >= "$SINCE" then "\(.merged_at[:10])\tpr-merged" else empty end),
   (if .merged_at == null and .closed_at != null and .closed_at[:10] >= "$SINCE" then "\(.closed_at[:10])\tpr-closed" else empty end)
 EOF
-)
+    )
     gh api "repos/${REPO}/pulls?state=all&per_page=100" --jq "$filter" | bucket
 }
 
 emit_issue_events() {
     local filter
-    filter=$(cat <<EOF
+    filter=$(
+        cat <<EOF
 .[] | select(.pull_request == null) |
   (if .created_at[:10] >= "$SINCE" then "\(.created_at[:10])\tissue-opened" else empty end),
   (if .closed_at != null and .state_reason == "completed" and .closed_at[:10] >= "$SINCE" then "\(.closed_at[:10])\tissue-resolved" else empty end),
   (if .closed_at != null and (.state_reason != "completed") and .closed_at[:10] >= "$SINCE" then "\(.closed_at[:10])\tissue-closed" else empty end)
 EOF
-)
+    )
     # --paginate: /issues mixes issues+PRs ordered by updated_at; on PR-heavy
     # repos issues fall past page 1 if we don't sweep all pages.
     gh api --paginate "repos/${REPO}/issues?state=all&since=${SINCE}T00:00:00Z&per_page=100" --jq "$filter" | bucket
@@ -55,8 +57,8 @@ EOF
 
 emit_commits() {
     gh api "repos/${REPO}/commits?since=${SINCE}T00:00:00Z&per_page=100" \
-        --jq '.[] | "\(.commit.author.date[:10])\tcommit"' \
-        | bucket
+        --jq '.[] | "\(.commit.author.date[:10])\tcommit"' |
+        bucket
 }
 
 emit_pr_events

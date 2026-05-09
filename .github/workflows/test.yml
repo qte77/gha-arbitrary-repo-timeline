@@ -12,22 +12,33 @@ permissions:
   contents: read
 
 jobs:
-  bats:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Cache bats
+      - name: Cache dev tools (bats, shellcheck, shfmt)
         uses: actions/cache@v5
         with:
           path: ~/.local
-          key: bats-${{ runner.os }}
-      - name: Install bats
+          key: dev-tools-${{ runner.os }}-bats1.13-shellcheck0.10-shfmt3.10
+      - name: Install dev tools (cache-aware, no sudo)
         run: |
           if ! command -v bats &>/dev/null; then
             git clone https://github.com/bats-core/bats-core.git /tmp/bats-core
             /tmp/bats-core/install.sh "$HOME/.local"
           fi
+          mkdir -p "$HOME/.local/bin"
+          if ! command -v shellcheck &>/dev/null; then
+            curl -sSL "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz" \
+              | tar xJ -C /tmp \
+              && mv /tmp/shellcheck-v0.10.0/shellcheck "$HOME/.local/bin/"
+          fi
+          if ! command -v shfmt &>/dev/null; then
+            curl -sSL -o "$HOME/.local/bin/shfmt" \
+              "https://github.com/mvdan/sh/releases/download/v3.10.0/shfmt_v3.10.0_linux_amd64"
+            chmod +x "$HOME/.local/bin/shfmt"
+          fi
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-      - name: Run bats tests
-        run: bats tests/unit/
+      - name: Run validate (lint_sh + format_sh_check + test)
+        run: make validate
 ...
