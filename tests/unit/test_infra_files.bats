@@ -168,3 +168,15 @@
 @test "tests/fixtures/activity-30d.tsv fixture exists" {
     [ -f tests/fixtures/activity-30d.tsv ]
 }
+
+@test "tests/fixtures/activity-history.tsv fixture exists" {
+    [ -f tests/fixtures/activity-history.tsv ]
+}
+
+@test "generate-timeline.sh defines merge_activity_tsv function" {
+    grep -qE '^merge_activity_tsv\(\)' scripts/generate-timeline.sh
+}
+
+@test "render-activity-svg.sh accepts --days flag" {
+    grep -q '\-\-days' scripts/render-activity-svg.sh
+}
