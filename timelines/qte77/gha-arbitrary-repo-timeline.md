@@ -465,3 +465,10 @@
 
 - [PR #101] chore: update timelines (2026-05-08) [closed]
 - [PR #100] chore: update timelines (2026-05-08) [closed]
+## 2026-05-09
+
+- [PR #106] feat: persist cumulative activity TSV per repo (2026-05-09) [closed]
+- [PR #105] chore: add .gitignore for local dev artifacts (2026-05-09) [closed]
+- [PR #104] docs: catch up CHANGELOG with merged PRs (2026-05-09) [closed]
+- [PR #103] ci: invoke make validate (lint_sh + format_sh_check + test) (2026-05-09) [closed]
+- [PR #102] chore: update timelines (2026-05-09) [closed]
