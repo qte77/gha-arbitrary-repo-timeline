@@ -90,6 +90,18 @@ setup() {
     [[ "$output" == *'no activity'* ]]
 }
 
+@test "--days N slices input to last N days from latest date in TSV" {
+    # Fixture spans 2026-04-04 to 2026-05-03. Slicing last 7 days from
+    # 2026-05-03 keeps only rows with date >= 2026-04-26.
+    run bash -c "'$SCRIPT' --days 7 qte77/example < '$FIXTURE'"
+    [ "$status" -eq 0 ]
+    expected=$(awk -F'\t' '$1 >= "2026-04-26" {print $1}' "$FIXTURE" | sort -u | wc -l)
+    actual=$(printf '%s\n' "$output" | grep -cE '<g class="day"')
+    [ "$actual" -eq "$expected" ]
+    # Dates outside the window must NOT appear as data columns
+    ! printf '%s\n' "$output" | grep -qE '<g class="day"[^>]*>.*2026-04-04'
+}
+
 @test "uses system font stack" {
     run bash -c "'$SCRIPT' qte77/example < '$FIXTURE'"
     [ "$status" -eq 0 ]

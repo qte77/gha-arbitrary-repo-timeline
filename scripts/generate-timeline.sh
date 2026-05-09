@@ -27,6 +27,26 @@ dedup_items() {
     printf '%s' "$filtered"
 }
 
+# Merge two activity TSVs into a unioned, deduped TSV on stdout.
+# Rows from $2 (new) override rows from $1 (existing) on (date, event)
+# collisions. Output is sorted ascending by (date, event).
+# Args: $1 = existing tsv path (may not exist), $2 = new tsv path
+merge_activity_tsv() {
+    local existing="$1" new="$2"
+    {
+        [ -f "$existing" ] && cat "$existing"
+        cat "$new"
+    } | awk -F'\t' -v OFS='\t' '
+        NF == 3 { rows[$1, $2] = $3 }
+        END {
+            for (k in rows) {
+                split(k, parts, SUBSEP)
+                print parts[1], parts[2], rows[k]
+            }
+        }
+    ' | sort -t$'\t' -k1,1 -k2,2
+}
+
 # Insert an activity-SVG image reference once after the H1 of the timeline
 # file, guarded by a marker comment so re-runs don't duplicate the embed.
 # Args: $1 = output file, $2 = relative path to SVG (used in markdown image)
@@ -128,22 +148,28 @@ main() {
             echo "No new activity for $repo"
         fi
 
-        # Always refresh the activity SVG — its 30-day window is wider than
-        # the timeline lookback, so the chart goes stale if we only refresh
-        # when MD items are appended. Embed is idempotent (marker-guarded).
+        # Always refresh the activity SVG via the cumulative TSV history.
+        # Each run pulls a short window (INPUT_DAYS, default 7) and merges
+        # into assets/<owner>/<repo>-activity.tsv. Renderer slices to last
+        # 30 days for the chart but the TSV preserves full history.
         local ASSETS_DIR="assets/${owner}"
         local ASSET_FILE="${ASSETS_DIR}/${name}-activity.svg"
-        local TSV
-        TSV=$(mktemp)
-        if "${SCRIPT_DIR}/collect-activity-counts.sh" "$repo" 30 >"$TSV" 2>/dev/null; then
+        local HISTORY_TSV="${ASSETS_DIR}/${name}-activity.tsv"
+        local NEW_TSV
+        NEW_TSV=$(mktemp)
+        if "${SCRIPT_DIR}/collect-activity-counts.sh" "$repo" "$DAYS" >"$NEW_TSV" 2>/dev/null; then
             mkdir -p "$ASSETS_DIR"
-            "${SCRIPT_DIR}/render-activity-svg.sh" "$repo" <"$TSV" >"$ASSET_FILE"
+            local MERGED
+            MERGED=$(mktemp)
+            merge_activity_tsv "$HISTORY_TSV" "$NEW_TSV" >"$MERGED"
+            mv "$MERGED" "$HISTORY_TSV"
+            "${SCRIPT_DIR}/render-activity-svg.sh" --days 30 "$repo" <"$HISTORY_TSV" >"$ASSET_FILE"
             prepend_activity_embed "$OUTPUT_FILE" "../../${ASSET_FILE}"
-            echo "Activity SVG updated: $ASSET_FILE"
+            echo "Activity SVG updated: $ASSET_FILE (history: $HISTORY_TSV)"
         else
             echo "WARN: failed to collect activity counts for $repo (skipping SVG)"
         fi
-        rm -f "$TSV"
+        rm -f "$NEW_TSV"
     done
 }
 

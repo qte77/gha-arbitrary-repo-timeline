@@ -17,7 +17,22 @@
 #   wrapped in <a xlink:href="https://github.com/<owner>/<repo>">.
 set -euo pipefail
 
-REPO="${1:-}"
+# Parse args: optional --days N flag (slice input to last N days from
+# the latest date in the TSV) and optional positional owner/repo.
+REPO=
+DAYS=
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --days)
+            DAYS="$2"
+            shift 2
+            ;;
+        *)
+            REPO="$1"
+            shift
+            ;;
+    esac
+done
 
 W=760
 H=240
@@ -92,6 +107,16 @@ cat >"$TMP"
 if ! [ -s "$TMP" ]; then
     emit_empty_svg
     exit 0
+fi
+
+# --days N: slice to last N days relative to the latest date in the TSV.
+if [ -n "$DAYS" ] && [ "$DAYS" -gt 0 ] 2>/dev/null; then
+    MAX_DATE=$(awk -F'\t' '{print $1}' "$TMP" | sort -u | tail -1)
+    CUTOFF=$(date -d "$MAX_DATE - $DAYS days" +%Y-%m-%d 2>/dev/null ||
+        date -j -v-"$DAYS"d -f "%Y-%m-%d" "$MAX_DATE" +%Y-%m-%d)
+    SLICED=$(mktemp)
+    awk -F'\t' -v cutoff="$CUTOFF" '$1 >= cutoff' "$TMP" >"$SLICED"
+    mv "$SLICED" "$TMP"
 fi
 
 N_DATES=$(awk -F'\t' '{print $1}' "$TMP" | sort -u | wc -l)
