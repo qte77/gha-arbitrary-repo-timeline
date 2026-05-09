@@ -1,0 +1,43 @@
+# Local dev environment shells / configs
+.bash_profile
+.bashrc
+.zshrc
+.zprofile
+.profile
+.gitconfig
+.bash_history
+.ripgreprc
+
+# Editor / IDE
+.idea/
+.vscode/
+
+# Local secrets — must never be committed
+.env
+.env.local
+.env.*.local
+
+# MCP local server config (per-user)
+.mcp.json
+
+# Auto-memory artifact (memory itself lives under ~/.claude/projects/)
+/MEMORY.md
+
+# Claude personal config (project /.claude/settings.json IS tracked)
+/.claude/agents/
+/.claude/commands/
+/.claude/skills/
+
+# Test/coverage scratch
+.coverage
+.pytest_cache/
+.hypothesis/
+.ruff_cache/
+.complexipy_cache/
+
+# Submodule scratch (no real submodules in this repo)
+.gitmodules
+
+# OS junk
+.DS_Store
+Thumbs.db
