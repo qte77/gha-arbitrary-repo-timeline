@@ -461,4 +461,7 @@
 - [ISSUE #86] feat: restructure timeline MD with rolling Open + collapsed History sections (2026-05-08) [open]
 - [ISSUE #83] consider replacing hand-rolled awk SVG renderer with mermaid or vega-lite (2026-05-08) [open]
 - [PR #98] fix(ci): grant issues: read to GITHUB_TOKEN (2026-05-08) [closed]
-- [PR #96] chore: update timelines (2026-05-08) [closed]- [PR #99] chore: update timelines (2026-05-08) [closed]
+- [PR #96] chore: update timelines (2026-05-08) [closed]- [PR #99] chore: update timelines (2026-05-08) [closed]## 2026-05-09
+
+- [PR #101] chore: update timelines (2026-05-08) [closed]
+- [PR #100] chore: update timelines (2026-05-08) [closed]
