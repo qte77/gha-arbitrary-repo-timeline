@@ -472,3 +472,9 @@
 - [PR #104] docs: catch up CHANGELOG with merged PRs (2026-05-09) [closed]
 - [PR #103] ci: invoke make validate (lint_sh + format_sh_check + test) (2026-05-09) [closed]
 - [PR #102] chore: update timelines (2026-05-09) [closed]
+## 2026-05-10
+
+- [ISSUE #110] policy: privacy guardrails baseline for contributor / OSINT-style features (2026-05-09) [open]
+- [ISSUE #109] feat: account-level meta tracker — repos timeline, theme inference, external contributions (2026-05-09) [open]
+- [ISSUE #108] feat: temporal analysis of contributions (when contributors are active) (2026-05-09) [open]
+- [PR #107] chore: update timelines (2026-05-09) [closed]
