@@ -58,11 +58,13 @@ The cumulative event TSV
 ([`assets/qte77/gha-arbitrary-repo-timeline-activity.tsv`](assets/qte77/gha-arbitrary-repo-timeline-activity.tsv))
 preserves history beyond the rolling 30-day chart window:
 
+<!-- markdownlint-disable MD010 -->
 ```tsv
 2026-05-08	pr-merged	10
 2026-05-08	issue-opened	4
 2026-05-09	pr-opened	3
 ```
+<!-- markdownlint-enable MD010 -->
 
 ## License
 
