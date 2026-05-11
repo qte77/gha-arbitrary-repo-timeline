@@ -478,3 +478,7 @@
 - [ISSUE #109] feat: account-level meta tracker — repos timeline, theme inference, external contributions (2026-05-09) [open]
 - [ISSUE #108] feat: temporal analysis of contributions (when contributors are active) (2026-05-09) [open]
 - [PR #107] chore: update timelines (2026-05-09) [closed]
+## 2026-05-11
+
+- [PR #112] docs: document SVG + TSV outputs and add Example output section (2026-05-10) [closed]
+- [PR #111] chore: update timelines (2026-05-10) [closed]
