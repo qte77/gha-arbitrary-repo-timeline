@@ -482,3 +482,7 @@
 
 - [PR #112] docs: document SVG + TSV outputs and add Example output section (2026-05-10) [closed]
 - [PR #111] chore: update timelines (2026-05-10) [closed]
+## 2026-05-12
+
+- [ISSUE #4] feat: add contributor & repo intelligence collection (Phase 2) (2026-03-26) [open]
+- [PR #113] chore: update timelines (2026-05-11) [closed]
