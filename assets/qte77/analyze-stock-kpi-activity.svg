@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 760 240" width="760" height="240">
+  <style>
+    .page-bg { fill: #ffffff; }
+    .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 600; fill: #1f2328; }
+    .axis-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9px; fill: #656d76; }
+    .legend-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9px; fill: #656d76; }
+    .axis { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .bar-pr-opened { fill: #3fb950; }
+    .bar-pr-merged { fill: #a371f7; }
+    .bar-pr-closed { fill: #f85149; }
+    .bar-issue-opened { fill: #1f6feb; }
+    .bar-issue-resolved { fill: #56d364; }
+    .bar-issue-closed { fill: #8b949e; }
+    .bar-commit { fill: #d29922; }
+    a:hover .day rect { opacity: 0.85; }
+    @media (prefers-color-scheme: dark) {
+      .page-bg { fill: #0d1117; }
+      .title { fill: #e6edf3; }
+      .axis-label { fill: #8b949e; }
+      .legend-label { fill: #8b949e; }
+      .axis { stroke: #30363d; }
+    }
+  </style>
+  <rect class="page-bg" width="760" height="240" rx="6"/>
+  <text class="title" x="30" y="24">Activity</text>
+  <a xlink:href="https://github.com/qte77/analyze-stock-kpi">
+    <line class="axis" x1="30" y1="180" x2="750" y2="180"/>
+    <g class="day" transform="translate(30,0)">
+      <rect class="bar-pr-merged" x="0" y="174.8" width="118" height="5.2"><title>2026-05-07 pr-merged: 2</title></rect>
+      <rect class="bar-pr-opened" x="0" y="172.2" width="118" height="2.6"><title>2026-05-07 pr-opened: 1</title></rect>
+      <rect class="bar-issue-opened" x="0" y="161.9" width="118" height="10.4"><title>2026-05-07 issue-opened: 4</title></rect>
+      <title>2026-05-07 total: 7</title>
+    </g>
+    <g class="day" transform="translate(150,0)">
+      <rect class="bar-pr-merged" x="0" y="169.6" width="118" height="10.4"><title>2026-05-08 pr-merged: 4</title></rect>
+      <rect class="bar-pr-opened" x="0" y="156.7" width="118" height="13.0"><title>2026-05-08 pr-opened: 5</title></rect>
+      <rect class="bar-issue-resolved" x="0" y="151.5" width="118" height="5.2"><title>2026-05-08 issue-resolved: 2</title></rect>
+      <rect class="bar-issue-opened" x="0" y="125.6" width="118" height="25.9"><title>2026-05-08 issue-opened: 10</title></rect>
+      <title>2026-05-08 total: 21</title>
+    </g>
+    <g class="day" transform="translate(270,0)">
+      <rect class="bar-pr-merged" x="0" y="161.9" width="118" height="18.1"><title>2026-05-09 pr-merged: 7</title></rect>
+      <rect class="bar-pr-opened" x="0" y="146.3" width="118" height="15.6"><title>2026-05-09 pr-opened: 6</title></rect>
+      <rect class="bar-issue-resolved" x="0" y="135.9" width="118" height="10.4"><title>2026-05-09 issue-resolved: 4</title></rect>
+      <rect class="bar-issue-opened" x="0" y="130.7" width="118" height="5.2"><title>2026-05-09 issue-opened: 2</title></rect>
+      <title>2026-05-09 total: 19</title>
+    </g>
+    <g class="day" transform="translate(390,0)">
+      <rect class="bar-pr-merged" x="0" y="117.8" width="118" height="62.2"><title>2026-05-10 pr-merged: 24</title></rect>
+      <rect class="bar-pr-opened" x="0" y="55.6" width="118" height="62.2"><title>2026-05-10 pr-opened: 24</title></rect>
+      <rect class="bar-issue-resolved" x="0" y="45.2" width="118" height="10.4"><title>2026-05-10 issue-resolved: 4</title></rect>
+      <rect class="bar-issue-opened" x="0" y="40.0" width="118" height="5.2"><title>2026-05-10 issue-opened: 2</title></rect>
+      <title>2026-05-10 total: 54</title>
+    </g>
+    <g class="day" transform="translate(510,0)">
+      <rect class="bar-pr-merged" x="0" y="172.2" width="118" height="7.8"><title>2026-05-11 pr-merged: 3</title></rect>
+      <rect class="bar-pr-opened" x="0" y="164.4" width="118" height="7.8"><title>2026-05-11 pr-opened: 3</title></rect>
+      <rect class="bar-issue-resolved" x="0" y="161.9" width="118" height="2.6"><title>2026-05-11 issue-resolved: 1</title></rect>
+      <title>2026-05-11 total: 7</title>
+    </g>
+    <g class="day" transform="translate(630,0)">
+      <rect class="bar-issue-opened" x="0" y="177.4" width="118" height="2.6"><title>2026-05-12 issue-opened: 1</title></rect>
+      <title>2026-05-12 total: 1</title>
+    </g>
+  </a>
+  <text class="axis-label" x="30" y="194">2026-05-07</text>
+  <text class="axis-label" x="750" y="194" text-anchor="end">2026-05-12</text>
+    <rect class="bar-pr-opened" x="30" y="224" width="8" height="8"/>
+    <text class="legend-label" x="42" y="232">PR opened</text>
+    <rect class="bar-pr-merged" x="150" y="224" width="8" height="8"/>
+    <text class="legend-label" x="162" y="232">PR merged</text>
+    <rect class="bar-pr-closed" x="270" y="224" width="8" height="8"/>
+    <text class="legend-label" x="282" y="232">PR closed</text>
+    <rect class="bar-issue-opened" x="390" y="224" width="8" height="8"/>
+    <text class="legend-label" x="402" y="232">Issue opened</text>
+    <rect class="bar-issue-resolved" x="510" y="224" width="8" height="8"/>
+    <text class="legend-label" x="522" y="232">Issue resolved</text>
+    <rect class="bar-issue-closed" x="630" y="224" width="8" height="8"/>
+    <text class="legend-label" x="642" y="232">Issue closed</text>
+</svg>
