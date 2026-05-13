@@ -486,3 +486,7 @@
 
 - [ISSUE #4] feat: add contributor & repo intelligence collection (Phase 2) (2026-03-26) [open]
 - [PR #113] chore: update timelines (2026-05-11) [closed]
+## 2026-05-13
+
+- [PR #115] chore: update timelines (2026-05-12) [closed]
+- [PR #114] chore: update timelines (2026-05-12) [closed]
