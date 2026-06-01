@@ -173,9 +173,14 @@
       <rect class="bar-pr-opened" x="0" y="172.4" width="22" height="3.8"><title>2026-05-30 pr-opened: 1</title></rect>
       <title>2026-05-30 total: 2</title>
     </g>
+    <g class="day" transform="translate(726,0)">
+      <rect class="bar-pr-merged" x="0" y="176.2" width="22" height="3.8"><title>2026-05-31 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="172.4" width="22" height="3.8"><title>2026-05-31 pr-opened: 1</title></rect>
+      <title>2026-05-31 total: 2</title>
+    </g>
   </a>
   <text class="axis-label" x="30" y="194">2026-05-02</text>
-  <text class="axis-label" x="750" y="194" text-anchor="end">2026-05-30</text>
+  <text class="axis-label" x="750" y="194" text-anchor="end">2026-05-31</text>
     <rect class="bar-pr-opened" x="30" y="224" width="8" height="8"/>
     <text class="legend-label" x="42" y="232">PR opened</text>
     <rect class="bar-pr-merged" x="150" y="224" width="8" height="8"/>
