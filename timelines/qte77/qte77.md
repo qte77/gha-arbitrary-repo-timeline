@@ -51,3 +51,15 @@
 
 - [ISSUE #94] arch: agent knowledge persistence — unified layer vs fragmented stack (2026-05-02) [open]
 - [ISSUE #93] design: clarify MEMORY.md role vs AGENT_LEARNINGS.md in compound learning infra (2026-05-02) [open]
+## 2026-06-14
+
+- [PR #107] docs: drop Apache LICENSE APPENDIX section (end at END OF TERMS AND CONDITIONS) (2026-06-14) [closed]
+- [PR #106] docs: add Apache-2.0 LICENSE (Copyright 2026 qte77) (2026-06-14) [closed]
+- [PR #105] fix(brand): reference border via valid sub-token (divider) (2026-06-13) [closed]
+- [PR #104] fix(brand): clear design.md lint warnings (primary, AA contrast, components) (2026-06-13) [closed]
+- [PR #103] refactor(brand): single color source = DESIGN.md, drop palette.toml (2026-06-13) [closed]
+- [PR #102] feat(brand): add EyeRest DESIGN.md (google-labs-code format) (2026-06-13) [closed]
+- [PR #101] ci: pin gha-repo-index to v0.1.1 (2026-06-13) [closed]
+- [PR #100] chore: update README with latest blog posts (2026-06-13) [closed]
+- [PR #99] ci(workflows): SHA-pin actions + route blog-post update through a PR (2026-06-13) [closed]
+- [PR #98] ci(workflows): SHA-pin actions + route blog-post update through a PR (2026-06-13) [closed]
