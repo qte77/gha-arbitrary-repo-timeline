@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 760 240" width="760" height="240">
+  <style>
+    .page-bg { fill: #ffffff; }
+    .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 600; fill: #1f2328; }
+    .axis-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9px; fill: #656d76; }
+    .legend-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9px; fill: #656d76; }
+    .axis { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .bar-pr-opened { fill: #3fb950; }
+    .bar-pr-merged { fill: #a371f7; }
+    .bar-pr-closed { fill: #f85149; }
+    .bar-issue-opened { fill: #1f6feb; }
+    .bar-issue-resolved { fill: #56d364; }
+    .bar-issue-closed { fill: #8b949e; }
+    .bar-commit { fill: #d29922; }
+    a:hover .day rect { opacity: 0.85; }
+    @media (prefers-color-scheme: dark) {
+      .page-bg { fill: #0d1117; }
+      .title { fill: #e6edf3; }
+      .axis-label { fill: #8b949e; }
+      .legend-label { fill: #8b949e; }
+      .axis { stroke: #30363d; }
+    }
+  </style>
+  <rect class="page-bg" width="760" height="240" rx="6"/>
+  <text class="title" x="30" y="24">Activity</text>
+  <a xlink:href="https://github.com/qte77/agentic-job-offer-to-application-kit">
+    <line class="axis" x1="30" y1="180" x2="750" y2="180"/>
+    <g class="day" transform="translate(30,0)">
+      <rect class="bar-pr-merged" x="0" y="174.2" width="178" height="5.8"><title>2026-06-11 pr-merged: 3</title></rect>
+      <rect class="bar-pr-opened" x="0" y="168.5" width="178" height="5.8"><title>2026-06-11 pr-opened: 3</title></rect>
+      <rect class="bar-issue-opened" x="0" y="160.8" width="178" height="7.7"><title>2026-06-11 issue-opened: 4</title></rect>
+      <title>2026-06-11 total: 10</title>
+    </g>
+    <g class="day" transform="translate(210,0)">
+      <rect class="bar-issue-opened" x="0" y="170.4" width="178" height="9.6"><title>2026-06-12 issue-opened: 5</title></rect>
+      <title>2026-06-12 total: 5</title>
+    </g>
+    <g class="day" transform="translate(390,0)">
+      <rect class="bar-pr-merged" x="0" y="147.4" width="178" height="32.6"><title>2026-06-13 pr-merged: 17</title></rect>
+      <rect class="bar-pr-opened" x="0" y="112.9" width="178" height="34.5"><title>2026-06-13 pr-opened: 18</title></rect>
+      <rect class="bar-issue-resolved" x="0" y="109.0" width="178" height="3.8"><title>2026-06-13 issue-resolved: 2</title></rect>
+      <rect class="bar-issue-opened" x="0" y="95.6" width="178" height="13.4"><title>2026-06-13 issue-opened: 7</title></rect>
+      <title>2026-06-13 total: 44</title>
+    </g>
+    <g class="day" transform="translate(570,0)">
+      <rect class="bar-pr-closed" x="0" y="178.1" width="178" height="1.9"><title>2026-06-14 pr-closed: 1</title></rect>
+      <rect class="bar-pr-merged" x="0" y="132.1" width="178" height="46.0"><title>2026-06-14 pr-merged: 24</title></rect>
+      <rect class="bar-pr-opened" x="0" y="86.0" width="178" height="46.0"><title>2026-06-14 pr-opened: 24</title></rect>
+      <rect class="bar-issue-resolved" x="0" y="57.3" width="178" height="28.8"><title>2026-06-14 issue-resolved: 15</title></rect>
+      <rect class="bar-issue-opened" x="0" y="40.0" width="178" height="17.3"><title>2026-06-14 issue-opened: 9</title></rect>
+      <title>2026-06-14 total: 73</title>
+    </g>
+  </a>
+  <text class="axis-label" x="30" y="194">2026-06-11</text>
+  <text class="axis-label" x="750" y="194" text-anchor="end">2026-06-14</text>
+    <rect class="bar-pr-opened" x="30" y="224" width="8" height="8"/>
+    <text class="legend-label" x="42" y="232">PR opened</text>
+    <rect class="bar-pr-merged" x="150" y="224" width="8" height="8"/>
+    <text class="legend-label" x="162" y="232">PR merged</text>
+    <rect class="bar-pr-closed" x="270" y="224" width="8" height="8"/>
+    <text class="legend-label" x="282" y="232">PR closed</text>
+    <rect class="bar-issue-opened" x="390" y="224" width="8" height="8"/>
+    <text class="legend-label" x="402" y="232">Issue opened</text>
+    <rect class="bar-issue-resolved" x="510" y="224" width="8" height="8"/>
+    <text class="legend-label" x="522" y="232">Issue resolved</text>
+    <rect class="bar-issue-closed" x="630" y="224" width="8" height="8"/>
+    <text class="legend-label" x="642" y="232">Issue closed</text>
+</svg>
