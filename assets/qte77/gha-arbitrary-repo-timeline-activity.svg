@@ -176,8 +176,9 @@
       <title>2026-06-15 total: 2</title>
     </g>
     <g class="day" transform="translate(720,0)">
-      <rect class="bar-pr-merged" x="0" y="171.8" width="21" height="8.2"><title>2026-06-16 pr-merged: 1</title></rect>
-      <title>2026-06-16 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="163.5" width="21" height="16.5"><title>2026-06-16 pr-merged: 2</title></rect>
+      <rect class="bar-pr-opened" x="0" y="155.3" width="21" height="8.2"><title>2026-06-16 pr-opened: 1</title></rect>
+      <title>2026-06-16 total: 3</title>
     </g>
   </a>
   <text class="axis-label" x="30" y="194">2026-05-17</text>
