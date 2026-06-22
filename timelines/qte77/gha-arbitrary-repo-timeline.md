@@ -615,3 +615,7 @@
 ## 2026-06-21
 
 - [PR #162] chore: update timelines (2026-06-20) [closed]
+## 2026-06-22
+
+- [ISSUE #164] docs: adopt README doc-structure canon (2026-06-21) [open]
+- [PR #163] chore: update timelines (2026-06-21) [closed]
