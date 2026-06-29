@@ -639,3 +639,7 @@
 ## 2026-06-28
 
 - [PR #172] chore: update timelines (2026-06-27) [closed]
+## 2026-06-29
+
+- [ISSUE #174] chore(ci): adopt qte77/.github reusable release workflows (2026-06-28) [open]
+- [PR #173] chore: update timelines (2026-06-28) [closed]
