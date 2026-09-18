@@ -1,0 +1,6 @@
+[
+  {"login": "alice", "contributions": 50},
+  {"login": "bob", "contributions": 30},
+  {"login": "carol", "contributions": 15},
+  {"login": "dave", "contributions": 5}
+]

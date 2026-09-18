@@ -21,6 +21,12 @@ inputs:
   DAYS:
     description: "Number of days to look back."
     default: "7"
+  INCLUDE_CONTRIBUTORS:
+    description: "Include aggregated contributor activity in the timeline. Requires the host repo to be private or internal (enforced at runtime)."
+    default: "false"
+  INCLUDE_CONTRIBUTOR_PROFILE_DETAILS:
+    description: "Include self-reported profile fields (location, company, bio) for contributors at/above the activity threshold. Requires INCLUDE_CONTRIBUTORS=true."
+    default: "false"
 runs:
   using: "composite"
   steps:
@@ -37,6 +43,9 @@ runs:
         INPUT_OUTPUT_FILE: ${{ inputs.OUTPUT_FILE }}
         INPUT_INCLUDE_GIT_LOG: ${{ inputs.INCLUDE_GIT_LOG }}
         INPUT_DAYS: ${{ inputs.DAYS }}
+        INPUT_INCLUDE_CONTRIBUTORS: ${{ inputs.INCLUDE_CONTRIBUTORS }}
+        INPUT_INCLUDE_CONTRIBUTOR_PROFILE_DETAILS: ${{ inputs.INCLUDE_CONTRIBUTOR_PROFILE_DETAILS }}
+        INPUT_REPO_VISIBILITY: ${{ github.repository_visibility }}
         GH_TOKEN: ${{ inputs.TOKEN || github.token }}
       run: |
         chmod +x "${{ github.action_path }}/scripts/"*.sh

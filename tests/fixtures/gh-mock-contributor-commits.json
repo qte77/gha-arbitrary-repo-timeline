@@ -1,0 +1,9 @@
+[
+  {"sha": "aaa1111", "author": {"login": "alice"}, "commit": {"author": {"date": "2026-04-07T08:00:00Z", "email": "alice@example.com", "name": "Alice Example"}, "message": "c1"}},
+  {"sha": "bbb2222", "author": {"login": "bob"}, "commit": {"author": {"date": "2026-04-07T09:00:00Z", "email": "bob@example.com", "name": "Bob Example"}, "message": "c2"}},
+  {"sha": "ccc3333", "author": {"login": "bob"}, "commit": {"author": {"date": "2026-04-08T09:00:00Z", "email": "bob2@example.com", "name": "Bob Example"}, "message": "c3"}},
+  {"sha": "ddd4444", "author": {"login": "carol"}, "commit": {"author": {"date": "2026-04-08T10:00:00Z", "email": "carol@example.com", "name": "Carol Example"}, "message": "c4"}},
+  {"sha": "eee5555", "author": {"login": "carol"}, "commit": {"author": {"date": "2026-04-08T11:00:00Z", "email": "carol2@example.com", "name": "Carol Example"}, "message": "c5"}},
+  {"sha": "fff6666", "author": {"login": "carol"}, "commit": {"author": {"date": "2026-04-08T12:00:00Z", "email": "carol3@example.com", "name": "Carol Example"}, "message": "c6"}},
+  {"sha": "ggg7777", "author": null, "commit": {"author": {"date": "2026-04-08T13:00:00Z", "email": "ghost@example.com", "name": "Ghost"}, "message": "c7"}}
+]
