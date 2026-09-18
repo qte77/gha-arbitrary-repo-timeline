@@ -1,0 +1,30 @@
+---
+name: Bump Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: '[major|minor|patch]'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - 'major'
+          - 'minor'
+          - 'patch'
+
+jobs:
+  bump:
+    permissions:
+      contents: write
+      pull-requests: write
+    # 2026-09-01, qte77/.github@4801217 (verified against this repo's own
+    # pyproject.toml: no uv, no scriv/changelog.d/ — both stay off)
+    uses: qte77/.github/.github/workflows/bump-version.yml@4801217a20922cd54187fc7e4c98c7ea78c0ec9a
+    with:
+      bump_type: ${{ inputs.bump_type }}
+      use_uv: false
+      sync_lockfile: false
+      collect_scriv: false
+...

@@ -1,0 +1,21 @@
+---
+name: Tag Release
+
+# The `name:` above MUST stay exactly "Tag Release" — publish-release.yml's
+# `workflow_run.workflows: ["Tag Release"]` trigger matches on this name, not
+# on the reusable workflow's own name.
+
+on:
+  push:
+    branches: [main]
+    paths: [pyproject.toml]
+
+jobs:
+  tag:
+    permissions:
+      contents: write
+    # 2026-09-01, qte77/.github@4801217. Defaults (version_file: pyproject.toml,
+    # tag_prefix: v, version_regex: ^version = "(.*)") already match this repo's
+    # [project] version = "x.y.z" line — no overrides needed.
+    uses: qte77/.github/.github/workflows/tag-release.yml@4801217a20922cd54187fc7e4c98c7ea78c0ec9a
+...

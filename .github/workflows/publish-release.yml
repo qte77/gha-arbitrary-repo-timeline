@@ -1,0 +1,94 @@
+---
+name: Publish Release
+
+# Triggered via workflow_run (not push: tags:) because tag-release.yml pushes
+# its tag using secrets.GITHUB_TOKEN — GitHub's push-recursion guard means a
+# GITHUB_TOKEN-authored push never fires a push:-triggered workflow. Matches
+# on the "Tag Release" workflow *name* (see tag-release.yml's name: comment).
+#
+# A "resolve" job guards the reusable publish call: tag-release.yml exits 0
+# (no-op, workflow still reports "success") whenever pyproject.toml changes
+# without its version line changing (e.g. a badge-color edit) — without this
+# guard, every such push would re-resolve the previously-published tag and
+# hit the reusable workflow's release-already-exists abort (exit 1), turning
+# an unrelated merge into a red run. Resolving the tag ourselves from the
+# version at the triggering commit, and skipping when its release already
+# exists, also removes any dependence on the reusable workflow's own
+# "latest v*-tag" sort ordering against our own floating v{MAJOR} tags.
+
+on:
+  workflow_run:
+    workflows: ["Tag Release"]
+    types: [completed]
+
+jobs:
+  resolve:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      tag: ${{ steps.resolve.outputs.tag }}
+      major: ${{ steps.resolve.outputs.major }}
+      skip: ${{ steps.resolve.outputs.skip }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Resolve tag from pyproject.toml; skip if already released
+        id: resolve
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          VERSION=$(grep -m1 -E '^version = "(.*)"' pyproject.toml | sed -E 's/^version = "(.*)"/\1/')
+          TAG="v${VERSION}"
+          MAJOR="${TAG%%.*}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "major=$MAJOR" >> "$GITHUB_OUTPUT"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "already released: $TAG; skipping publish"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  publish:
+    needs: resolve
+    if: needs.resolve.outputs.skip != 'true'
+    permissions:
+      contents: write
+    # 2026-09-01, qte77/.github@4801217. Explicit `tag:` (from `resolve`)
+    # instead of the reusable workflow's own "latest v*-tag" auto-resolve, so
+    # it never picks up our locally-added floating v{MAJOR} tag by mistake.
+    uses: qte77/.github/.github/workflows/publish-release.yml@4801217a20922cd54187fc7e4c98c7ea78c0ec9a
+    with:
+      tag: ${{ needs.resolve.outputs.tag }}
+
+  move-floating-major-tag:
+    # Neither bump-version.yml, tag-release.yml nor publish-release.yml
+    # upstream maintains a floating major-version tag (verified by reading
+    # all three files' contents). README.md:16 tells every consumer
+    # `uses: qte77/gha-arbitrary-repo-timeline@v0`, so this repo keeps moving
+    # it locally on every publish, distinct from the delete-on-failure
+    # behavior intentionally dropped from the old pipeline.
+    needs: [resolve, publish]
+    if: needs.resolve.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Move v${MAJOR} to the released commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          MAJOR: ${{ needs.resolve.outputs.major }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          gh api "repos/$REPO/git/refs/tags/$MAJOR" -X PATCH -f sha="$SHA" -F force=true 2>/dev/null \
+            || gh api "repos/$REPO/git/refs" -f ref="refs/tags/$MAJOR" -f sha="$SHA"
+...

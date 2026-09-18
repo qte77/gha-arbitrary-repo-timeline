@@ -14,7 +14,10 @@ endif
 
 
 # -- paths --
-SH_SOURCES := scripts/*.sh .github/scripts/*.sh
+# $(wildcard) (not a raw shell glob) so this stays valid if .github/scripts/
+# ever has no .sh files in it (e.g. after #174 removed its only script) —
+# a shell glob would pass the literal unmatched pattern through to shellcheck/shfmt.
+SH_SOURCES := $(wildcard scripts/*.sh) $(wildcard .github/scripts/*.sh)
 SHFMT_FLAGS := -i 4 -ci
 
 
