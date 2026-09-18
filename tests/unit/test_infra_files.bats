@@ -180,3 +180,13 @@
 @test "render-activity-svg.sh accepts --days flag" {
     grep -q '\-\-days' scripts/render-activity-svg.sh
 }
+
+@test "pyproject.toml README badge search string matches README.md verbatim" {
+    local version search expected
+    version=$(sed -nE 's/^current_version = "([^"]+)"$/\1/p' pyproject.toml)
+    search=$(sed -n '/filename = "README.md"/,/^replace/p' pyproject.toml | sed -nE 's/^search = "(.*)"$/\1/p')
+    [ -n "$version" ]
+    [ -n "$search" ]
+    expected="${search//\{current_version\}/$version}"
+    grep -qF -- "$expected" README.md
+}

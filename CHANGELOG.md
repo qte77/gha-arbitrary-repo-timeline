@@ -41,6 +41,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `scripts/collect-issues.sh` and `scripts/collect-activity-counts.sh`
   now use `gh api --paginate` on `/issues` to handle PR-heavy repos
   where issues fall past page 1 (#95)
+- `README.md` restructured per doc-structure canon: badge order
+  License→Version→CI, Version badge recolored to shields.io blue and
+  linked to `CHANGELOG.md`; inputs table and pipeline steps moved to
+  new `docs/inputs.md` and `docs/pipeline.md` (#164)
 
 ### Fixed
 
