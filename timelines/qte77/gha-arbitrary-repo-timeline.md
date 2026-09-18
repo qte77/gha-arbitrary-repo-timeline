@@ -794,3 +794,9 @@
 ## 2026-09-18
 
 - [PR #228] chore: update timelines (2026-09-17) [closed]
+- [PR #234] feat: contributor & repo intelligence collection with privacy guardrails (#4, #110) (2026-09-18) [open]
+- [PR #233] chore(ci): adopt qte77/.github reusable release workflows (2026-09-18) [open]
+- [PR #232] feat: add account-level repo discovery and lifespan timeline (#109 Tier 1) (2026-09-18) [open]
+- [PR #231] feat(collectors): add --state open mode for unbounded open-item queries (2026-09-18) [open]
+- [PR #230] docs: adopt README doc-structure canon (2026-09-18) [open]
+- [PR #229] chore: update timelines (2026-09-18) [closed]
