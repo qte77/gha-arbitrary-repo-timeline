@@ -267,3 +267,21 @@
 @test "action.yaml documents that a no-slash REPOS entry means an account" {
     grep -q 'account' action.yaml
 }
+
+# --- Dependabot grouping + CodeQL version ---
+
+@test "dependabot.yml groups version updates separately from security updates" {
+    grep -qE '^\s+applies-to:\s*version-updates' .github/dependabot.yml
+    grep -qE '^\s+applies-to:\s*security-updates' .github/dependabot.yml
+}
+
+@test "dependabot.yml groups key exists under the github-actions update entry" {
+    grep -qE '^\s+groups:' .github/dependabot.yml
+}
+
+@test "codeql workflow pins codeql-action to the latest release, not the stale bumped one" {
+    ! grep -q 'codeql-action/init@v4.37.4' .github/workflows/codeql.yaml
+    ! grep -q 'codeql-action/analyze@v4.37.4' .github/workflows/codeql.yaml
+    grep -q 'codeql-action/init@v4.38.1' .github/workflows/codeql.yaml
+    grep -q 'codeql-action/analyze@v4.38.1' .github/workflows/codeql.yaml
+}
