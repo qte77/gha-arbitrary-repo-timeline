@@ -7,7 +7,7 @@ branding:
   color: "blue"
 inputs:
   REPOS:
-    description: "Comma-separated list of owner/repo pairs to monitor."
+    description: "Comma-separated list of owner/repo pairs to monitor. An entry with no '/' is treated as an account (user or organization) login and produces an account-level repo lifespan timeline instead of a per-repo one."
     required: true
   OUTPUT_FILE:
     description: "Path to write timeline markdown."

@@ -251,3 +251,19 @@
 @test "CONTRIBUTING.md documents right to erasure" {
     grep -qi 'right to erasure\|right-to-erasure' CONTRIBUTING.md
 }
+
+@test "scripts/collect-account-repos.sh exists and is executable" {
+    [ -x scripts/collect-account-repos.sh ]
+}
+
+@test "scripts/render-account-gantt.sh exists and is executable" {
+    [ -x scripts/render-account-gantt.sh ]
+}
+
+@test "generate-timeline.sh dispatches account-only REPOS entries to collect_account" {
+    grep -q 'collect_account' scripts/generate-timeline.sh
+}
+
+@test "action.yaml documents that a no-slash REPOS entry means an account" {
+    grep -q 'account' action.yaml
+}

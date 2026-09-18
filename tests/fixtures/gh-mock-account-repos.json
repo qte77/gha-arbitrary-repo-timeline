@@ -1,0 +1,6 @@
+[
+  {"name": "repo-a", "description": "First repo", "language": "Python", "created_at": "2020-01-15T00:00:00Z", "pushed_at": "2024-06-01T00:00:00Z", "archived": false, "fork": false, "stargazers_count": 42, "topics": ["cli", "tools"]},
+  {"name": "repo-b-fork", "description": "A fork", "language": "Go", "created_at": "2021-03-10T00:00:00Z", "pushed_at": "2021-03-11T00:00:00Z", "archived": false, "fork": true, "stargazers_count": 1, "topics": []},
+  {"name": "repo-c-archived", "description": "Archived repo", "language": "JavaScript", "created_at": "2019-05-01T00:00:00Z", "pushed_at": "2020-01-01T00:00:00Z", "archived": true, "fork": false, "stargazers_count": 5, "topics": ["legacy"]},
+  {"name": "repo-d-never-pushed", "description": null, "language": null, "created_at": "2022-07-20T00:00:00Z", "pushed_at": null, "archived": false, "fork": false, "stargazers_count": 0, "topics": []}
+]
