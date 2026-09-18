@@ -799,4 +799,5 @@
 - [PR #232] feat: add account-level repo discovery and lifespan timeline (#109 Tier 1) (2026-09-18) [open]
 - [PR #231] feat(collectors): add --state open mode for unbounded open-item queries (2026-09-18) [open]
 - [PR #230] docs: adopt README doc-structure canon (2026-09-18) [open]
-- [PR #229] chore: update timelines (2026-09-18) [closed]
+- [PR #229] chore: update timelines (2026-09-18) [closed]- [PR #236] docs: record arc 0001 Wave A status (2026-09-18) [closed]
+- [PR #235] chore: update timelines (2026-09-18) [closed]
