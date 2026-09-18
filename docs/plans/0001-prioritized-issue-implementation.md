@@ -71,6 +71,29 @@ gh workflow run update-timeline.yml   # manual snapshot trigger (workflow_dispat
 
 **Watch-outs (do not relearn these the hard way):**
 
+- **Repo requires `sha_pinning_required: true` — FIXED (PR #240, 2026-09-18).** Every `uses:`
+  reference across all workflows + `action.yaml` must be a full 40-hex commit SHA or GitHub
+  refuses to even start the run (`conclusion: startup_failure`, zero jobs, on every trigger event
+  including plain `push` to `main`). This caused a full CI outage mid-arc — diagnosed by checking
+  `gh api repos/.../actions/permissions` (`sha_pinning_required: true`) after ruling out a GitHub
+  platform incident (status page showed Operational). All `actions/checkout`, `actions/cache`,
+  `github/codeql-action/*` references are now SHA-pinned with a dated version comment, with BATS
+  coverage (`test_infra_files.bats`) enforcing it going forward. **Add this same pin to any new
+  `uses:` line in future work — an unpinned reference will silently break CI repo-wide again.**
+- **`patterns_allowed: []` on the Actions allow-list — NOT fixed, needs owner action.** Same
+  `actions/permissions` check shows `allowed_actions: "selected"` with `github_owned_allowed: true`
+  and `verified_allowed: true`, but `patterns_allowed: []` — empty. `qte77/.github` is neither
+  GitHub-owned nor a verified publisher, so **every reusable-workflow call to it is blocked**,
+  regardless of SHA-pinning: `lint-md-links.yml` (still `startup_failure` after the fix above) and,
+  more importantly, **`bump-version.yml`, `tag-release.yml`, `publish-release.yml` (#174's entire
+  release pipeline) are currently non-functional** — they'll hit the same block the first time
+  anyone tries to use them. An agent should NOT change this setting itself — widening an
+  Actions allow-list is a security-relevant change the auto-mode permission classifier correctly
+  blocks (`[Security Weaken]`, confirmed when attempted). **Owner action needed:** either via
+  Settings → Actions → General → "Allow select actions and reusable workflows" → add
+  `qte77/.github/*` to the allowed patterns, or `gh api -X PUT
+  repos/qte77/gha-arbitrary-repo-timeline/actions/permissions/selected-actions -f
+  github_owned_allowed=true -f verified_allowed=true -f 'patterns_allowed[]=qte77/.github/*'`.
 - **`main` has a repo ruleset requiring PRs — no direct push works**, even for the owner. Also:
   `pull_request`-triggered CI on the `update-timeline.yml` bot's auto-generated PRs
   (`auto-timeline-*` branches) gets stuck at `conclusion: action_required` because the ruleset's
@@ -567,6 +590,8 @@ suggestion. Do not build speculatively ahead of Tier 1 landing.
 
 | ID | Item | Gate | Wave | Depends on | Status |
 |---|---|---|---|---|---|
+| T0-C | Add `qte77/.github/*` to the Actions allow-list `patterns_allowed` | **owner** (security-relevant settings change, agent correctly blocked from doing it) | — | — | **blocking**: `lint-md-links.yml` and all of #174's release workflows (`bump-version`/`tag-release`/`publish-release`) can't run at all until this lands |
+| T0-D | SHA-pin all `uses:` refs (checkout/cache/codeql-action) | done | — | — | **merged: [#240](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/240)** — fixed a full CI outage (startup_failure repo-wide since ~14:36 UTC 2026-09-18) |
 | T0-A | Merge dependabot PR #214 (codeql-action 4→4.37.4) | done | A | — | **merged directly** |
 | T0-B | Merge dependabot PR #226 (bump-my-version 1.4.1→1.5.2) | done | A | — | **auto-closed by GitHub** once #233 deleted its target file |
 | W1-1 | #164 — README doc-structure canon | done | A | — | **merged: [#230](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/230)** |
