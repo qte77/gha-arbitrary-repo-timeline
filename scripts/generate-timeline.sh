@@ -168,6 +168,30 @@ refresh_contributors_section() {
     sync_contributors_output "$md_file" "$json_file" "$content"
 }
 
+# Discover and render an account-level (user OR organization) repo lifespan
+# timeline (#109 Tier 1). Full rewrite each run, same precedent as
+# merge_activity_tsv — no dedup/history concerns for a lifespan chart.
+# Args: $1 = account login (a REPOS entry with no "/")
+collect_account() {
+    local account="$1"
+    local OUTPUT_FILE="timelines/${account}/_account.md"
+
+    echo "Discovering repos for account $account..."
+    local REPOS_JSON
+    if ! REPOS_JSON=$("${SCRIPT_DIR}/collect-account-repos.sh" "$account" 2>/dev/null); then
+        echo "WARN: failed to enumerate repos for $account (skipping account timeline)"
+        return 0
+    fi
+
+    mkdir -p "timelines/${account}"
+    {
+        echo "# $account — Repository Lifespans"
+        echo ""
+        printf '%s' "$REPOS_JSON" | "${SCRIPT_DIR}/render-account-gantt.sh" "$account"
+    } >"$OUTPUT_FILE"
+    echo "Account timeline updated: $OUTPUT_FILE"
+}
+
 main() {
     assert_contributor_gate
 
@@ -181,6 +205,10 @@ main() {
     IFS=',' read -ra REPO_LIST <<<"$REPOS"
     for repo in "${REPO_LIST[@]}"; do
         repo=$(echo "$repo" | xargs) # trim whitespace
+        if [[ "$repo" != */* ]]; then
+            collect_account "$repo"
+            continue
+        fi
         local owner="${repo%%/*}"
         local name="${repo##*/}"
         mkdir -p "timelines/${owner}"

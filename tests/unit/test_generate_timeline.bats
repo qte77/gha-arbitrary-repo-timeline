@@ -278,3 +278,79 @@ teardown() {
     grep -q 'ISSUE #1' "$OUTPUT_FILE"
     grep -q 'PR #2' "$OUTPUT_FILE"
 }
+
+# --- collect_account (#109 Tier 1 — account discovery + lifespan timeline) ---
+
+@test "collect_account writes timelines/<account>/_account.md with an H1 and a fenced mermaid block" {
+    stub_dir="$(mktemp -d)"
+    work_dir="$(mktemp -d)"
+    cat >"$stub_dir/collect-account-repos.sh" <<'STUB'
+#!/usr/bin/env bash
+echo '{"name":"repo-a","created_at":"2020-01-01T00:00:00Z","pushed_at":"2021-01-01T00:00:00Z"}'
+STUB
+    cat >"$stub_dir/render-account-gantt.sh" <<'STUB'
+#!/usr/bin/env bash
+cat >/dev/null
+echo '```mermaid'
+echo 'gantt'
+echo '```'
+STUB
+    chmod +x "$stub_dir/collect-account-repos.sh" "$stub_dir/render-account-gantt.sh"
+
+    (
+        cd "$work_dir"
+        SCRIPT_DIR="$stub_dir"
+        collect_account acme
+    )
+
+    [ -f "$work_dir/timelines/acme/_account.md" ]
+    [ "$(head -n1 "$work_dir/timelines/acme/_account.md")" = "# acme — Repository Lifespans" ]
+    grep -q '```mermaid' "$work_dir/timelines/acme/_account.md"
+    rm -rf "$stub_dir" "$work_dir"
+}
+
+@test "collect_account does not clobber the file when the collector fails" {
+    stub_dir="$(mktemp -d)"
+    work_dir="$(mktemp -d)"
+    cat >"$stub_dir/collect-account-repos.sh" <<'STUB'
+#!/usr/bin/env bash
+exit 1
+STUB
+    chmod +x "$stub_dir/collect-account-repos.sh"
+
+    (
+        cd "$work_dir"
+        SCRIPT_DIR="$stub_dir"
+        collect_account acme
+    )
+
+    [ ! -f "$work_dir/timelines/acme/_account.md" ]
+    rm -rf "$stub_dir" "$work_dir"
+}
+
+@test "collect_account is idempotent: two runs still produce exactly one H1" {
+    stub_dir="$(mktemp -d)"
+    work_dir="$(mktemp -d)"
+    cat >"$stub_dir/collect-account-repos.sh" <<'STUB'
+#!/usr/bin/env bash
+echo '{"name":"repo-a","created_at":"2020-01-01T00:00:00Z","pushed_at":"2021-01-01T00:00:00Z"}'
+STUB
+    cat >"$stub_dir/render-account-gantt.sh" <<'STUB'
+#!/usr/bin/env bash
+cat >/dev/null
+echo '```mermaid'
+echo 'gantt'
+echo '```'
+STUB
+    chmod +x "$stub_dir/collect-account-repos.sh" "$stub_dir/render-account-gantt.sh"
+
+    (
+        cd "$work_dir"
+        SCRIPT_DIR="$stub_dir"
+        collect_account acme
+        collect_account acme
+    )
+
+    [ "$(grep -c '^# acme — Repository Lifespans$' "$work_dir/timelines/acme/_account.md")" -eq 1 ]
+    rm -rf "$stub_dir" "$work_dir"
+}
