@@ -81,7 +81,96 @@ append_section() {
     fi
 }
 
+# Delete-and-rewrite the contributors section of a timeline MD file between
+# marker comments, so contributor data is REPLACED every run and never
+# appended (this repo's other sections are append-only; contributor data
+# must be re-derived fresh each run — see CONTRIBUTING.md's right-to-erasure
+# section). Passing an empty content string removes the block entirely —
+# used when INCLUDE_CONTRIBUTORS flips off or a repo opts out via
+# .timeline-no-contributors, so stale contributor data never lingers in the
+# working tree after the flag is off.
+# Args: $1 = output file, $2 = markdown fragment ("" removes the block)
+replace_contributors_block() {
+    local file="$1" content="$2"
+    [[ ! -f "$file" ]] && return 0
+    local body
+    body=$(awk '
+        /^<!-- contributors-begin -->$/ { skip = 1; next }
+        /^<!-- contributors-end -->$/ { skip = 0; next }
+        skip { next }
+        { print }
+    ' "$file")
+    if [[ -n "$content" ]]; then
+        {
+            printf '%s\n' "$body"
+            echo ""
+            echo "<!-- contributors-begin -->"
+            printf '%s\n' "$content"
+            echo "<!-- contributors-end -->"
+        } >"$file"
+    else
+        printf '%s\n' "$body" >"$file"
+    fi
+}
+
+# Build a short markdown fragment summarizing a collect-contributors.sh JSON
+# payload, for embedding via replace_contributors_block.
+# Args: $1 = collect-contributors.sh JSON output (must be non-empty)
+contributors_md_fragment() {
+    local json="$1"
+    echo "$json" | jq -r '
+        "### Contributors (last \(.window_days)d)",
+        "",
+        (.contributors[] | "- **\(.login)** — \(.window_events) events" + (if .tier == "enriched" then " (enriched)" else "" end)),
+        (if .contribution_concentration then
+            "\n_Top contributor share: \((.contribution_concentration.top_contributor_share * 100) | floor)%, top 3: \((.contribution_concentration.top_3_share * 100) | floor)%_"
+         else empty end)
+    '
+}
+
+# Writes/removes the per-repo contributor JSON asset + MD block together so
+# they can never drift out of sync (req 9: contributor data is REPLACED
+# every run, never merged forward).
+# Args: $1 = md file, $2 = json asset path, $3 = fresh JSON ("" removes both)
+sync_contributors_output() {
+    local md_file="$1" json_file="$2" content="$3"
+    if [[ -n "$content" ]]; then
+        mkdir -p "$(dirname "$json_file")"
+        printf '%s\n' "$content" >"$json_file"
+        replace_contributors_block "$md_file" "$(contributors_md_fragment "$content")"
+    else
+        rm -f "$json_file"
+        replace_contributors_block "$md_file" ""
+    fi
+}
+
+# Per-repo contributor collection dispatch, gated on INCLUDE_CONTRIBUTORS.
+# Called unconditionally (independent of that run's issue/PR activity) so a
+# flag flip back to false, or a .timeline-no-contributors opt-out, is
+# honored even when a repo has zero new items this run. Creates the MD
+# file's H1 first if contributor data would otherwise be the only content a
+# run produces for that repo (main() only creates it today when there is
+# new issue/PR activity).
+# Args: $1 = owner/repo, $2 = md file, $3 = json asset path, $4 = since,
+#       $5 = window days
+refresh_contributors_section() {
+    local repo="$1" md_file="$2" json_file="$3" since="$4" days="$5"
+    local content=""
+    if [[ "${INPUT_INCLUDE_CONTRIBUTORS:-false}" == "true" ]]; then
+        if ! content=$("${SCRIPT_DIR}/collect-contributors.sh" "$repo" "$since" "$days" 2>/dev/null); then
+            echo "WARN: contributor collection failed for $repo (removing any stale contributor data — fail-safe for PII)"
+            content=""
+        fi
+    fi
+    if [[ -n "$content" && ! -f "$md_file" ]]; then
+        printf '# %s — Timeline\n\n' "$repo" >"$md_file"
+    fi
+    sync_contributors_output "$md_file" "$json_file" "$content"
+}
+
 main() {
+    assert_contributor_gate
+
     local REPOS="${INPUT_REPOS:?REPOS input required}"
     local DAYS="${INPUT_DAYS:-7}"
     local SINCE
@@ -170,6 +259,13 @@ main() {
             echo "WARN: failed to collect activity counts for $repo (skipping SVG)"
         fi
         rm -f "$NEW_TSV"
+
+        # Contributor intelligence (opt-in, gated by assert_contributor_gate
+        # above). Always dispatched — independent of NEW_ITEMS — so a flag
+        # flip or .timeline-no-contributors opt-out removes stale data even
+        # when a repo has no new issue/PR activity this run.
+        local CONTRIB_JSON_FILE="assets/${owner}/${name}-contributors.json"
+        refresh_contributors_section "$repo" "$OUTPUT_FILE" "$CONTRIB_JSON_FILE" "$SINCE" "$DAYS"
     done
 }
 

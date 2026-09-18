@@ -213,3 +213,41 @@
     expected="${search//\{current_version\}/$version}"
     grep -qF -- "$expected" README.md
 }
+
+# --- Contributor intelligence (#110 + #4) ---
+
+@test "action.yaml has INCLUDE_CONTRIBUTORS input defaulting to false" {
+    grep -A2 '^  INCLUDE_CONTRIBUTORS:' action.yaml | grep -q 'default: "false"'
+}
+
+@test "action.yaml has INCLUDE_CONTRIBUTOR_PROFILE_DETAILS input defaulting to false" {
+    grep -A2 '^  INCLUDE_CONTRIBUTOR_PROFILE_DETAILS:' action.yaml | grep -q 'default: "false"'
+}
+
+@test "action.yaml wires INCLUDE_CONTRIBUTORS input into the generate step env" {
+    grep -qE '^\s+INPUT_INCLUDE_CONTRIBUTORS: \$\{\{ inputs\.INCLUDE_CONTRIBUTORS \}\}' action.yaml
+}
+
+@test "action.yaml wires INCLUDE_CONTRIBUTOR_PROFILE_DETAILS input into the generate step env" {
+    grep -qE '^\s+INPUT_INCLUDE_CONTRIBUTOR_PROFILE_DETAILS: \$\{\{ inputs\.INCLUDE_CONTRIBUTOR_PROFILE_DETAILS \}\}' action.yaml
+}
+
+@test "action.yaml exposes github.repository_visibility as INPUT_REPO_VISIBILITY" {
+    grep -qE '^\s+INPUT_REPO_VISIBILITY: \$\{\{ github\.repository_visibility \}\}' action.yaml
+}
+
+@test "generate-timeline.sh calls assert_contributor_gate before the repo loop" {
+    grep -q 'assert_contributor_gate' scripts/generate-timeline.sh
+}
+
+@test "scripts/collect-contributor-events.sh exists and is executable" {
+    [ -x scripts/collect-contributor-events.sh ]
+}
+
+@test "scripts/collect-contributors.sh exists and is executable" {
+    [ -x scripts/collect-contributors.sh ]
+}
+
+@test "CONTRIBUTING.md documents right to erasure" {
+    grep -qi 'right to erasure\|right-to-erasure' CONTRIBUTING.md
+}
