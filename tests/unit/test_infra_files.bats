@@ -282,6 +282,36 @@
 @test "codeql workflow pins codeql-action to the latest release, not the stale bumped one" {
     ! grep -q 'codeql-action/init@v4.37.4' .github/workflows/codeql.yaml
     ! grep -q 'codeql-action/analyze@v4.37.4' .github/workflows/codeql.yaml
-    grep -q 'codeql-action/init@v4.38.1' .github/workflows/codeql.yaml
-    grep -q 'codeql-action/analyze@v4.38.1' .github/workflows/codeql.yaml
+    grep -qE 'codeql-action/init@[0-9a-f]{40}\s+# v4\.38\.1' .github/workflows/codeql.yaml
+    grep -qE 'codeql-action/analyze@[0-9a-f]{40}\s+# v4\.38\.1' .github/workflows/codeql.yaml
+}
+
+# --- Repo requires sha_pinning_required=true: every `uses:` ref must be a
+# full 40-hex-char commit SHA, or GitHub Actions refuses to start the run
+# at all (startup_failure, zero jobs) regardless of trigger event. ---
+
+@test "test.yml pins actions/checkout and actions/cache to a commit SHA" {
+    grep -qE 'actions/checkout@[0-9a-f]{40}\s+# v7' .github/workflows/test.yml
+    grep -qE 'actions/cache@[0-9a-f]{40}\s+# v6' .github/workflows/test.yml
+}
+
+@test "codeql.yaml pins actions/checkout to a commit SHA" {
+    grep -qE 'actions/checkout@[0-9a-f]{40}\s+# v7' .github/workflows/codeql.yaml
+}
+
+@test "update-timeline.yml pins actions/checkout to a commit SHA" {
+    grep -qE 'actions/checkout@[0-9a-f]{40}\s+# v7' .github/workflows/update-timeline.yml
+}
+
+@test "action.yaml pins actions/checkout to a commit SHA" {
+    grep -qE 'actions/checkout@[0-9a-f]{40}\s+# v7' action.yaml
+}
+
+@test "publish-release.yml pins actions/checkout to a commit SHA" {
+    grep -qE 'actions/checkout@[0-9a-f]{40}\s+# v7' .github/workflows/publish-release.yml
+}
+
+@test "no workflow file or action.yaml references an action by a bare version tag" {
+    ! grep -rE "uses: actions/(checkout|cache)@v[0-9]" .github/workflows/ action.yaml
+    ! grep -rE "uses: github/codeql-action/(init|analyze)@v[0-9]" .github/workflows/
 }
