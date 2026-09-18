@@ -71,6 +71,12 @@ gh workflow run update-timeline.yml   # manual snapshot trigger (workflow_dispat
 
 **Watch-outs (do not relearn these the hard way):**
 
+- **`main` has a repo ruleset requiring PRs — no direct push works**, even for the owner. Also:
+  `pull_request`-triggered CI on the `update-timeline.yml` bot's auto-generated PRs
+  (`auto-timeline-*` branches) gets stuck at `conclusion: action_required` because the ruleset's
+  `require_extra_approval_for_unattributed_changes: true` flags those API-built commits — doesn't
+  block the auto-merge itself (confirmed PR #235 merged fine despite it), just leaves orphaned
+  stuck check runs on every scheduled run. Not yet fixed; low priority, not in this arc's table.
 - `scripts/generate-timeline.sh:70-82` (`append_section`) is append-only today. #86 replaces it;
   until #86 lands, do not assume any in-place rewrite semantics exist for the MD body.
 - The current release pipeline (`bump-and-release.yaml`) **already violates** its own "never
@@ -571,6 +577,7 @@ suggestion. Do not build speculatively ahead of Tier 1 landing.
 | W3-2 | #109 Tier 1 — account discovery + lifespan Gantt | done (gate-scope default still pending maintainer confirmation) | A | — | **merged: [#232](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/232)** |
 | W2-1 | #86 — rolling Open + collapsed History sections | agent | B | W1-3 merged ✅ | **ready to start** |
 | W2-2 | #87 — cross-repo overview SVG + timelines/README.md index | agent | B | W2-1 merged | not started |
+| W2-3 | [#238](https://github.com/qte77/gha-arbitrary-repo-timeline/issues/238) — publish cross-repo overview via GitHub Pages (workflow-based deploy, per user request, modeled on `qte77/agent-readiness-kit`'s `pages.yml` approach) | agent | B | W2-2 merged | not started — user confirmed: wait for #87's index, don't publish raw `timelines/` early |
 | W4-1 | #108 — contributor timing analysis | agent | B | W3-1 merged ✅ | **ready to start** |
 | — | #109 Tier 2/3 | owner (file as follow-up issues) | deferred | W3-2 | not started in this arc |
 
