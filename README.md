@@ -33,10 +33,10 @@ can drop into any README or tracking repo, with no hosted dashboard to run or ma
   have to watch each one separately
 - Maintains a running Markdown timeline per repo, appending new activity on each scheduled run
 - Renders a themed activity chart (SVG) that auto-switches between GitHub light and dark mode
-- Preserves full event history in a compact TSV file, independent of the rolling chart window
+- Preserves per-day event counts in a compact TSV file, independent of the rolling chart window
 - Works as a drop-in composite GitHub Action — no server, database, or third-party dashboard
   required
-- Configurable lookback window and toggles for what to include, so it fits repos of any size
+- Configurable lookback window (`DAYS`) and an opt-in toggle for including git log activity
 
 ## Inputs
 
