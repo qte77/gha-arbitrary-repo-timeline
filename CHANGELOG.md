@@ -29,6 +29,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI now runs `make validate` (lint + format check + test) instead of
   `bats` directly, with cached `~/.local/bin` install of bats /
   shellcheck / shfmt (#88)
+- `scripts/collect-issues.sh` and `scripts/collect-prs.sh` accept a
+  `--state open` flag that switches to a live, unbounded query (no
+  `since` bound) returning only currently-open items, paginated; prep
+  step for #86/#87 (#86-prep)
 
 ### Changed
 
