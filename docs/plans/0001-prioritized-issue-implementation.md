@@ -2,16 +2,28 @@
 
 ## Status / handoff — read this first
 
-**Shipped so far:** nothing yet. This is a fresh arc. One live action already taken outside
-this plan: a manual snapshot run was triggered and completed successfully —
-[run 35298922119](https://github.com/qte77/gha-arbitrary-repo-timeline/actions/runs/35298922119)
-(`workflow_dispatch`, `conclusion: success`), refreshing all tracked repos' timelines/assets as of
-2026-09-18. No code changes have been made; `docs/` did not exist before this file.
+**Shipped so far:** Wave A is fully implemented and PR'd (none merged yet — awaiting owner review,
+see below). A manual snapshot run was also triggered and completed successfully —
+[run 35298922119](https://github.com/qte77/gha-arbitrary-repo-timeline/actions/runs/35298922119).
 
-**What's next, in order:** work the Remaining-Work Table below, Wave A rows first (they are
-mutually parallel-safe — see Parallel Execution Groups), then Wave B rows (each has a hard
-dependency on a specific Wave A row landing on `main` first). Do not start a Wave B row until its
-`depends-on` row is merged.
+| Row | PR | Tests | Notes |
+|---|---|---|---|
+| W1-1 (#164) | [#230](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/230) | 79/79 BATS, all CI green | No MD033 issue confirmed by real CI (no local lint config existed) |
+| W1-2 (#174) | [#233](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/233) | 82 BATS, `make validate` clean | Both blocking questions resolved by reading actual upstream commit `qte77/.github@4801217`; floating `v0` tag handled via new job; publish wired via `workflow_run` (push:tags would never fire — GITHUB_TOKEN recursion guard, confirmed) |
+| W1-3 (#86-prep) | [#231](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/231) | 91/91 BATS | `--state open` flag on collect-issues.sh/collect-prs.sh; unblocks W2-1 |
+| W3-1 (#110+#4) | [#234](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/234) | 130/130 BATS, `make validate` clean | `github.repository_visibility` still unverified against a live run (gate fails closed if wrong, not leaks) — see PR body |
+| W3-2 (#109 T1) | [#232](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/232) | 100/100 BATS | Org-vs-user endpoint question resolved empirically (live `gh api` call); ships without #110's gate per plan default, flagged pending maintainer confirmation |
+
+**Not done:** T0 (Dependabot PR merges) — blocked by the session's own permission classifier.
+**#226 must now be closed, not merged** — it targets `bump-and-release.yaml`, which #233 deletes.
+**#214 is unaffected** (touches `codeql.yaml`) and still safe to merge independently. W1-4 (#83
+decision) — posted as [an issue comment](https://github.com/qte77/gha-arbitrary-repo-timeline/issues/83#issuecomment-5724391792),
+no PR needed.
+
+**What's next, in order:** owner reviews and merges the 5 open Wave A PRs (order doesn't matter
+except W1-3/#231 should land before starting W2-1, and W3-1/#234 before W4-1). Once merged, start
+Wave B (W2-1 → W2-2, and W4-1) from fresh worktrees off the updated `main`. Do not start a Wave B
+row until its `depends-on` row is merged.
 
 **The loop (per row):**
 
@@ -549,19 +561,19 @@ suggestion. Do not build speculatively ahead of Tier 1 landing.
 
 ## Remaining-work table (single source of truth — one row per item)
 
-| ID | Item | Gate | Wave | Depends on | Done-when |
+| ID | Item | Gate | Wave | Depends on | Status |
 |---|---|---|---|---|---|
-| T0-A | Merge dependabot PR #214 (codeql-action 4→4.37.4) | agent | A | — | PR merged, CI green |
-| T0-B | Merge dependabot PR #226 (bump-my-version 1.4.1→1.5.2) | agent | A | — | PR merged, CI green |
-| W1-1 | #164 — README doc-structure canon | agent | A | — | `README.md`/`docs/inputs.md`/`docs/pipeline.md`/`pyproject.toml` diffs merged, `make validate` green, badge order/color/link correct |
-| W1-2 | #174 — adopt qte77/.github reusable release workflows | agent (2 blocking sub-questions, resolve by reading upstream files) | A | — | 3 new workflow files merged, `bump-and-release.yaml` + `delete_branch_pr_tag.sh` removed (if confirmed safe), `test_infra_files.bats` rewritten and green |
-| W1-3 | #86-prep — `--state open` flag on collect-issues.sh/collect-prs.sh | agent | A | — | flag implemented + tested, merged to `main` |
-| W1-4 | #83 — renderer decision record | agent (decision already made in this plan) | A | — | decision comment posted on issue #83 |
-| W3-1 | #110 + #4 — contributor collection + privacy gate | agent (1 verification sub-step: confirm `repository_visibility` via throwaway dispatch) | A | — | all BATS in test plan pass, gate fails-closed on public/unset visibility, `CONTRIBUTING.md` right-to-erasure section added |
-| W3-2 | #109 Tier 1 — account discovery + lifespan Gantt | **owner decision** (privacy-gate applicability, default: no gate needed) then agent | A | — | owner confirms or overrides gate scope, then BATS pass |
-| W2-1 | #86 — rolling Open + collapsed History sections | agent | B | W1-3 | BATS pass (open-only, state-transition, idempotent, same-day merge, migration), existing `timelines/**/*.md` migrate cleanly |
-| W2-2 | #87 — cross-repo overview SVG + timelines/README.md index | agent | B | W2-1 | BATS pass, `timelines/README.md` + `assets/overview.svg` generated correctly, no workflow changes needed (verified) |
-| W4-1 | #108 — contributor timing analysis | agent | B | W3-1 | BATS pass, off-hours convention documented, `_note` disclaimer present on every `timing` object |
+| T0-A | Merge dependabot PR #214 (codeql-action 4→4.37.4) | **owner** (blocked by session permission classifier) | A | — | open, unaffected by other PRs, safe to merge anytime |
+| T0-B | Merge dependabot PR #226 (bump-my-version 1.4.1→1.5.2) | **owner** | A | — | **close, don't merge** — targets a file #233 deletes |
+| W1-1 | #164 — README doc-structure canon | owner (review PR) | A | — | **PR [#230](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/230) open, CI green, not merged** |
+| W1-2 | #174 — adopt qte77/.github reusable release workflows | owner (review PR) | A | — | **PR [#233](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/233) open, `make validate` clean, not merged** |
+| W1-3 | #86-prep — `--state open` flag on collect-issues.sh/collect-prs.sh | owner (review PR) | A | — | **PR [#231](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/231) open, 91/91 BATS, not merged** |
+| W1-4 | #83 — renderer decision record | done | A | — | **posted as [issue comment](https://github.com/qte77/gha-arbitrary-repo-timeline/issues/83#issuecomment-5724391792)** |
+| W3-1 | #110 + #4 — contributor collection + privacy gate | owner (review PR; `repository_visibility` still needs a live smoke test) | A | — | **PR [#234](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/234) open, 130/130 BATS, not merged** |
+| W3-2 | #109 Tier 1 — account discovery + lifespan Gantt | owner (review PR + confirm gate-scope default) | A | — | **PR [#232](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/232) open, 100/100 BATS, not merged** |
+| W2-1 | #86 — rolling Open + collapsed History sections | agent | B | W1-3 merged | not started |
+| W2-2 | #87 — cross-repo overview SVG + timelines/README.md index | agent | B | W2-1 merged | not started |
+| W4-1 | #108 — contributor timing analysis | agent | B | W3-1 merged | not started |
 | — | #109 Tier 2/3 | owner (file as follow-up issues) | deferred | W3-2 | not started in this arc |
 
 ---
