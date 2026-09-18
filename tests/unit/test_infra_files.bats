@@ -41,9 +41,32 @@
     grep -q 'github-actions' .github/dependabot.yml
 }
 
-@test "bump-and-release workflow exists with bump-my-version" {
-    [ -f .github/workflows/bump-and-release.yaml ]
-    grep -q 'bump-my-version' .github/workflows/bump-and-release.yaml
+@test "bump-and-release workflow removed in favor of reusable release pipeline" {
+    [ ! -f .github/workflows/bump-and-release.yaml ]
+}
+
+@test "bump-version workflow calls the qte77/.github reusable workflow, SHA-pinned" {
+    [ -f .github/workflows/bump-version.yml ]
+    grep -qE 'uses: qte77/\.github/\.github/workflows/bump-version\.yml@[0-9a-f]{40}' .github/workflows/bump-version.yml
+    grep -q 'collect_scriv: false' .github/workflows/bump-version.yml
+}
+
+@test "tag-release workflow calls the qte77/.github reusable workflow, SHA-pinned, and is named for workflow_run matching" {
+    [ -f .github/workflows/tag-release.yml ]
+    grep -qE 'uses: qte77/\.github/\.github/workflows/tag-release\.yml@[0-9a-f]{40}' .github/workflows/tag-release.yml
+    grep -q '^name: Tag Release$' .github/workflows/tag-release.yml
+}
+
+@test "publish-release workflow calls the qte77/.github reusable workflow, SHA-pinned, triggered via workflow_run on Tag Release" {
+    [ -f .github/workflows/publish-release.yml ]
+    grep -qE 'uses: qte77/\.github/\.github/workflows/publish-release\.yml@[0-9a-f]{40}' .github/workflows/publish-release.yml
+    grep -q 'workflow_run' .github/workflows/publish-release.yml
+    grep -q 'Tag Release' .github/workflows/publish-release.yml
+}
+
+@test "publish-release workflow moves the floating major-version tag after publishing" {
+    grep -q 'refs/tags/' .github/workflows/publish-release.yml
+    grep -q 'force=true' .github/workflows/publish-release.yml
 }
 
 @test "codeql workflow exists with workflow_dispatch" {
@@ -61,8 +84,8 @@
     grep -q 'schedule' .github/workflows/update-timeline.yml
 }
 
-@test "cleanup script exists and is executable" {
-    [ -x .github/scripts/delete_branch_pr_tag.sh ]
+@test "delete_branch_pr_tag.sh cleanup script removed (reusable workflows are abort-on-exists, never delete)" {
+    [ ! -f .github/scripts/delete_branch_pr_tag.sh ]
 }
 
 @test "pyproject.toml has bumpversion config" {
