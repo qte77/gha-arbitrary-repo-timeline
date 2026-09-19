@@ -14,5 +14,5 @@ permissions:
 
 jobs:
   lint:
-    uses: qte77/.github/.github/workflows/lint-md-links.yml@55ea1a9910b7dfe02853437345fd76c009cb858f  # 2026-05-03 (bumped from 5dfff1f7 to fix startup_failure)
+    uses: qte77/.github/.github/workflows/lint-md-links.yml@4801217a20922cd54187fc7e4c98c7ea78c0ec9a  # 2026-09-19 (bumped from 55ea1a99 to fix startup_failure — matches the pin already used by bump-version.yml/tag-release.yml/publish-release.yml)
 ...
