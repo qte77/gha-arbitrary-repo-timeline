@@ -801,3 +801,10 @@
 - [PR #230] docs: adopt README doc-structure canon (2026-09-18) [open]
 - [PR #229] chore: update timelines (2026-09-18) [closed]- [PR #236] docs: record arc 0001 Wave A status (2026-09-18) [closed]
 - [PR #235] chore: update timelines (2026-09-18) [closed]
+## 2026-09-19
+
+- [ISSUE #238] feat: publish cross-repo overview via GitHub Pages (2026-09-18) [open]
+- [PR #241] docs: record CI outage findings in arc 0001 plan (2026-09-18) [closed]
+- [PR #240] chore(ci): group dependabot updates and bump codeql-action to v4.38.1 (2026-09-18) [closed]
+- [PR #239] docs: track GitHub Pages follow-on (#238) in arc 0001 plan (2026-09-18) [closed]
+- [PR #237] chore: update timelines (2026-09-18) [closed]
