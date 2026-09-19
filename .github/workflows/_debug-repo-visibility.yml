@@ -1,0 +1,22 @@
+---
+name: DEBUG repository_visibility (throwaway, never merged)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump github.repository_visibility as seen by a plain job step
+        run: |
+          echo "job-step value: '${{ github.repository_visibility }}'"
+
+      - name: Dump it via a composite-action-style env block (matches action.yaml's pattern)
+        env:
+          INPUT_REPO_VISIBILITY: ${{ github.repository_visibility }}
+        run: |
+          echo "composite-action env value: '$INPUT_REPO_VISIBILITY'"
+          echo "toJSON(github) repository_visibility field:"
+          echo '${{ toJSON(github) }}' | jq '.repository_visibility // "FIELD_ABSENT"'
+...
