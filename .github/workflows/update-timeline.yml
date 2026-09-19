@@ -47,9 +47,19 @@ jobs:
           NEW_TREE=$(gh api "repos/$REPO/git/trees" \
             --input <(jq -n --arg base "$BASE_TREE" --slurpfile tree /tmp/tree_entries.json \
               '{base_tree: $base, tree: $tree[0]}') --jq '.sha')
+          # Explicit author/committer (github-actions[bot]'s real identity) so the
+          # commit is attributed to a GitHub account. Without this, the Git Data
+          # API leaves the commit unattributed, tripping the repo ruleset's
+          # require_extra_approval_for_unattributed_changes and stalling every
+          # scheduled run's PR checks pending manual approval.
+          BOT_NAME="github-actions[bot]"
+          BOT_EMAIL="41898282+github-actions[bot]@users.noreply.github.com"
           COMMIT_SHA=$(gh api "repos/$REPO/git/commits" \
             --input <(jq -n --arg msg "chore: update timelines" --arg tree "$NEW_TREE" --arg parent "$BASE_SHA" \
-              '{message: $msg, tree: $tree, parents: [$parent]}') --jq '.sha')
+              --arg name "$BOT_NAME" --arg email "$BOT_EMAIL" \
+              '{message: $msg, tree: $tree, parents: [$parent],
+                author: {name: $name, email: $email},
+                committer: {name: $name, email: $email}}') --jq '.sha')
           gh api "repos/$REPO/git/refs" -f ref="refs/heads/$BRANCH" -f sha="$COMMIT_SHA"
           PR_NUM=$(gh api "repos/$REPO/pulls" \
             -f title="chore: update timelines" \
