@@ -1,0 +1,80 @@
+name: Bug report
+description: Report unexpected behavior in the generated timeline, chart, or workflow run.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. The `with:` block and workflow run URL below are
+        usually enough to reproduce most issues.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the unexpected behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: with-block
+    attributes:
+      label: The `with:` block you used
+      description: >-
+        Paste the exact step from your workflow, including the `uses:` ref (`@v0`,
+        `@main`, or a pinned SHA) — this determines which behavior applies.
+      render: yaml
+      placeholder: |
+        - uses: qte77/gha-arbitrary-repo-timeline@v0
+          with:
+            REPOS: "owner/repo1,owner/repo2"
+            OUTPUT_FILE: "TIMELINE.md"
+            INCLUDE_GIT_LOG: "false"
+            DAYS: "7"
+            INCLUDE_CONTRIBUTORS: "false"
+            INCLUDE_CONTRIBUTOR_PROFILE_DETAILS: "false"
+    validations:
+      required: true
+
+  - type: input
+    id: workflow-run-url
+    attributes:
+      label: Workflow run URL
+      description: >-
+        Link to the Actions run where this happened (or "N/A" if reproduced locally).
+      placeholder: https://github.com/<owner>/<repo>/actions/runs/<id>
+    validations:
+      required: true
+
+  - type: textarea
+    id: output-excerpt
+    attributes:
+      label: Relevant excerpt from the generated timeline MD or workflow logs
+      description: Paste only the lines that show the problem — no need for the whole file.
+      render: text
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: redaction-confirmation
+    attributes:
+      label: Privacy check
+      description: >-
+        This repo is public. See
+        https://github.com/qte77/gha-arbitrary-repo-timeline/issues/110 for why
+        contributor-identifying data (names, locations, emails, self-reported profile
+        fields) must never be pasted into a public issue.
+      options:
+        - label: >-
+            I have redacted `TOKEN` and any contributor/profile data from the excerpts
+            above.
+          required: true

@@ -103,8 +103,16 @@
     grep -qi 'conventional\|feat\|fix\|chore' .gitmessage
 }
 
-@test "issue template directory exists" {
-    skip "not implemented"
+@test "issue templates exist with required top-level keys" {
+    [ -d .github/ISSUE_TEMPLATE ]
+    [ -f .github/ISSUE_TEMPLATE/config.yml ]
+    grep -q '^blank_issues_enabled: true' .github/ISSUE_TEMPLATE/config.yml
+    for t in bug_report feature_request; do
+        [ -f ".github/ISSUE_TEMPLATE/$t.yml" ]
+        grep -q '^name:' ".github/ISSUE_TEMPLATE/$t.yml"
+        grep -q '^description:' ".github/ISSUE_TEMPLATE/$t.yml"
+        grep -q '^body:' ".github/ISSUE_TEMPLATE/$t.yml"
+    done
 }
 
 @test "PR template exists" {
