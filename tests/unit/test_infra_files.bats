@@ -320,3 +320,8 @@
     ! grep -rE "uses: actions/(checkout|cache)@v[0-9]" .github/workflows/ action.yaml
     ! grep -rE "uses: github/codeql-action/(init|analyze)@v[0-9]" .github/workflows/
 }
+
+@test "CONTRIBUTING.md documents Git & CI conventions (branch protection, SHA pinning, allow-list)" {
+    grep -q '^## Git & CI conventions$' CONTRIBUTING.md
+    grep -q 'sha_pinning_required' CONTRIBUTING.md
+}
