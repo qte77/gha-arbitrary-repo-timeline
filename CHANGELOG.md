@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [0.1.1] - 2026-09-19
+
 ### Added
 
 - Themed activity SVG per repo at `assets/<owner>/<repo>-activity.svg`,

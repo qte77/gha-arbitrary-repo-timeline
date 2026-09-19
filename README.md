@@ -3,7 +3,7 @@
 Generate a timeline from issues, PRs, and git log across arbitrary repos.
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.1.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.1.1-blue)](CHANGELOG.md)
 [![BATS](https://github.com/qte77/gha-arbitrary-repo-timeline/actions/workflows/test.yml/badge.svg)](https://github.com/qte77/gha-arbitrary-repo-timeline/actions/workflows/test.yml)
 [![Update Timeline](https://github.com/qte77/gha-arbitrary-repo-timeline/actions/workflows/update-timeline.yml/badge.svg)](https://github.com/qte77/gha-arbitrary-repo-timeline/actions/workflows/update-timeline.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/qte77/gha-arbitrary-repo-timeline/badge)](https://www.codefactor.io/repository/github/qte77/gha-arbitrary-repo-timeline)
