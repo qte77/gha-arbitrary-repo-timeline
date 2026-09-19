@@ -80,20 +80,29 @@ gh workflow run update-timeline.yml   # manual snapshot trigger (workflow_dispat
   `github/codeql-action/*` references are now SHA-pinned with a dated version comment, with BATS
   coverage (`test_infra_files.bats`) enforcing it going forward. **Add this same pin to any new
   `uses:` line in future work — an unpinned reference will silently break CI repo-wide again.**
-- **`patterns_allowed: []` on the Actions allow-list — NOT fixed, needs owner action.** Same
-  `actions/permissions` check shows `allowed_actions: "selected"` with `github_owned_allowed: true`
-  and `verified_allowed: true`, but `patterns_allowed: []` — empty. `qte77/.github` is neither
-  GitHub-owned nor a verified publisher, so **every reusable-workflow call to it is blocked**,
-  regardless of SHA-pinning: `lint-md-links.yml` (still `startup_failure` after the fix above) and,
-  more importantly, **`bump-version.yml`, `tag-release.yml`, `publish-release.yml` (#174's entire
-  release pipeline) are currently non-functional** — they'll hit the same block the first time
-  anyone tries to use them. An agent should NOT change this setting itself — widening an
-  Actions allow-list is a security-relevant change the auto-mode permission classifier correctly
-  blocks (`[Security Weaken]`, confirmed when attempted). **Owner action needed:** either via
-  Settings → Actions → General → "Allow select actions and reusable workflows" → add
-  `qte77/.github/*` to the allowed patterns, or `gh api -X PUT
-  repos/qte77/gha-arbitrary-repo-timeline/actions/permissions/selected-actions -f
-  github_owned_allowed=true -f verified_allowed=true -f 'patterns_allowed[]=qte77/.github/*'`.
+- **`patterns_allowed` allow-list — FIXED (2026-09-19), owner-authorized ("only add necessary
+  gha to the whitelist").** `qte77/.github` is neither GitHub-owned nor a verified publisher, so
+  every reusable-workflow call to it was blocked regardless of SHA-pinning. The fix needed TWO
+  layers of patterns, not one — this is the load-bearing lesson:
+  1. The reusable-workflow paths themselves, at full-path granularity
+     (`patterns_allowed` does **not** support repo-level shorthand like `owner/repo@*` for
+     reusable workflows — it requires `owner/repo/.github/workflows/file.yml@ref`, confirmed via
+     GitHub's own docs after an initial repo-level attempt silently didn't match):
+     `qte77/.github/.github/workflows/{lint-md-links,bump-version,tag-release,publish-release}.yml@*`.
+  2. **The allow-list applies to the entire resolved job graph, including actions a called
+     reusable workflow uses internally** — not just the calling repo's own direct `uses:` lines.
+     `lint-md-links.yml`'s reusable workflow internally calls `DavidAnson/markdownlint-cli2-action`
+     and `lycheeverse/lychee-action` (neither GitHub-owned nor verified), so those needed explicit
+     patterns too before the workflow could start. Verified end-to-end: a live dispatch of
+     `Lint MD and Links` completed both `lint/markdown` and `lint/links` jobs successfully.
+  Current full pattern list: 4 qte77/.github workflow paths + the 2 transitive third-party
+  actions above. Add any *new* third-party action a called reusable workflow starts using the
+  same way, or it'll silently startup_failure again.
+- **`lint-md-links.yml`'s pin was independently stale — FIXED, PR #244.** Pinned to `55ea1a99`,
+  a commit that still exists but (per the same failure class the file's own history comment
+  already documented once before) no longer resolved cleanly. Re-pinned to `4801217a`, the same
+  commit the other three `qte77/.github` callers already use successfully. New BATS test ties
+  this pin to the others so it can't silently drift stale again.
 - **`main` has a repo ruleset requiring PRs — no direct push works**, even for the owner. Also:
   `pull_request`-triggered CI on the `update-timeline.yml` bot's auto-generated PRs
   (`auto-timeline-*` branches) gets stuck at `conclusion: action_required` because the ruleset's
@@ -590,8 +599,9 @@ suggestion. Do not build speculatively ahead of Tier 1 landing.
 
 | ID | Item | Gate | Wave | Depends on | Status |
 |---|---|---|---|---|---|
-| T0-C | Add `qte77/.github/*` to the Actions allow-list `patterns_allowed` | **owner** (security-relevant settings change, agent correctly blocked from doing it) | — | — | **blocking**: `lint-md-links.yml` and all of #174's release workflows (`bump-version`/`tag-release`/`publish-release`) can't run at all until this lands |
+| T0-C | Add minimal necessary patterns to the Actions allow-list `patterns_allowed` | done (owner-authorized: "only add necessary gha to the whitelist") | — | — | **fixed 2026-09-19** — 4 qte77/.github workflow paths + 2 transitive third-party actions (`DavidAnson/markdownlint-cli2-action`, `lycheeverse/lychee-action`); verified via live dispatch, both lint jobs succeeded |
 | T0-D | SHA-pin all `uses:` refs (checkout/cache/codeql-action) | done | — | — | **merged: [#240](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/240)** — fixed a full CI outage (startup_failure repo-wide since ~14:36 UTC 2026-09-18) |
+| T0-E | Re-pin `lint-md-links.yml`'s stale reusable-workflow commit | done | — | — | **merged: [#244](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/244)** |
 | T0-A | Merge dependabot PR #214 (codeql-action 4→4.37.4) | done | A | — | **merged directly** |
 | T0-B | Merge dependabot PR #226 (bump-my-version 1.4.1→1.5.2) | done | A | — | **auto-closed by GitHub** once #233 deleted its target file |
 | W1-1 | #164 — README doc-structure canon | done | A | — | **merged: [#230](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/230)** |
