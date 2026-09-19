@@ -273,6 +273,20 @@
     grep -q 'account' action.yaml
 }
 
+# --- docs/inputs.md stays in sync with action.yaml (#164 doc created before
+# #4/#109/#110 inputs landed; went stale) ---
+
+@test "docs/inputs.md lists all 7 action.yaml input names as table rows" {
+    [ -f docs/inputs.md ]
+    grep -q '`REPOS`' docs/inputs.md
+    grep -q '`OUTPUT_FILE`' docs/inputs.md
+    grep -q '`TOKEN`' docs/inputs.md
+    grep -q '`INCLUDE_GIT_LOG`' docs/inputs.md
+    grep -q '`DAYS`' docs/inputs.md
+    grep -q '`INCLUDE_CONTRIBUTORS`' docs/inputs.md
+    grep -q '`INCLUDE_CONTRIBUTOR_PROFILE_DETAILS`' docs/inputs.md
+}
+
 # --- Dependabot grouping + CodeQL version ---
 
 @test "dependabot.yml groups version updates separately from security updates" {
