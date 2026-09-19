@@ -53,12 +53,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `README.md` "What it does" bullet plus a fuller example in
   `docs/pipeline.md` showing `REPOS: "qte77"` (account-level lifespan
   Gantt chart at `timelines/qte77/_account.md`) mixed with a normal
-  `owner/repo` entry in the same comma-separated list
+  `owner/repo` entry in the same comma-separated list (#248)
 - `docs/inputs.md` documents the contributor-intelligence privacy
   requirement (host repo must be private/internal, and
   `INCLUDE_CONTRIBUTOR_PROFILE_DETAILS` requires `INCLUDE_CONTRIBUTORS`),
   previously only in code comments and `CONTRIBUTING.md`'s
-  right-to-erasure section
+  right-to-erasure section (#248)
 
 ### Fixed
 
@@ -74,6 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   rows and refreshed the `REPOS` row to mention account mode; all 7 rows
   now verbatim-match `action.yaml`, and a new BATS test
   (`test_infra_files.bats`) guards against it silently going stale again
+  (#248)
 
 ---
 
