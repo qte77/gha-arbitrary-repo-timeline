@@ -132,6 +132,12 @@
     grep -q 'git add timelines/' .github/workflows/update-timeline.yml
 }
 
+@test "update-timeline workflow's API-built commit is attributed to github-actions[bot] (avoids require_extra_approval_for_unattributed_changes)" {
+    grep -q '41898282+github-actions\[bot\]@users.noreply.github.com' .github/workflows/update-timeline.yml
+    grep -q 'author: {name: \$name, email: \$email}' .github/workflows/update-timeline.yml
+    grep -q 'committer: {name: \$name, email: \$email}' .github/workflows/update-timeline.yml
+}
+
 @test "collect-issues.sh fetches all states" {
     grep -q 'state=all' scripts/collect-issues.sh
 }
