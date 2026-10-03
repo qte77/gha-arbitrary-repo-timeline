@@ -808,3 +808,13 @@
 - [PR #240] chore(ci): group dependabot updates and bump codeql-action to v4.38.1 (2026-09-18) [closed]
 - [PR #239] docs: track GitHub Pages follow-on (#238) in arc 0001 plan (2026-09-18) [closed]
 - [PR #237] chore: update timelines (2026-09-18) [closed]
+## 2026-10-03
+
+- [PR #265] chore: update timelines (2026-10-02) [open]
+- [PR #264] chore: update timelines (2026-10-01) [open]
+- [PR #263] chore: update timelines (2026-09-30) [open]
+- [PR #262] chore(deps): Bump the github-actions group with 2 updates (2026-09-29) [open]
+- [PR #261] chore: update timelines (2026-09-29) [open]
+- [PR #260] chore: update timelines (2026-09-28) [open]
+- [PR #259] chore: update timelines (2026-09-27) [open]
+- [PR #258] chore: update timelines (2026-09-26) [open]
