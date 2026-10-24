@@ -77,3 +77,115 @@ The repository's `.gitmessage` template covers the expected prefixes (`feat:`,
 ```bash
 git config commit.template .gitmessage
 ```
+
+## Git & CI conventions
+
+### Branch protection on `main`
+
+`main` is protected by a repository ruleset requiring all changes to land
+through a pull request. A direct push (observed 2026-09-19) is rejected with
+`GH013: Repository rule violations found: Changes must be made through a
+pull request` — this applies even to the repo owner.
+
+Check the live ruleset:
+
+```bash
+gh api repos/qte77/gha-arbitrary-repo-timeline/rules/branches/main
+```
+
+As of 2026-09-19 it enforces (confirm before relying on this — the rule set
+has changed before):
+
+- `deletion` — the branch cannot be deleted.
+- `non_fast_forward` — no force-pushes.
+- `required_linear_history` — no merge commits on `main`; combined with
+  `allowed_merge_methods` below, this rules out "Create a merge commit" in
+  practice, leaving squash or rebase.
+- `required_signatures` — commits must be signed.
+- `pull_request` — changes must go through a PR.
+  `required_approving_review_count` is currently `0` (no human review is
+  required — only the PR mechanism itself), and
+  `require_extra_approval_for_unattributed_changes` is `true`.
+  `allowed_merge_methods` is `["merge", "squash", "rebase"]` — the ruleset
+  does not itself force squash; squash-over-rebase is project convention
+  (next section), not an enforced rule.
+- `required_status_checks` — the `CodeFactor` check must pass.
+- `code_quality` — enforced at `warnings` severity.
+
+### Workflow convention: branch, validate, squash, delete
+
+This repo has been following (only part of this is ruleset-enforced, see
+above):
+
+1. New topic branch per change.
+2. Conventional Commits messages (see [Commits](#commits)).
+3. `make validate` clean locally before opening a PR.
+4. Squash-merge the PR once CI passes.
+5. Delete the branch, both remote and local, after merge.
+
+### SHA-pinning is required — a bare version tag stops the run before it starts
+
+This repo's Actions settings have `sha_pinning_required: true`. Check:
+
+```bash
+gh api repos/qte77/gha-arbitrary-repo-timeline/actions/permissions
+```
+
+Every `uses:` line in every workflow file **and** in `action.yaml` must be a
+full 40-character commit SHA, with a version or date comment for
+readability, e.g. `uses: actions/checkout@<40-char-sha>  # v7`.
+
+A bare tag (e.g. `actions/checkout@v7`) is not a lint nit — GitHub refuses to
+even start the run: it shows `conclusion: startup_failure` with zero jobs,
+regardless of the trigger event. This caused a full CI outage on this repo
+before (see PRs #240–#245 in the git history).
+
+### The Actions allow-list covers the whole resolved job graph
+
+Actions permissions are set to `"selected"`, not "all": only GitHub-owned
+actions, verified-publisher actions, and an explicit `patterns_allowed` list
+may run. Check the current list:
+
+```bash
+gh api repos/qte77/gha-arbitrary-repo-timeline/actions/permissions/selected-actions
+```
+
+As of 2026-09-19 it is:
+
+```json
+[
+  "qte77/.github/.github/workflows/lint-md-links.yml@*",
+  "qte77/.github/.github/workflows/bump-version.yml@*",
+  "qte77/.github/.github/workflows/tag-release.yml@*",
+  "qte77/.github/.github/workflows/publish-release.yml@*",
+  "DavidAnson/markdownlint-cli2-action@*",
+  "lycheeverse/lychee-action@*"
+]
+```
+
+The last two entries matter: this repo's own workflows never reference
+`DavidAnson/markdownlint-cli2-action` or `lycheeverse/lychee-action`
+directly. They run *inside* the `lint-md-links.yml` reusable workflow
+(defined in `qte77/.github`) that this repo calls. The allow-list covers the
+**entire resolved job graph**, including third-party actions pulled in
+transitively by a called reusable workflow — not just this repo's own
+direct `uses:` lines.
+
+If you add a new reusable-workflow call, or any new third-party action
+anywhere in the graph (including inside a reusable workflow you call), add
+its pattern to the allow-list first, or the run will silently
+`startup_failure`. The `PUT` replaces the whole list, so re-send every
+existing pattern plus the new one:
+
+```bash
+gh api -X PUT repos/qte77/gha-arbitrary-repo-timeline/actions/permissions/selected-actions \
+  -F github_owned_allowed=true \
+  -F verified_allowed=true \
+  -f 'patterns_allowed[]=qte77/.github/.github/workflows/lint-md-links.yml@*' \
+  -f 'patterns_allowed[]=qte77/.github/.github/workflows/bump-version.yml@*' \
+  -f 'patterns_allowed[]=qte77/.github/.github/workflows/tag-release.yml@*' \
+  -f 'patterns_allowed[]=qte77/.github/.github/workflows/publish-release.yml@*' \
+  -f 'patterns_allowed[]=DavidAnson/markdownlint-cli2-action@*' \
+  -f 'patterns_allowed[]=lycheeverse/lychee-action@*' \
+  -f 'patterns_allowed[]=<new-owner>/<new-action>@*'
+```
