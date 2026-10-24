@@ -103,12 +103,15 @@ gh workflow run update-timeline.yml   # manual snapshot trigger (workflow_dispat
   already documented once before) no longer resolved cleanly. Re-pinned to `4801217a`, the same
   commit the other three `qte77/.github` callers already use successfully. New BATS test ties
   this pin to the others so it can't silently drift stale again.
-- **`main` has a repo ruleset requiring PRs — no direct push works**, even for the owner. Also:
-  `pull_request`-triggered CI on the `update-timeline.yml` bot's auto-generated PRs
-  (`auto-timeline-*` branches) gets stuck at `conclusion: action_required` because the ruleset's
-  `require_extra_approval_for_unattributed_changes: true` flags those API-built commits — doesn't
-  block the auto-merge itself (confirmed PR #235 merged fine despite it), just leaves orphaned
-  stuck check runs on every scheduled run. Not yet fixed; low priority, not in this arc's table.
+- **`main` has a repo ruleset requiring PRs — no direct push works**, even for the owner.
+- **`require_extra_approval_for_unattributed_changes` stuck-check issue — FIXED, PR #246
+  (2026-09-19).** `update-timeline.yml`'s "Commit if changed" step built commits via the raw Git
+  Data API with no `author`/`committer`, leaving them unattributed to any GitHub account — the
+  ruleset then demanded one extra approval nobody was providing, so every scheduled run's
+  auto-PR checks sat stuck (didn't block the auto-merge itself, PR #235 proved that, just left
+  orphaned stuck check runs). Fixed by setting explicit `author`/`committer` to
+  `github-actions[bot]`'s real identity (`41898282+github-actions[bot]@users.noreply.github.com`)
+  in the commit payload — the standard attribution pattern for Git-Data-API-created commits.
 - `scripts/generate-timeline.sh:70-82` (`append_section`) is append-only today. #86 replaces it;
   until #86 lands, do not assume any in-place rewrite semantics exist for the MD body.
 - The current release pipeline (`bump-and-release.yaml`) **already violates** its own "never
@@ -117,10 +120,14 @@ gh workflow run update-timeline.yml   # manual snapshot trigger (workflow_dispat
 - `pyproject.toml:31-32`'s bump-my-version README search string is hardcoded to `8A2BE2` (purple).
   #164's badge-color change and this search string **must land in the same PR** or version bumps
   silently stop updating the README badge.
-- `github.repository_visibility` (needed for #110's host-visibility gate) is verified as a real
-  GitHub Actions context property only via secondary sources in this session — confirm with a
-  throwaway `workflow_dispatch` debug step (`echo '${{ toJSON(github) }}' | jq .repository_visibility`)
-  before wiring #4's gate to it.
+- **`github.repository_visibility` — VERIFIED live, 2026-09-19.** A throwaway `workflow_dispatch`
+  debug run (PR #247, removed after) confirmed the context property resolves correctly both as a
+  plain job-step expression and via the exact env-block pattern `action.yaml` uses
+  (`INPUT_REPO_VISIBILITY: ${{ github.repository_visibility }}`) — both returned `'public'` on
+  this repo. Combined with #4's gate's exhaustive `case` logic (anything not literally `private`
+  or `internal` → `exit 1`), this is strong confirmation the gate works as designed; the literal
+  `private`/`internal` return value itself wasn't separately exercised (would need a real private
+  host repo — deferred, not blocking, since the gate fails closed either way).
 - Contributor data (#4) must be **replaced**, never appended — if `INCLUDE_CONTRIBUTORS` flips back
   to `false`, or `.timeline-no-contributors` appears, a run must delete the stale
   `-contributors.json` and strip the MD block, or PII persists in HEAD after the flag is off.
@@ -602,13 +609,15 @@ suggestion. Do not build speculatively ahead of Tier 1 landing.
 | T0-C | Add minimal necessary patterns to the Actions allow-list `patterns_allowed` | done (owner-authorized: "only add necessary gha to the whitelist") | — | — | **fixed 2026-09-19** — 4 qte77/.github workflow paths + 2 transitive third-party actions (`DavidAnson/markdownlint-cli2-action`, `lycheeverse/lychee-action`); verified via live dispatch, both lint jobs succeeded |
 | T0-D | SHA-pin all `uses:` refs (checkout/cache/codeql-action) | done | — | — | **merged: [#240](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/240)** — fixed a full CI outage (startup_failure repo-wide since ~14:36 UTC 2026-09-18) |
 | T0-E | Re-pin `lint-md-links.yml`'s stale reusable-workflow commit | done | — | — | **merged: [#244](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/244)** |
+| T0-F | Attribute `update-timeline.yml`'s API-built commits (fix stuck-approval ruleset issue) | done | — | — | **merged: [#246](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/246)** |
+| T0-G | Verify `github.repository_visibility` live (throwaway debug workflow) | done | — | — | **verified, PR #247 (merged then removed)** — resolves correctly, see watch-outs |
 | T0-A | Merge dependabot PR #214 (codeql-action 4→4.37.4) | done | A | — | **merged directly** |
 | T0-B | Merge dependabot PR #226 (bump-my-version 1.4.1→1.5.2) | done | A | — | **auto-closed by GitHub** once #233 deleted its target file |
 | W1-1 | #164 — README doc-structure canon | done | A | — | **merged: [#230](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/230)** |
 | W1-2 | #174 — adopt qte77/.github reusable release workflows | done | A | — | **merged: [#233](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/233)** |
 | W1-3 | #86-prep — `--state open` flag on collect-issues.sh/collect-prs.sh | done | A | — | **merged: [#231](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/231)** |
 | W1-4 | #83 — renderer decision record | done | A | — | **posted as [issue comment](https://github.com/qte77/gha-arbitrary-repo-timeline/issues/83#issuecomment-5724391792)** |
-| W3-1 | #110 + #4 — contributor collection + privacy gate | done (`repository_visibility` still needs a live smoke test before production trust) | A | — | **merged: [#234](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/234)** |
+| W3-1 | #110 + #4 — contributor collection + privacy gate | done (`repository_visibility` verified live, see T0-G) | A | — | **merged: [#234](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/234)** |
 | W3-2 | #109 Tier 1 — account discovery + lifespan Gantt | done (gate-scope default still pending maintainer confirmation) | A | — | **merged: [#232](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/232)** |
 | W2-1 | #86 — rolling Open + collapsed History sections | agent | B | W1-3 merged ✅ | **ready to start** |
 | W2-2 | #87 — cross-repo overview SVG + timelines/README.md index | agent | B | W2-1 merged | not started |
