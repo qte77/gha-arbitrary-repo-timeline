@@ -31,6 +31,9 @@ can drop into any README or tracking repo, with no hosted dashboard to run or ma
 
 - Tracks issue, PR, and (optionally) commit activity across any repos you list, so you don't
   have to watch each one separately
+- Supports account-level discovery too: a `REPOS` entry with no `/` (e.g. `qte77`) is
+  treated as an account/org login and renders a repo lifespan Gantt chart instead of a
+  per-repo timeline — see [`docs/pipeline.md`](docs/pipeline.md) for an example
 - Maintains a running Markdown timeline per repo, appending new activity on each scheduled run
 - Renders a themed activity chart (SVG) that auto-switches between GitHub light and dark mode
 - Preserves per-day event counts in a compact TSV file, independent of the rolling chart window
