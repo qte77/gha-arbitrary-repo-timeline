@@ -1,0 +1,50 @@
+name: Feature request
+description: Propose a new capability or improvement for gha-arbitrary-repo-timeline.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. If this touches contributor-identifying or
+        profile-adjacent data, review the privacy guardrails baseline first:
+        https://github.com/qte77/gha-arbitrary-repo-timeline/issues/110
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What gap or pain point does this address? Why now?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-scope
+    attributes:
+      label: Proposed scope
+      description: What should the feature do? New input(s), new output, new script?
+    validations:
+      required: true
+
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Out of scope (optional)
+      description: Anything explicitly NOT included, to keep the first version focused.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: privacy-review-needed
+    attributes:
+      label: Does this surface contributor-identifying or profile data?
+      description: >-
+        e.g. names, locations, companies, bios, timing/activity patterns, or anything
+        else aggregated from contributor profiles. See issue #110 (linked above) for
+        the guardrails baseline any such feature must satisfy before it can land.
+      options:
+        - "No"
+        - "Yes"
+        - "Not sure"
+    validations:
+      required: true

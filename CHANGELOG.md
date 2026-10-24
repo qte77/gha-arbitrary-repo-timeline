@@ -33,6 +33,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `--state open` flag that switches to a live, unbounded query (no
   `since` bound) returning only currently-open items, paginated; prep
   step for #86/#87 (#86-prep)
+- GitHub issue forms under `.github/ISSUE_TEMPLATE/`: `bug_report.yml`
+  (repro fields incl. the exact `with:` block, workflow run URL, and a
+  required redaction checkbox for `TOKEN`/contributor data),
+  `feature_request.yml` (problem/scope plus a required privacy-review
+  dropdown referencing #110), and `config.yml` with
+  `blank_issues_enabled: true`
 
 ### Changed
 
