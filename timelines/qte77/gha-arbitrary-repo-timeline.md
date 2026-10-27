@@ -808,3 +808,17 @@
 - [PR #240] chore(ci): group dependabot updates and bump codeql-action to v4.38.1 (2026-09-18) [closed]
 - [PR #239] docs: track GitHub Pages follow-on (#238) in arc 0001 plan (2026-09-18) [closed]
 - [PR #237] chore: update timelines (2026-09-18) [closed]
+## 2026-10-27
+
+- [PR #289] chore: update timelines (2026-10-26) [open]
+- [PR #288] chore: update timelines (2026-10-25) [open]
+- [PR #287] chore: update timelines (2026-10-24) [open]
+- [PR #286] chore: update timelines (2026-10-23) [open]
+- [PR #285] chore: update timelines (2026-10-22) [open]
+- [PR #284] chore: update timelines (2026-10-21) [open]
+- [PR #283] chore: update timelines (2026-10-20) [open]
+- [PR #262] chore(deps): Bump the github-actions group with 2 updates (2026-09-29) [open]
+- [PR #251] docs: document branch protection, SHA pinning and Actions allow-list (2026-09-19) [closed]
+- [PR #250] feat: add GitHub issue templates (2026-09-19) [closed]
+- [PR #249] chore: remove throwaway debug workflow, record verification findings (2026-09-19) [closed]
+- [PR #248] docs: document account-mode and sync stale inputs reference (2026-09-19) [closed]
