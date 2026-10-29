@@ -34,7 +34,9 @@ can drop into any README or tracking repo, with no hosted dashboard to run or ma
 - Supports account-level discovery too: a `REPOS` entry with no `/` (e.g. `qte77`) is
   treated as an account/org login and renders a repo lifespan Gantt chart instead of a
   per-repo timeline — see [`docs/pipeline.md`](docs/pipeline.md) for an example
-- Maintains a running Markdown timeline per repo, appending new activity on each scheduled run
+- Maintains a Markdown timeline per repo: a `## Open` section rewritten on each run with the
+  currently open issues and PRs, and a `## History` of collapsed per-day blocks listing what
+  closed that day (existing date-section timelines are converted automatically on the next run)
 - Renders a themed activity chart (SVG) that auto-switches between GitHub light and dark mode
 - Preserves per-day event counts in a compact TSV file, independent of the rolling chart window
 - Works as a drop-in composite GitHub Action — no server, database, or third-party dashboard
