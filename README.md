@@ -45,6 +45,14 @@ can drop into any README or tracking repo, with no hosted dashboard to run or ma
 
 See [`docs/inputs.md`](docs/inputs.md) for the full inputs reference.
 
+## Privacy and right to erasure
+
+Contributor data is only collected when you opt in with `INCLUDE_CONTRIBUTORS`, and only
+when the host repo is private or internal (see [`docs/inputs.md`](docs/inputs.md)).
+Contributors can stop future collection, and maintainers can remove past output; see
+[Right to erasure](CONTRIBUTING.md#right-to-erasure-contributor-intelligence-110--4) in
+`CONTRIBUTING.md`.
+
 ## Example output
 
 <details>
