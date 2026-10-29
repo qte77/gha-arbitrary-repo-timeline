@@ -36,6 +36,8 @@ can drop into any README or tracking repo, with no hosted dashboard to run or ma
   per-repo timeline — see [`docs/pipeline.md`](docs/pipeline.md) for an example
 - Maintains a running Markdown timeline per repo, appending new activity on each scheduled run
 - Renders a themed activity chart (SVG) that auto-switches between GitHub light and dark mode
+- Writes a cross-repo index at `timelines/README.md`: an activity heatmap across all tracked
+  repos (`assets/overview.svg`), plus open PR/issue counts and links for each repo
 - Preserves per-day event counts in a compact TSV file, independent of the rolling chart window
 - Works as a drop-in composite GitHub Action — no server, database, or third-party dashboard
   required
