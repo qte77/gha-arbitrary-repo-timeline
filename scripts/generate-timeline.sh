@@ -224,7 +224,12 @@ write_timelines_index() {
         [[ -f "$tsv" ]] && awk -v r="$repo" '{ print r "\t" $0 }' "$tsv" >>"$combined"
     done
     mkdir -p assets timelines
-    "${SCRIPT_DIR}/render-overview-svg.sh" --days 30 <"$combined" >assets/overview.svg
+    local svg
+    if svg=$("${SCRIPT_DIR}/render-overview-svg.sh" --days 30 <"$combined" 2>/dev/null); then
+        printf '%s\n' "$svg" >assets/overview.svg
+    else
+        echo "WARN: failed to render assets/overview.svg (keeping previous)"
+    fi
     rm -f "$combined"
 
     {

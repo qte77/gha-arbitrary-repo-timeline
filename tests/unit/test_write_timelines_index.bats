@@ -89,6 +89,16 @@ run_index() {
     [ ! -f "$work_dir/assets/overview.svg" ]
 }
 
+@test "still writes the index when the SVG renderer fails, keeping the previous SVG" {
+    printf '#!/usr/bin/env bash\nexit 1\n' >"$stub_dir/render-overview-svg.sh"
+    echo '<svg>previous</svg>' >"$work_dir/assets/overview.svg"
+    run run_index acme/a
+    [ "$status" -eq 0 ]
+    [[ "$output" == *"WARN: failed to render assets/overview.svg"* ]]
+    [ "$(cat "$work_dir/assets/overview.svg")" = '<svg>previous</svg>' ]
+    grep -qF '[acme/a](acme/a.md)' "$work_dir/timelines/README.md"
+}
+
 @test "is a full rewrite: rerunning with the same data is byte-identical" {
     export STUB_OPEN_PRS_a="$PR"
     run_index acme/a acme/b
