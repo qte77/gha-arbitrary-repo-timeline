@@ -622,7 +622,7 @@ suggestion. Do not build speculatively ahead of Tier 1 landing.
 | W2-1 | #86 — rolling Open + collapsed History sections | agent | B | W1-3 merged ✅ | **ready to start** |
 | W2-2 | #87 — cross-repo overview SVG + timelines/README.md index | agent | B | W2-1 merged | not started |
 | W2-3 | [#238](https://github.com/qte77/gha-arbitrary-repo-timeline/issues/238) — publish cross-repo overview via GitHub Pages (workflow-based deploy, per user request, modeled on `qte77/agent-readiness-kit`'s `pages.yml` approach) | agent | B | W2-2 merged | not started — user confirmed: wait for #87's index, don't publish raw `timelines/` early |
-| W4-1 | #108 — contributor timing analysis | agent | B | W3-1 merged ✅ | **ready to start** |
+| W4-1 | #108 — contributor timing analysis | done | B | W3-1 merged ✅ | **PR open (closes #108)** — awaiting owner merge |
 | — | #109 Tier 2/3 | owner (file as follow-up issues) | deferred | W3-2 | not started in this arc |
 
 ---
