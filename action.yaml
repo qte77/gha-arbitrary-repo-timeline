@@ -27,6 +27,9 @@ inputs:
   INCLUDE_CONTRIBUTOR_PROFILE_DETAILS:
     description: "Include self-reported profile fields (location, company, bio) for contributors at/above the activity threshold. Requires INCLUDE_CONTRIBUTORS=true."
     default: "false"
+  INCLUDE_CONTRIBUTOR_TIMING:
+    description: "Include suggestive per-contributor timing patterns (modal UTC hour, weekend/off-hours share, streak) for contributors at/above the activity threshold. Requires INCLUDE_CONTRIBUTORS=true."
+    default: "false"
 runs:
   using: "composite"
   steps:
@@ -45,6 +48,7 @@ runs:
         INPUT_DAYS: ${{ inputs.DAYS }}
         INPUT_INCLUDE_CONTRIBUTORS: ${{ inputs.INCLUDE_CONTRIBUTORS }}
         INPUT_INCLUDE_CONTRIBUTOR_PROFILE_DETAILS: ${{ inputs.INCLUDE_CONTRIBUTOR_PROFILE_DETAILS }}
+        INPUT_INCLUDE_CONTRIBUTOR_TIMING: ${{ inputs.INCLUDE_CONTRIBUTOR_TIMING }}
         INPUT_REPO_VISIBILITY: ${{ github.repository_visibility }}
         GH_TOKEN: ${{ inputs.TOKEN || github.token }}
       run: |

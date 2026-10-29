@@ -243,6 +243,14 @@
     grep -A2 '^  INCLUDE_CONTRIBUTOR_PROFILE_DETAILS:' action.yaml | grep -q 'default: "false"'
 }
 
+@test "action.yaml has INCLUDE_CONTRIBUTOR_TIMING input defaulting to false" {
+    grep -A2 '^  INCLUDE_CONTRIBUTOR_TIMING:' action.yaml | grep -q 'default: "false"'
+}
+
+@test "action.yaml wires INCLUDE_CONTRIBUTOR_TIMING input into the generate step env" {
+    grep -qE '^\s+INPUT_INCLUDE_CONTRIBUTOR_TIMING: \$\{\{ inputs\.INCLUDE_CONTRIBUTOR_TIMING \}\}' action.yaml
+}
+
 @test "action.yaml wires INCLUDE_CONTRIBUTORS input into the generate step env" {
     grep -qE '^\s+INPUT_INCLUDE_CONTRIBUTORS: \$\{\{ inputs\.INCLUDE_CONTRIBUTORS \}\}' action.yaml
 }
@@ -290,7 +298,7 @@
 # --- docs/inputs.md stays in sync with action.yaml (#164 doc created before
 # #4/#109/#110 inputs landed; went stale) ---
 
-@test "docs/inputs.md lists all 7 action.yaml input names as table rows" {
+@test "docs/inputs.md lists all 8 action.yaml input names as table rows" {
     [ -f docs/inputs.md ]
     grep -q '`REPOS`' docs/inputs.md
     grep -q '`OUTPUT_FILE`' docs/inputs.md
@@ -299,6 +307,7 @@
     grep -q '`DAYS`' docs/inputs.md
     grep -q '`INCLUDE_CONTRIBUTORS`' docs/inputs.md
     grep -q '`INCLUDE_CONTRIBUTOR_PROFILE_DETAILS`' docs/inputs.md
+    grep -q '`INCLUDE_CONTRIBUTOR_TIMING`' docs/inputs.md
 }
 
 # --- Dependabot grouping + CodeQL version ---
