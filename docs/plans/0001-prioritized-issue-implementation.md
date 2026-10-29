@@ -620,7 +620,7 @@ suggestion. Do not build speculatively ahead of Tier 1 landing.
 | W3-1 | #110 + #4 — contributor collection + privacy gate | done (`repository_visibility` verified live, see T0-G) | A | — | **merged: [#234](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/234)** |
 | W3-2 | #109 Tier 1 — account discovery + lifespan Gantt | done (gate-scope default still pending maintainer confirmation) | A | — | **merged: [#232](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/232)** |
 | W2-1 | #86 — rolling Open + collapsed History sections | agent | B | W1-3 merged ✅ | **ready to start** |
-| W2-2 | #87 — cross-repo overview SVG + timelines/README.md index | agent | B | W2-1 merged | not started |
+| W2-2 | #87 — cross-repo overview SVG + timelines/README.md index | done | B | — (built off `main`; regions disjoint from W2-1) | **PR open (closes #87)** — awaiting owner merge |
 | W2-3 | [#238](https://github.com/qte77/gha-arbitrary-repo-timeline/issues/238) — publish cross-repo overview via GitHub Pages (workflow-based deploy, per user request, modeled on `qte77/agent-readiness-kit`'s `pages.yml` approach) | agent | B | W2-2 merged | not started — user confirmed: wait for #87's index, don't publish raw `timelines/` early |
 | W4-1 | #108 — contributor timing analysis | agent | B | W3-1 merged ✅ | **ready to start** |
 | — | #109 Tier 2/3 | owner (file as follow-up issues) | deferred | W3-2 | not started in this arc |

@@ -14,6 +14,10 @@ What the action does, step by step, on each run:
    with auto light/dark mode (`prefers-color-scheme`)
 8. Maintains a cumulative event log at `assets/<owner>/<repo>-activity.tsv`
    (deduped by date+event, last-write-wins)
+9. After the loop, rewrites the cross-repo overview: `assets/overview.svg`
+   (a heatmap with one row per repo over the last 30 days, built from the
+   per-repo TSVs) and the `timelines/README.md` index (open PR/issue counts,
+   last activity date, and links per repo)
 
 **Account mode:** a `REPOS` entry with no `/` is treated as an account (user or
 organization) login instead of an `owner/repo` pair, and account entries can be
