@@ -401,7 +401,7 @@ main() {
         rm -f "$NEW_TSV"
 
         # Contributor intelligence (opt-in, gated by assert_contributor_gate
-        # above). Always dispatched — independent of NEW_ITEMS — so a flag
+        # above). Always dispatched — independent of HISTORY_ITEMS — so a flag
         # flip or .timeline-no-contributors opt-out removes stale data even
         # when a repo has no new issue/PR activity this run.
         local CONTRIB_JSON_FILE="assets/${owner}/${name}-contributors.json"
