@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
-# Tests for dedup_items and append_section helpers in generate-timeline.sh.
+# Tests for the timeline MD helpers in generate-timeline.sh (dedup, rolling
+# ## Open + collapsed ## History sections, activity embed, contributors).
 
 setup() {
     OUTPUT_FILE="$(mktemp -t timeline.XXXXXX)"
@@ -23,12 +24,20 @@ teardown() {
 }
 
 @test "dedup_items filters lines whose ID token already appears in file" {
-    printf -- '- [ISSUE #1] foo (2026-04-01) [open]\n' > "$OUTPUT_FILE"
-    input=$'- [ISSUE #1] foo (2026-04-10) [closed]\n- [PR #2] bar (2026-04-02) [open]\n'
+    printf -- '- [ISSUE #1] foo (2026-04-01) [closed]\n' > "$OUTPUT_FILE"
+    input=$'- [ISSUE #1] foo (2026-04-10) [closed]\n- [PR #2] bar (2026-04-02) [closed]\n'
     result=$(dedup_items "$input" "$OUTPUT_FILE")
-    # ISSUE #1 dropped (state changed but ID exists); PR #2 kept
+    # ISSUE #1 dropped (closure already recorded); PR #2 kept
     [[ "$result" != *"ISSUE #1"* ]]
     [[ "$result" == *"PR #2"* ]]
+}
+
+@test "dedup_items keeps a closure whose ID is only recorded as [open]" {
+    # Legacy history lists the item while it was open; its closure is new.
+    printf -- '- [ISSUE #1] foo (2026-04-01) [open]\n' > "$OUTPUT_FILE"
+    input=$'- [ISSUE #1] foo (2026-04-01) [closed]\n'
+    result=$(dedup_items "$input" "$OUTPUT_FILE")
+    [[ "$result" == *"ISSUE #1"* ]]
 }
 
 @test "dedup_items dedups by short SHA token" {
@@ -44,40 +53,6 @@ teardown() {
     input=$'- plain line without id\n'
     result=$(dedup_items "$input" "$OUTPUT_FILE")
     [[ "$result" == *"plain line without id"* ]]
-}
-
-# --- append_section ---
-
-@test "append_section creates new date header when absent" {
-    : > "$OUTPUT_FILE"
-    items=$'- [ISSUE #1] foo (2026-04-23) [open]\n'
-    append_section "$OUTPUT_FILE" "2026-04-23" "$items"
-    [ "$(grep -c '^## 2026-04-23$' "$OUTPUT_FILE")" -eq 1 ]
-    grep -q 'ISSUE #1' "$OUTPUT_FILE"
-}
-
-@test "append_section does not duplicate date header when present" {
-    printf '## 2026-04-23\n\n- [ISSUE #1] foo (2026-04-23) [open]\n\n' > "$OUTPUT_FILE"
-    items=$'- [PR #2] bar (2026-04-23) [open]\n'
-    append_section "$OUTPUT_FILE" "2026-04-23" "$items"
-    # Still exactly one date header; both items present
-    [ "$(grep -c '^## 2026-04-23$' "$OUTPUT_FILE")" -eq 1 ]
-    grep -q 'ISSUE #1' "$OUTPUT_FILE"
-    grep -q 'PR #2' "$OUTPUT_FILE"
-}
-
-# --- Integration: dedup + append together ---
-
-@test "dedup + append: state transition does not duplicate entry" {
-    # Seed: issue #42 was open on an earlier run
-    printf '# repo — Timeline\n\n## 2026-04-20\n\n- [ISSUE #42] fix bug (2026-04-20) [open]\n\n' > "$OUTPUT_FILE"
-    # Same issue now closed
-    incoming=$'- [ISSUE #42] fix bug (2026-04-23) [closed]\n'
-    filtered=$(dedup_items "$incoming" "$OUTPUT_FILE")
-    # Nothing to append
-    [ -z "$filtered" ]
-    # File still has exactly one [ISSUE #42]
-    [ "$(grep -c 'ISSUE #42' "$OUTPUT_FILE")" -eq 1 ]
 }
 
 @test "prepend_activity_embed inserts marker and image after H1" {
@@ -263,22 +238,6 @@ teardown() {
     [ -f "$OUTPUT_FILE" ]
 }
 
-@test "dedup + append: two runs same day produce single date header" {
-    printf '# repo — Timeline\n\n' > "$OUTPUT_FILE"
-    # Run 1
-    items_a=$'- [ISSUE #1] a (2026-04-23) [open]\n'
-    filtered_a=$(dedup_items "$items_a" "$OUTPUT_FILE")
-    append_section "$OUTPUT_FILE" "2026-04-23" "$filtered_a"
-    # Run 2, same day, different item
-    items_b=$'- [PR #2] b (2026-04-23) [open]\n'
-    filtered_b=$(dedup_items "$items_b" "$OUTPUT_FILE")
-    append_section "$OUTPUT_FILE" "2026-04-23" "$filtered_b"
-    # Single date header, both items present
-    [ "$(grep -c '^## 2026-04-23$' "$OUTPUT_FILE")" -eq 1 ]
-    grep -q 'ISSUE #1' "$OUTPUT_FILE"
-    grep -q 'PR #2' "$OUTPUT_FILE"
-}
-
 # --- collect_account (#109 Tier 1 — account discovery + lifespan timeline) ---
 
 @test "collect_account writes timelines/<account>/_account.md with an H1 and a fenced mermaid block" {
@@ -353,4 +312,183 @@ STUB
 
     [ "$(grep -c '^# acme — Repository Lifespans$' "$work_dir/timelines/acme/_account.md")" -eq 1 ]
     rm -rf "$stub_dir" "$work_dir"
+}
+
+# --- write_open_section / prepend_history_entry / migration (#86) ---
+
+# Prints the lines between the open-section markers of $1.
+open_region() {
+    awk '/^<!-- open-section-start -->$/ { on = 1; next } /^<!-- open-section-end -->$/ { on = 0 } on' "$1"
+}
+
+@test "write_open_section rewrites only the marked region and keeps the contributors block" {
+    printf '# owner/repo — Timeline\n\n' > "$OUTPUT_FILE"
+    write_open_section "$OUTPUT_FILE" "- [ISSUE #1] a (2026-04-01) [open]"
+    replace_contributors_block "$OUTPUT_FILE" "- **alice** — 5 events"
+    write_open_section "$OUTPUT_FILE" "- [PR #2] b (2026-04-02) [open]"
+    [[ "$(open_region "$OUTPUT_FILE")" != *"ISSUE #1"* ]]
+    [[ "$(open_region "$OUTPUT_FILE")" == *"PR #2"* ]]
+    [ "$(grep -c '^## Open$' "$OUTPUT_FILE")" -eq 1 ]
+    grep -q 'alice' "$OUTPUT_FILE"
+    # Open stays above the contributors block
+    [ "$(grep -n '^## Open$' "$OUTPUT_FILE" | cut -d: -f1)" -lt "$(grep -n 'contributors-begin' "$OUTPUT_FILE" | cut -d: -f1)" ]
+}
+
+@test "write_open_section renders a placeholder when nothing is open" {
+    printf '# owner/repo — Timeline\n\n' > "$OUTPUT_FILE"
+    write_open_section "$OUTPUT_FILE" ""
+    grep -q '^## Open$' "$OUTPUT_FILE"
+    grep -q '_No open issues or PRs._' "$OUTPUT_FILE"
+}
+
+@test "write_open_section keeps content after an orphan start marker (malformed file)" {
+    printf '# owner/repo — Timeline\n\n<!-- open-section-start -->\n## Open\n\n- keep me\n' > "$OUTPUT_FILE"
+    write_open_section "$OUTPUT_FILE" "- [PR #2] b (2026-04-02) [open]"
+    grep -q 'keep me' "$OUTPUT_FILE"
+    [ "$(grep -c 'open-section-start' "$OUTPUT_FILE")" -eq 1 ]
+    [ "$(grep -c 'open-section-end' "$OUTPUT_FILE")" -eq 1 ]
+}
+
+@test "prepend_history_entry merges two same-day calls into one details block" {
+    printf '# owner/repo — Timeline\n\n' > "$OUTPUT_FILE"
+    prepend_history_entry "$OUTPUT_FILE" "2026-04-23" "- [ISSUE #1] a (2026-04-01) [closed]"
+    prepend_history_entry "$OUTPUT_FILE" "2026-04-23" "- [PR #2] b (2026-04-02) [closed]"
+    [ "$(grep -c '^## History$' "$OUTPUT_FILE")" -eq 1 ]
+    [ "$(grep -c '<summary>2026-04-23</summary>' "$OUTPUT_FILE")" -eq 1 ]
+    [ "$(grep -c '^</details>$' "$OUTPUT_FILE")" -eq 1 ]
+    grep -q 'ISSUE #1' "$OUTPUT_FILE"
+    grep -q 'PR #2' "$OUTPUT_FILE"
+}
+
+@test "prepend_history_entry puts the newest day first" {
+    printf '# owner/repo — Timeline\n\n' > "$OUTPUT_FILE"
+    prepend_history_entry "$OUTPUT_FILE" "2026-04-22" "- [ISSUE #1] a (2026-04-01) [closed]"
+    prepend_history_entry "$OUTPUT_FILE" "2026-04-23" "- [PR #2] b (2026-04-02) [closed]"
+    [ "$(grep -n '2026-04-23</summary>' "$OUTPUT_FILE" | cut -d: -f1)" -lt "$(grep -n '2026-04-22</summary>' "$OUTPUT_FILE" | cut -d: -f1)" ]
+}
+
+@test "prepend_history_entry is a no-op for empty items" {
+    printf '# owner/repo — Timeline\n\n' > "$OUTPUT_FILE"
+    prepend_history_entry "$OUTPUT_FILE" "2026-04-23" ""
+    ! grep -q '## History' "$OUTPUT_FILE"
+}
+
+@test "migrate_legacy_sections_to_history wraps date sections newest-first and keeps the rest" {
+    printf '# owner/repo — Timeline\n\n<!-- activity-svg-embed -->\n![activity](x.svg)\n\n## 2026-04-20\n\n- [ISSUE #1] a (2026-04-20) [open]\n\n## 2026-04-21\n\n- [PR #2] b (2026-04-21) [open]\n\n<!-- contributors-begin -->\n- **alice**\n<!-- contributors-end -->\n' > "$OUTPUT_FILE"
+    migrate_legacy_sections_to_history "$OUTPUT_FILE"
+    ! grep -q '^## 2026-04-2[01]$' "$OUTPUT_FILE"
+    [ "$(grep -c '^## History$' "$OUTPUT_FILE")" -eq 1 ]
+    [ "$(grep -n '2026-04-21</summary>' "$OUTPUT_FILE" | cut -d: -f1)" -lt "$(grep -n '2026-04-20</summary>' "$OUTPUT_FILE" | cut -d: -f1)" ]
+    [ "$(head -1 "$OUTPUT_FILE")" = "# owner/repo — Timeline" ]
+    grep -q 'activity-svg-embed' "$OUTPUT_FILE"
+    grep -q 'ISSUE #1' "$OUTPUT_FILE"
+    grep -q 'PR #2' "$OUTPUT_FILE"
+    # contributors block stays outside the History details blocks, at the end
+    [ "$(tail -1 "$OUTPUT_FILE")" = "<!-- contributors-end -->" ]
+}
+
+@test "migrate_legacy_sections_to_history is a no-op once the Open section exists" {
+    printf '# owner/repo — Timeline\n\n<!-- open-section-start -->\n## Open\n\n<!-- open-section-end -->\n\n## 2026-04-20\n\n- x\n' > "$OUTPUT_FILE"
+    before=$(cat "$OUTPUT_FILE")
+    migrate_legacy_sections_to_history "$OUTPUT_FILE"
+    [ "$before" = "$(cat "$OUTPUT_FILE")" ]
+}
+
+# --- main() end-to-end with stubbed collectors (#86) ---
+
+# Stub collectors: STUB_OPEN_* answer `--state open`, STUB_WINDOW_* answer the
+# windowed query; STUB_FAIL_OPEN makes the open query fail. Activity counts
+# fail so the SVG step is skipped.
+setup_main_stubs() {
+    stub_dir="$(mktemp -d)"
+    work_dir="$(mktemp -d)"
+    for kind in ISSUES PRS; do
+        lower=$(echo "$kind" | tr '[:upper:]' '[:lower:]')
+        cat >"$stub_dir/collect-${lower}.sh" <<STUB
+#!/usr/bin/env bash
+if [[ "\${2:-}" == "--state" ]]; then
+    [[ -n "\${STUB_FAIL_OPEN:-}" ]] && exit 1
+    printf '%s\n' "\${STUB_OPEN_${kind}:-}"
+else
+    printf '%s\n' "\${STUB_WINDOW_${kind}:-}"
+fi
+STUB
+    done
+    printf '#!/usr/bin/env bash\nexit 1\n' >"$stub_dir/collect-activity-counts.sh"
+    chmod +x "$stub_dir"/*.sh
+    TIMELINE="$work_dir/timelines/acme/foo.md"
+    TODAY=$(date -u +%Y-%m-%d)
+    ISSUE1_OPEN='{"date":"2026-04-20","repo":"acme/foo","type":"issue","number":1,"title":"bug","state":"open","url":"u"}'
+    ISSUE1_CLOSED='{"date":"2026-04-20","repo":"acme/foo","type":"issue","number":1,"title":"bug","state":"closed","url":"u"}'
+    PR2_OPEN='{"date":"2026-04-21","repo":"acme/foo","type":"pr","number":2,"title":"fix","state":"open","url":"u"}'
+}
+
+run_main() {
+    (
+        cd "$work_dir"
+        SCRIPT_DIR="$stub_dir"
+        INPUT_REPOS="acme/foo" main >/dev/null
+    )
+}
+
+teardown_main_stubs() {
+    rm -rf "$stub_dir" "$work_dir"
+    unset STUB_OPEN_ISSUES STUB_OPEN_PRS STUB_WINDOW_ISSUES STUB_WINDOW_PRS STUB_FAIL_OPEN
+}
+
+@test "main: open-only first run writes ## Open and no ## History" {
+    setup_main_stubs
+    export STUB_OPEN_ISSUES="$ISSUE1_OPEN" STUB_OPEN_PRS="$PR2_OPEN" STUB_WINDOW_ISSUES="$ISSUE1_OPEN"
+    run_main
+    [[ "$(open_region "$TIMELINE")" == *"[ISSUE #1] bug (2026-04-20) [open]"* ]]
+    [[ "$(open_region "$TIMELINE")" == *"[PR #2] fix (2026-04-21) [open]"* ]]
+    ! grep -q '## History' "$TIMELINE"
+    teardown_main_stubs
+}
+
+@test "main: a closed item moves from ## Open into today's ## History block" {
+    setup_main_stubs
+    export STUB_OPEN_ISSUES="$ISSUE1_OPEN" STUB_WINDOW_ISSUES="$ISSUE1_OPEN"
+    run_main
+    export STUB_OPEN_ISSUES="" STUB_WINDOW_ISSUES="$ISSUE1_CLOSED"
+    run_main
+    [[ "$(open_region "$TIMELINE")" != *"ISSUE #1"* ]]
+    grep -q "^<details><summary>${TODAY}</summary>$" "$TIMELINE"
+    grep -q '^- \[ISSUE #1\] bug (2026-04-20) \[closed\]$' "$TIMELINE"
+    teardown_main_stubs
+}
+
+@test "main: rerunning with unchanged data leaves the file byte-identical" {
+    setup_main_stubs
+    export STUB_OPEN_PRS="$PR2_OPEN" STUB_WINDOW_ISSUES="$ISSUE1_CLOSED"
+    run_main
+    first=$(cat "$TIMELINE")
+    run_main
+    [ "$first" = "$(cat "$TIMELINE")" ]
+    [ "$(grep -c 'ISSUE #1' "$TIMELINE")" -eq 1 ]
+    teardown_main_stubs
+}
+
+@test "main: migrates a legacy file and adds a fresh ## Open" {
+    setup_main_stubs
+    mkdir -p "$work_dir/timelines/acme"
+    printf '# acme/foo — Timeline\n\n## 2026-04-20\n\n- [ISSUE #1] bug (2026-04-20) [open]\n\n' > "$TIMELINE"
+    export STUB_OPEN_PRS="$PR2_OPEN" STUB_WINDOW_ISSUES="$ISSUE1_CLOSED"
+    run_main
+    ! grep -q '^## 2026-04-20$' "$TIMELINE"
+    grep -q '<summary>2026-04-20</summary>' "$TIMELINE"
+    [[ "$(open_region "$TIMELINE")" == *"PR #2"* ]]
+    # the closure is recorded even though the legacy log listed the issue as open
+    grep -q '\[ISSUE #1\] bug (2026-04-20) \[closed\]' "$TIMELINE"
+    teardown_main_stubs
+}
+
+@test "main: keeps the previous ## Open when the open-items query fails" {
+    setup_main_stubs
+    export STUB_OPEN_PRS="$PR2_OPEN"
+    run_main
+    export STUB_FAIL_OPEN=1
+    run_main
+    [[ "$(open_region "$TIMELINE")" == *"PR #2"* ]]
+    teardown_main_stubs
 }

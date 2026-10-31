@@ -1,30 +1,43 @@
 #!/usr/bin/env bash
-# Generate cumulative timeline from collected issues, PRs, and commits.
+# Generate per-repo timelines from collected issues, PRs, and commits: a
+# rolling "## Open" section rewritten each run, plus a collapsed "## History"
+# of items closed per day (#86).
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/common.sh"
 
-# Dedup by ID token ([PR #N], [ISSUE #N], or [<short-sha>]) so that state/date
-# drift on an existing item does not cause a duplicate append.
+# Dedup by ID token ([PR #N], [ISSUE #N], or [<short-sha>]) so that date
+# drift on an existing item does not cause a duplicate History entry. A
+# [closed] line only counts as a duplicate once the file records that ID as
+# [closed] — an earlier [open] line (e.g. a migrated legacy log) must not
+# hide the closure.
 # Args: $1 = newline-separated items, $2 = existing output file
-# Prints: filtered items (only those whose ID is absent from the file)
+# Prints: filtered items (only those not yet recorded in the file)
 dedup_items() {
     local items="$1" file="$2"
     [[ ! -f "$file" ]] && {
         printf '%s' "$items"
         return
     }
-    local filtered="" line id
+    local filtered="" line id seen
     while IFS= read -r line; do
         [[ -z "$line" ]] && continue
         id=$(printf '%s' "$line" | grep -oE '\[(PR|ISSUE) #[0-9]+\]|\[[a-f0-9]{7,}\]' | head -1)
-        if [[ -n "$id" ]] && grep -qF "$id" "$file"; then
-            continue
+        if [[ -n "$id" ]]; then
+            seen=$(grep -F "$id" "$file" || true)
+            [[ "$line" == *"[closed]" ]] && seen=$(printf '%s' "$seen" | grep -F '[closed]' || true)
+            [[ -n "$seen" ]] && continue
         fi
         filtered+="$line"$'\n'
     done <<<"$items"
     printf '%s' "$filtered"
+}
+
+# Format collect-issues.sh / collect-prs.sh JSON objects as timeline lines.
+# Reads: JSON stream on stdin (may be empty). Prints: one "- [...]" line each.
+format_item_lines() {
+    jq -r '"- [\(if .type == "pr" then "PR" else "ISSUE" end) #\(.number)] \(.title) (\(.date)) [\(.state)]"'
 }
 
 # Merge two activity TSVs into a unioned, deduped TSV on stdout.
@@ -64,28 +77,132 @@ prepend_activity_embed() {
     mv "$tmp" "$file"
 }
 
-# Append items to the output file. If a '## RUN_DATE' header already exists,
-# append without a new header; otherwise create a new date section.
-# Args: $1 = output file, $2 = run date, $3 = items
-append_section() {
-    local file="$1" run_date="$2" items="$3"
-    if grep -qxF "## $run_date" "$file" 2>/dev/null; then
-        printf '%s' "$items" >>"$file"
-    else
-        {
-            echo "## $run_date"
-            echo ""
-            printf '%s' "$items"
-            echo ""
-        } >>"$file"
-    fi
+# Delete-and-rewrite the "## Open" section between marker comments, so it
+# always mirrors the live state=open query and never stacks across runs.
+# Rewritten in place when one well-formed marker pair exists; otherwise any
+# stray marker lines are dropped (their content kept — a malformed file must
+# never lose text) and a fresh section is inserted before "## History" or the
+# contributors block, or appended at the end.
+# Args: $1 = output file, $2 = newline-separated items ("" renders a placeholder)
+write_open_section() {
+    local file="$1" items="${2%$'\n'}"
+    [[ ! -f "$file" ]] && return 0
+    local tmp
+    tmp=$(mktemp)
+    OPEN_BLOCK=$(printf '<!-- open-section-start -->\n## Open\n\n%s\n<!-- open-section-end -->' \
+        "${items:-_No open issues or PRs._}") awk '
+        NR == FNR {
+            if ($0 == "<!-- open-section-start -->") { starts++; s = FNR }
+            if ($0 == "<!-- open-section-end -->") { ends++; e = FNR }
+            next
+        }
+        FNR == 1 { in_place = (starts == 1 && ends == 1 && s < e) }
+        $0 == "<!-- open-section-start -->" {
+            if (in_place) { print ENVIRON["OPEN_BLOCK"]; done = 1; skip = 1 }
+            next
+        }
+        $0 == "<!-- open-section-end -->" { skip = 0; next }
+        skip { next }
+        !done && ($0 == "## History" || $0 == "<!-- contributors-begin -->") {
+            print ENVIRON["OPEN_BLOCK"]; print ""; done = 1
+        }
+        { print; last = $0 }
+        END {
+            if (!done) {
+                if (last != "") print ""
+                print ENVIRON["OPEN_BLOCK"]
+            }
+        }
+    ' "$file" "$file" >"$tmp"
+    mv "$tmp" "$file"
+}
+
+# Record items under "## History" in a collapsed
+# <details><summary>RUN_DATE</summary> block, newest day first. A second
+# call on the same day merges into that day's block instead of adding one.
+# "## History" is created (before the contributors block, else at the end)
+# the first time anything closes, so an open-only file has no History.
+# Args: $1 = output file, $2 = run date, $3 = newline-separated items
+prepend_history_entry() {
+    local file="$1" run_date="$2" items="${3%$'\n'}"
+    [[ ! -f "$file" || -z "${items//[[:space:]]/}" ]] && return 0
+    local tmp
+    tmp=$(mktemp)
+    HISTORY_ITEMS="$items" awk -v d="$run_date" '
+        function block() {
+            print "<details><summary>" d "</summary>"; print ""
+            print ENVIRON["HISTORY_ITEMS"]; print ""; print "</details>"
+        }
+        NR == FNR {
+            if ($0 == "## History") has_h = 1
+            if ($0 == "<details><summary>" d "</summary>") has_day = 1
+            next
+        }
+        has_day && $0 == "<details><summary>" d "</summary>" { print; print ""; in_day = 1; next }
+        in_day && $0 == "</details>" { print ENVIRON["HISTORY_ITEMS"]; print ""; print; in_day = 0; next }
+        in_day && $0 == "" { next }
+        !has_day && has_h && $0 == "## History" { print; print ""; block(); next }
+        !has_h && !done && $0 == "<!-- contributors-begin -->" {
+            print "## History"; print ""; block(); print ""; done = 1
+        }
+        { print; last = $0 }
+        END {
+            if (!has_h && !done) {
+                if (last != "") print ""
+                print "## History"; print ""; block()
+            }
+        }
+    ' "$file" "$file" >"$tmp"
+    mv "$tmp" "$file"
+}
+
+# One-time, idempotent conversion of the legacy append-only layout: every
+# "## YYYY-MM-DD" section becomes a collapsed History block (newest first,
+# matching prepend_history_entry). No-op once the Open markers exist. Content
+# before the first date section (H1, activity embed) and the contributors
+# block are kept as-is.
+# Args: $1 = output file
+migrate_legacy_sections_to_history() {
+    local file="$1"
+    [[ ! -f "$file" ]] && return 0
+    grep -qxF '<!-- open-section-start -->' "$file" && return 0
+    grep -qE '^## [0-9]{4}-[0-9]{2}-[0-9]{2}$' "$file" || return 0
+    local tmp
+    tmp=$(mktemp)
+    awk '
+        /^## [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/ {
+            n++; day[n] = substr($0, 4); lines[n] = 0; in_s = 1; next
+        }
+        $0 == "<!-- contributors-begin -->" { in_s = 0 }
+        in_s {
+            if ($0 == "" && lines[n] == 0) next
+            body[n, ++lines[n]] = $0; next
+        }
+        n == 0 { pre[++npre] = $0; next }
+        { post[++npost] = $0 }
+        END {
+            for (i = 1; i <= npre; i++) print pre[i]
+            if (npre > 0 && pre[npre] != "") print ""
+            print "## History"; print ""
+            for (i = n; i >= 1; i--) {
+                last = lines[i]
+                while (last > 0 && body[i, last] == "") last--
+                print "<details><summary>" day[i] "</summary>"; print ""
+                for (j = 1; j <= last; j++) print body[i, j]
+                print ""; print "</details>"
+                if (i > 1 || npost > 0) print ""
+            }
+            for (i = 1; i <= npost; i++) print post[i]
+        }
+    ' "$file" >"$tmp"
+    mv "$tmp" "$file"
 }
 
 # Delete-and-rewrite the contributors section of a timeline MD file between
 # marker comments, so contributor data is REPLACED every run and never
-# appended (this repo's other sections are append-only; contributor data
+# appended (unlike ## History, which only grows; contributor data
 # must be re-derived fresh each run — see CONTRIBUTING.md's right-to-erasure
-# section). Passing an empty content string removes the block entirely —
+# section; the Open section is likewise rewritten, History only grows). Passing an empty content string removes the block entirely —
 # used when INCLUDE_CONTRIBUTORS flips off or a repo opts out via
 # .timeline-no-contributors, so stale contributor data never lingers in the
 # working tree after the flag is off.
@@ -216,24 +333,30 @@ main() {
 
         echo "Collecting from $repo..."
 
-        # Collect new activity
-        local NEW_ITEMS=""
+        if [[ ! -f "$OUTPUT_FILE" ]]; then
+            printf '# %s — Timeline\n\n' "$repo" >"$OUTPUT_FILE"
+        fi
+        migrate_legacy_sections_to_history "$OUTPUT_FILE"
 
-        # Issues
-        local ISSUES
+        # ## Open: live, unbounded state=open query, rewritten every run and
+        # never derived from the file. On API failure keep the previous
+        # section rather than blanking it.
+        local OPEN_ISSUES OPEN_PRS
+        if OPEN_ISSUES=$("${SCRIPT_DIR}/collect-issues.sh" "$repo" --state open 2>/dev/null) &&
+            OPEN_PRS=$("${SCRIPT_DIR}/collect-prs.sh" "$repo" --state open 2>/dev/null); then
+            write_open_section "$OUTPUT_FILE" "$(printf '%s\n%s\n' "$OPEN_ISSUES" "$OPEN_PRS" | format_item_lines)"
+        else
+            echo "WARN: failed to collect open items for $repo (keeping previous ## Open)"
+        fi
+
+        # ## History: items closed in the lookback window (+ optional commits),
+        # bucketed under today's date.
+        local HISTORY_ITEMS=""
+        local ISSUES PRS
         ISSUES=$("${SCRIPT_DIR}/collect-issues.sh" "$repo" "$SINCE" 2>/dev/null || true)
-        if [[ -n "$ISSUES" ]]; then
-            NEW_ITEMS+=$(echo "$ISSUES" | jq -r '"- [ISSUE #\(.number)] \(.title) (\(.date)) [\(.state)]"')
-            NEW_ITEMS+=$'\n'
-        fi
-
-        # PRs
-        local PRS
         PRS=$("${SCRIPT_DIR}/collect-prs.sh" "$repo" "$SINCE" 2>/dev/null || true)
-        if [[ -n "$PRS" ]]; then
-            NEW_ITEMS+=$(echo "$PRS" | jq -r '"- [PR #\(.number)] \(.title) (\(.date)) [\(.state)]"')
-            NEW_ITEMS+=$'\n'
-        fi
+        HISTORY_ITEMS+=$(printf '%s\n%s\n' "$ISSUES" "$PRS" | jq -c 'select(.state == "closed")' | format_item_lines)
+        HISTORY_ITEMS+=$'\n'
 
         # Git log (optional)
         if [[ "${INPUT_INCLUDE_GIT_LOG:-false}" == "true" ]]; then
@@ -241,28 +364,17 @@ main() {
             COMMITS=$(gh api "repos/$repo/commits?since=${SINCE}T00:00:00Z&per_page=20" \
                 --jq '.[] | {date: .commit.author.date[:10], sha: .sha[:7], message: (.commit.message | split("\n")[0])}' 2>/dev/null || true)
             if [[ -n "$COMMITS" ]]; then
-                NEW_ITEMS+=$(echo "$COMMITS" | jq -r '"- [\(.sha)] \(.message) (\(.date))"')
-                NEW_ITEMS+=$'\n'
+                HISTORY_ITEMS+=$(echo "$COMMITS" | jq -r '"- [\(.sha)] \(.message) (\(.date))"')
+                HISTORY_ITEMS+=$'\n'
             fi
         fi
 
-        # Update the timeline MD if there's anything new (dedup-aware).
-        if [[ -n "${NEW_ITEMS// /}" ]]; then
-            NEW_ITEMS=$(dedup_items "$NEW_ITEMS" "$OUTPUT_FILE")
-            if [[ -n "${NEW_ITEMS// /}" ]]; then
-                if [[ ! -f "$OUTPUT_FILE" ]]; then
-                    {
-                        echo "# $repo — Timeline"
-                        echo ""
-                    } >"$OUTPUT_FILE"
-                fi
-                append_section "$OUTPUT_FILE" "$RUN_DATE" "$NEW_ITEMS"
-                echo "Timeline updated: $OUTPUT_FILE"
-            else
-                echo "No new unique items for $repo"
-            fi
+        HISTORY_ITEMS=$(dedup_items "$HISTORY_ITEMS" "$OUTPUT_FILE")
+        if [[ -n "${HISTORY_ITEMS//[[:space:]]/}" ]]; then
+            prepend_history_entry "$OUTPUT_FILE" "$RUN_DATE" "$HISTORY_ITEMS"
+            echo "History updated: $OUTPUT_FILE"
         else
-            echo "No new activity for $repo"
+            echo "No new closed items for $repo"
         fi
 
         # Always refresh the activity SVG via the cumulative TSV history.
@@ -289,7 +401,7 @@ main() {
         rm -f "$NEW_TSV"
 
         # Contributor intelligence (opt-in, gated by assert_contributor_gate
-        # above). Always dispatched — independent of NEW_ITEMS — so a flag
+        # above). Always dispatched — independent of HISTORY_ITEMS — so a flag
         # flip or .timeline-no-contributors opt-out removes stale data even
         # when a repo has no new issue/PR activity this run.
         local CONTRIB_JSON_FILE="assets/${owner}/${name}-contributors.json"
