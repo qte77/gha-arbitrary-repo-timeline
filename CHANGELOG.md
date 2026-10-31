@@ -39,8 +39,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `feature_request.yml` (problem/scope plus a required privacy-review
   dropdown referencing #110), and `config.yml` with
   `blank_issues_enabled: true`
+- Cross-repo overview: `assets/overview.svg` heatmap (new
+  `scripts/render-overview-svg.sh`) and an auto-generated
+  `timelines/README.md` index with open PR/issue counts, last activity
+  date and links for each repo (#87)
+- Opt-in `INCLUDE_CONTRIBUTOR_TIMING` input: suggestive per-contributor
+  timing patterns (modal UTC hour, weekend/off-hours share, active days,
+  longest streak) for contributors with ≥ 5 window events, via new
+  `scripts/analyze-contributor-timing.sh` (#108)
 
 ### Changed
+
+- Timeline MD now has a rolling `## Open` section, rewritten every run
+  from the live open-items query, and a collapsed `## History` of
+  per-day `<details>` blocks (newest first) for closed items; existing
+  date-section files are migrated automatically (#86)
 
 - `Lint MD and Links` workflow pin bumped `5dfff1f` → `55ea1a99`; caller
   permissions add `issues: write` to satisfy the reusable workflow's
