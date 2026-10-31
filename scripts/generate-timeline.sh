@@ -238,9 +238,16 @@ contributors_md_fragment() {
     echo "$json" | jq -r '
         "### Contributors (last \(.window_days)d)",
         "",
-        (.contributors[] | "- **\(.login)** — \(.window_events) events" + (if .tier == "enriched" then " (enriched)" else "" end)),
+        (.contributors[] | "- **\(.login)** — \(.window_events) events" + (
+            if .timing then
+                " (enriched; peak ~\(if .timing.modal_utc_hour < 10 then "0" else "" end)\(.timing.modal_utc_hour):00 UTC, \(.timing.weekend_pct)% weekend, \(.timing.off_hours_pct)% off-hours)"
+            elif .tier == "enriched" then " (enriched)"
+            else "" end)),
         (if .contribution_concentration then
             "\n_Top contributor share: \((.contribution_concentration.top_contributor_share * 100) | floor)%, top 3: \((.contribution_concentration.top_3_share * 100) | floor)%_"
+         else empty end),
+        (if any(.contributors[]; .timing) then
+            "\n_Timing is suggestive, not a timezone or work-pattern claim: UTC, from public activity in the window; off-hours = outside 09:00-17:00 UTC._"
          else empty end)
     '
 }
