@@ -37,11 +37,19 @@ SCRAPED_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 # Windowed per-login event tally (PR + issue + commit events). Per-login
 # rows come exclusively from here — never from the lifetime /contributors
 # list below, which feeds only the aggregate concentration bucket.
+EVENTS=$("${SCRIPT_DIR}/collect-contributor-events.sh" "$REPO" "$SINCE" 2>/dev/null)
 TALLY_JSON=$(
-    "${SCRIPT_DIR}/collect-contributor-events.sh" "$REPO" "$SINCE" 2>/dev/null |
+    printf '%s\n' "$EVENTS" |
         jq -s 'group_by(.login) | map({login: .[0].login, window_events: length}) | sort_by(-.window_events)'
 )
 [[ -z "$TALLY_JSON" ]] && TALLY_JSON='[]'
+
+# Temporal patterns (#108), opt-in, computed from the same window events
+# (no extra API calls) for the same >= CONTRIBUTOR_MIN_EVENTS cohort.
+TIMING_JSON='{}'
+if [[ "${INPUT_INCLUDE_CONTRIBUTOR_TIMING:-false}" == "true" ]]; then
+    TIMING_JSON=$(printf '%s\n' "$EVENTS" | "${SCRIPT_DIR}/analyze-contributor-timing.sh" "$CONTRIBUTOR_MIN_EVENTS")
+fi
 
 TOTAL_WINDOW_EVENTS=$(echo "$TALLY_JSON" | jq '[.[].window_events] | add // 0')
 
@@ -97,6 +105,10 @@ while IFS= read -r row; do
             entry=$(echo "$entry" | jq --argjson p "$PROFILE" '. + {profile: $p}')
             SOURCE_URLS=$(echo "$SOURCE_URLS" | jq --arg u "$USERS_URL" '. + [$u]')
         fi
+    fi
+    if [[ "$tier" == "enriched" ]]; then
+        entry=$(echo "$entry" | jq --argjson t "$TIMING_JSON" --arg l "$login" \
+            'if $t[$l] then . + {timing: $t[$l]} else . end')
     fi
 
     CONTRIBUTORS_JSON=$(echo "$CONTRIBUTORS_JSON" | jq --argjson e "$entry" '. + [$e]')

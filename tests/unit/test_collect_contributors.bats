@@ -200,3 +200,31 @@ teardown() {
     run "$SCRIPT"
     [ "$status" -ne 0 ]
 }
+
+# --- INCLUDE_CONTRIBUTOR_TIMING (#108) ---
+# carol (9 events, enriched): PRs 04-07 09/10/11h, issues 04-04 11h (Sat),
+# 04-05 12h (Sun), 04-06 13h, commits 04-08 10/11/12h -> modal hour 11,
+# weekend 2/9=22%, off-hours 0%, 5 active days, streak 5.
+
+@test "TIMING=true attaches a timing block to enriched contributors only" {
+    INPUT_INCLUDE_CONTRIBUTOR_TIMING=true run "$SCRIPT" qte77/example 2026-04-01 7
+    [ "$status" -eq 0 ]
+    [ "$(echo "$output" | jq -r '.contributors[] | select(.login=="bob") | has("timing")')" = "false" ]
+    [ "$(echo "$output" | jq -r '.contributors[] | select(.login=="alice") | has("timing")')" = "true" ]
+    [ "$(echo "$output" | jq -c '.contributors[] | select(.login=="carol") | .timing | del(._note)')" = '{"first_activity":"2026-04-04","last_activity":"2026-04-08","n_active_days":5,"modal_utc_hour":11,"weekend_pct":22,"off_hours_pct":0,"longest_streak_days":5}' ]
+    [[ "$(echo "$output" | jq -r '.contributors[] | select(.login=="carol") | .timing._note')" == *suggestive* ]]
+}
+
+@test "TIMING unset (default) adds no timing block" {
+    run "$SCRIPT" qte77/example 2026-04-01 7
+    [ "$status" -eq 0 ]
+    [ "$(echo "$output" | jq '[.contributors[] | has("timing")] | any')" = "false" ]
+}
+
+@test "TIMING=true reuses the window events (no extra API calls)" {
+    INPUT_INCLUDE_CONTRIBUTOR_TIMING=true run "$SCRIPT" qte77/example 2026-04-01 7
+    with_timing=$(wc -l < "$MOCK_LOG")
+    : > "$MOCK_LOG"
+    run "$SCRIPT" qte77/example 2026-04-01 7
+    [ "$with_timing" -eq "$(wc -l < "$MOCK_LOG")" ]
+}
