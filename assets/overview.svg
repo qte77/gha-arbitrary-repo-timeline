@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 760 87" width="760" height="87">
+  <style>
+    .page-bg { fill: #ffffff; }
+    .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 600; fill: #1f2328; }
+    .repo-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 10px; fill: #1f2328; }
+    .axis-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9px; fill: #656d76; }
+    .lv0 { fill: #ebedf0; }
+    .lv1 { fill: #9be9a8; }
+    .lv2 { fill: #40c463; }
+    .lv3 { fill: #30a14e; }
+    .lv4 { fill: #216e39; }
+    a:hover .repo-label { text-decoration: underline; }
+    @media (prefers-color-scheme: dark) {
+      .page-bg { fill: #0d1117; }
+      .title { fill: #e6edf3; }
+      .repo-label { fill: #e6edf3; }
+      .axis-label { fill: #8b949e; }
+      .lv0 { fill: #161b22; }
+      .lv1 { fill: #0e4429; }
+      .lv2 { fill: #006d32; }
+      .lv3 { fill: #26a641; }
+      .lv4 { fill: #39d353; }
+    }
+  </style>
+  <rect class="page-bg" width="760" height="87" rx="6"/>
+  <text class="title" x="230" y="24">Activity across repos (last 30 days)</text>
+  <a xlink:href="https://github.com/qte77/gha-arbitrary-repo-timeline"><text class="repo-label" x="222" y="52" text-anchor="end">qte77/gha-arbitrary-repo-timeline</text></a>
+  <rect class="cell lv0" x="230" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-04: 0</title></rect>
+  <rect class="cell lv0" x="247" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-05: 0</title></rect>
+  <rect class="cell lv0" x="264" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-06: 0</title></rect>
+  <rect class="cell lv0" x="281" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-07: 0</title></rect>
+  <rect class="cell lv0" x="298" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-08: 0</title></rect>
+  <rect class="cell lv0" x="315" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-09: 0</title></rect>
+  <rect class="cell lv0" x="332" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-10: 0</title></rect>
+  <rect class="cell lv0" x="349" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-11: 0</title></rect>
+  <rect class="cell lv0" x="366" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-12: 0</title></rect>
+  <rect class="cell lv0" x="383" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-13: 0</title></rect>
+  <rect class="cell lv0" x="400" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-14: 0</title></rect>
+  <rect class="cell lv0" x="417" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-15: 0</title></rect>
+  <rect class="cell lv0" x="434" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-16: 0</title></rect>
+  <rect class="cell lv0" x="451" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-17: 0</title></rect>
+  <rect class="cell lv0" x="468" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-18: 0</title></rect>
+  <rect class="cell lv0" x="485" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-19: 0</title></rect>
+  <rect class="cell lv0" x="502" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-20: 0</title></rect>
+  <rect class="cell lv0" x="519" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-21: 0</title></rect>
+  <rect class="cell lv0" x="536" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-22: 0</title></rect>
+  <rect class="cell lv0" x="553" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-23: 0</title></rect>
+  <rect class="cell lv0" x="570" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-24: 0</title></rect>
+  <rect class="cell lv0" x="587" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-25: 0</title></rect>
+  <rect class="cell lv0" x="604" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-26: 0</title></rect>
+  <rect class="cell lv1" x="621" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-27: 1</title></rect>
+  <rect class="cell lv4" x="638" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-28: 39</title></rect>
+  <rect class="cell lv1" x="655" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-29: 6</title></rect>
+  <rect class="cell lv1" x="672" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-30: 1</title></rect>
+  <rect class="cell lv1" x="689" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-10-31: 5</title></rect>
+  <rect class="cell lv1" x="706" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-11-01: 1</title></rect>
+  <rect class="cell lv2" x="723" y="40" width="15" height="15" rx="2"><title>qte77/gha-arbitrary-repo-timeline 2026-11-02: 10</title></rect>
+  <text class="axis-label" x="230" y="75">2026-10-04</text>
+  <text class="axis-label" x="750" y="75" text-anchor="end">2026-11-02</text>
+</svg>
