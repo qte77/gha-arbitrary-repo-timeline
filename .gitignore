@@ -41,3 +41,6 @@
 # OS junk
 .DS_Store
 Thumbs.db
+
+# Personal Claude Code settings, never shared
+.claude/settings.local.json
