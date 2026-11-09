@@ -140,10 +140,10 @@
     grep -q 'git add timelines/' .github/workflows/update-timeline.yml
 }
 
-@test "update-timeline workflow's API-built commit is attributed to github-actions[bot] (avoids require_extra_approval_for_unattributed_changes)" {
-    grep -q '41898282+github-actions\[bot\]@users.noreply.github.com' .github/workflows/update-timeline.yml
-    grep -q 'author: {name: \$name, email: \$email}' .github/workflows/update-timeline.yml
-    grep -q 'committer: {name: \$name, email: \$email}' .github/workflows/update-timeline.yml
+@test "update-timeline workflow's API-built commit sets no author or committer (so GitHub signs it)" {
+    grep -q 'gh api "repos/$REPO/git/commits"' .github/workflows/update-timeline.yml
+    ! grep -q 'author:' .github/workflows/update-timeline.yml
+    ! grep -q 'committer:' .github/workflows/update-timeline.yml
 }
 
 @test "collect-issues.sh fetches all states" {
@@ -312,11 +312,12 @@
     grep -qE '^\s+groups:' .github/dependabot.yml
 }
 
-@test "codeql workflow pins codeql-action to the latest release, not the stale bumped one" {
-    ! grep -q 'codeql-action/init@v4.37.4' .github/workflows/codeql.yaml
-    ! grep -q 'codeql-action/analyze@v4.37.4' .github/workflows/codeql.yaml
-    grep -qE 'codeql-action/init@[0-9a-f]{40}\s+# v4\.38\.1' .github/workflows/codeql.yaml
-    grep -qE 'codeql-action/analyze@[0-9a-f]{40}\s+# v4\.38\.1' .github/workflows/codeql.yaml
+@test "codeql workflow pins codeql-action init and analyze to the same SHA-pinned release" {
+    grep -qE 'codeql-action/init@[0-9a-f]{40}\s+# v[0-9]+\.[0-9]+\.[0-9]+' .github/workflows/codeql.yaml
+    grep -qE 'codeql-action/analyze@[0-9a-f]{40}\s+# v[0-9]+\.[0-9]+\.[0-9]+' .github/workflows/codeql.yaml
+    init=$(grep -oE 'codeql-action/init@[0-9a-f]{40}' .github/workflows/codeql.yaml | cut -d@ -f2)
+    analyze=$(grep -oE 'codeql-action/analyze@[0-9a-f]{40}' .github/workflows/codeql.yaml | cut -d@ -f2)
+    [ "$init" = "$analyze" ]
 }
 
 # --- Repo requires sha_pinning_required=true: every `uses:` ref must be a

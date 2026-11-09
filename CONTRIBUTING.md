@@ -105,7 +105,11 @@ has changed before):
 - `pull_request` — changes must go through a PR.
   `required_approving_review_count` is currently `0` (no human review is
   required — only the PR mechanism itself), and
-  `require_extra_approval_for_unattributed_changes` is `true`.
+  `require_extra_approval_for_unattributed_changes` is `true` (GitHub scopes it to
+  Copilot-authored changes, and it has no effect while 0 approvals are required, see
+  [available rules for rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets)).
+  The update-timeline workflow therefore sets no author or committer on its API commit,
+  so GitHub signs it for `required_signatures`.
   `allowed_merge_methods` is `["merge", "squash", "rebase"]` — the ruleset
   does not itself force squash; squash-over-rebase is project convention
   (next section), not an enforced rule.
