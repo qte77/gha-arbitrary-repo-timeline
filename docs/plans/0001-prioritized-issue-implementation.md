@@ -20,7 +20,10 @@ completed successfully —
 All Wave A/T0 branches (remote + local) and worktrees have been deleted. `main` is at `567657c`.
 
 **Wave B is merged (2026-11-10):** W2-1 (#86) → #293, W2-2 (#87) → #294, W4-1 (#108) → #295,
-changelog → #296. T0-H fixes the stuck snapshot PRs and moves the timeline to a weekly schedule.
+changelog → #296. Same day: T0-H (#312) fixed the stuck snapshot PRs and moved the timeline to a
+weekly schedule; T0-I set 21 tracked repos; T0-K/T0-L (#315) added the leftover-branch sweep and a
+14-day lookback, verified by run 42812693281 (snapshot #316 auto-merged, leftovers swept). The
+scheduled run's settings are documented in `docs/pipeline.md` § "This repo's scheduled run".
 
 **What's next, in order:** nothing agent-runnable is open. Owner-deferred (2026-11-10): T0-J
 (stale timeline files), #83 close, W2-3 (#238 Pages, also needs Pages
@@ -628,8 +631,8 @@ suggestion. Do not build speculatively ahead of Tier 1 landing.
 | W2-3 | [#238](https://github.com/qte77/gha-arbitrary-repo-timeline/issues/238) — publish cross-repo overview via GitHub Pages (workflow-based deploy, per user request, modeled on `qte77/agent-readiness-kit`'s `pages.yml` approach) | owner | deferred | W2-2 merged ✅ | **deferred by owner 2026-11-10** — unblocked since #294; also needs Pages enabled (`build_type: workflow`). Done when the overview is served from Pages |
 | W4-1 | #108 — contributor timing analysis | done | B | W3-1 merged ✅ | **merged: #295** (closed #108); changelog in #296 |
 | T0-H | Snapshot PRs stuck open (`#306`–`#310`): immediate merge hit HTTP 405 before `CodeFactor` reported; move schedule to weekly | done | — | — | **merged: #312** — auto-merge + close superseded `auto-timeline-*` PRs + Monday cron; #310 merged, #306–#308 closed by hand |
-| T0-K | Leftover snapshot branches: #313/#314 auto-merged but `delete_branch_on_merge` left `auto-timeline-20261110-114249` / `-115047` (seen in CodeFactor's branch list, confirmed via the branches API) | done | — | — | **this PR** — each run deletes `auto-timeline-*` branches with no open PR, before the "No changes" exit. CodeFactor also lists `auto-timeline-20260612-073852` ("last activity failed"); that branch no longer exists on GitHub, so it is a stale CodeFactor entry. Done when the next run leaves no merged `auto-timeline-*` branch |
-| T0-L | Weekly runs with the default 7-day lookback lose a week for good if one run fails | done | — | — | **this PR** — workflow passes `DAYS: '14'`; overlap is safe (History dedups by item ID, activity TSV overrides per day) |
+| T0-K | Leftover snapshot branches: #313/#314 auto-merged but `delete_branch_on_merge` left `auto-timeline-20261110-114249` / `-115047` (seen in CodeFactor's branch list, confirmed via the branches API) | done | — | — | **merged: #315**, verified by run 42812693281 (both leftovers deleted). Each run deletes `auto-timeline-*` branches with no open PR, before the "No changes" exit; the latest merged snapshot's branch stays until the next run (deleted by hand once, for #316). CodeFactor lists `auto-timeline-20260612-073852`, first as "last activity failed", now as "Disabled"; that branch no longer exists on GitHub, so it is a stale CodeFactor entry with nothing to fix in this repo |
+| T0-L | Weekly runs with the default 7-day lookback lose a week for good if one run fails | done | — | — | **merged: #315** — workflow passes `DAYS: '14'`; overlap is safe (History dedups by item ID, activity TSV overrides per day) |
 | T0-I | Track more public qte77 repos in the scheduled timeline | done | — | — | **set 2026-11-10** (owner-approved): `vars.TIMELINE_REPOS` = this repo + 11 `gha-*` actions + 9 main projects (21 total); verified by dispatched run 42810588388 → snapshot PR #314 auto-merged, index lists all 21 |
 | T0-J | Stale per-repo files under `timelines/qte77/` for repos no longer tracked (`.github`, `coding-agent-eval`, `gha-biorxiv-stats-action`, `ai-agents-research`, `agentic-codebase-to-scientific-report`, `qte77`) plus an empty-name `qte77/.md` from 2026-06-14 | owner | deferred | — | not in the index, nothing regenerates them; done when the owner decides keep vs delete (and, if delete, a PR removes them) |
 | — | #83 — close (decision recorded; both consumers shipped in #232 and #294) | owner | deferred | — | **deferred by owner 2026-11-10** |
