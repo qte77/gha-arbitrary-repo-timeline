@@ -29,6 +29,7 @@
 - [PR #306] chore: update timelines (2026-11-07) [closed]
 - [PR #296] docs(changelog): add entries for #86, #87 and #108 (2026-10-29) [closed]
 - [PR #295] feat: opt-in contributor timing analysis (INCLUDE_CONTRIBUTOR_TIMING) (2026-10-29) [closed]
+- [PR #313] chore: update timelines (2026-11-10) [closed]
 
 </details>
 

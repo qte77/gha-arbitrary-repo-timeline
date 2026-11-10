@@ -26,33 +26,26 @@
   <a xlink:href="https://github.com/qte77/agentic-job-offer-to-application-kit">
     <line class="axis" x1="30" y1="180" x2="750" y2="180"/>
     <g class="day" transform="translate(30,0)">
-      <rect class="bar-pr-merged" x="0" y="174.2" width="178" height="5.8"><title>2026-06-11 pr-merged: 3</title></rect>
-      <rect class="bar-pr-opened" x="0" y="168.5" width="178" height="5.8"><title>2026-06-11 pr-opened: 3</title></rect>
-      <rect class="bar-issue-opened" x="0" y="160.8" width="178" height="7.7"><title>2026-06-11 issue-opened: 4</title></rect>
-      <title>2026-06-11 total: 10</title>
+      <rect class="bar-pr-opened" x="0" y="110.0" width="178" height="70.0"><title>2026-11-05 pr-opened: 2</title></rect>
+      <title>2026-11-05 total: 2</title>
     </g>
     <g class="day" transform="translate(210,0)">
-      <rect class="bar-issue-opened" x="0" y="170.4" width="178" height="9.6"><title>2026-06-12 issue-opened: 5</title></rect>
-      <title>2026-06-12 total: 5</title>
+      <rect class="bar-pr-merged" x="0" y="110.0" width="178" height="70.0"><title>2026-11-07 pr-merged: 2</title></rect>
+      <title>2026-11-07 total: 2</title>
     </g>
     <g class="day" transform="translate(390,0)">
-      <rect class="bar-pr-merged" x="0" y="147.4" width="178" height="32.6"><title>2026-06-13 pr-merged: 17</title></rect>
-      <rect class="bar-pr-opened" x="0" y="112.9" width="178" height="34.5"><title>2026-06-13 pr-opened: 18</title></rect>
-      <rect class="bar-issue-resolved" x="0" y="109.0" width="178" height="3.8"><title>2026-06-13 issue-resolved: 2</title></rect>
-      <rect class="bar-issue-opened" x="0" y="95.6" width="178" height="13.4"><title>2026-06-13 issue-opened: 7</title></rect>
-      <title>2026-06-13 total: 44</title>
+      <rect class="bar-pr-merged" x="0" y="145.0" width="178" height="35.0"><title>2026-11-09 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="110.0" width="178" height="35.0"><title>2026-11-09 pr-opened: 1</title></rect>
+      <title>2026-11-09 total: 2</title>
     </g>
     <g class="day" transform="translate(570,0)">
-      <rect class="bar-pr-closed" x="0" y="178.1" width="178" height="1.9"><title>2026-06-14 pr-closed: 1</title></rect>
-      <rect class="bar-pr-merged" x="0" y="132.1" width="178" height="46.0"><title>2026-06-14 pr-merged: 24</title></rect>
-      <rect class="bar-pr-opened" x="0" y="86.0" width="178" height="46.0"><title>2026-06-14 pr-opened: 24</title></rect>
-      <rect class="bar-issue-resolved" x="0" y="57.3" width="178" height="28.8"><title>2026-06-14 issue-resolved: 15</title></rect>
-      <rect class="bar-issue-opened" x="0" y="40.0" width="178" height="17.3"><title>2026-06-14 issue-opened: 9</title></rect>
-      <title>2026-06-14 total: 73</title>
+      <rect class="bar-pr-merged" x="0" y="110.0" width="178" height="70.0"><title>2026-11-10 pr-merged: 2</title></rect>
+      <rect class="bar-pr-opened" x="0" y="40.0" width="178" height="70.0"><title>2026-11-10 pr-opened: 2</title></rect>
+      <title>2026-11-10 total: 4</title>
     </g>
   </a>
-  <text class="axis-label" x="30" y="194">2026-06-11</text>
-  <text class="axis-label" x="750" y="194" text-anchor="end">2026-06-14</text>
+  <text class="axis-label" x="30" y="194">2026-11-05</text>
+  <text class="axis-label" x="750" y="194" text-anchor="end">2026-11-10</text>
     <rect class="bar-pr-opened" x="30" y="224" width="8" height="8"/>
     <text class="legend-label" x="42" y="232">PR opened</text>
     <rect class="bar-pr-merged" x="150" y="224" width="8" height="8"/>
