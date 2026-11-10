@@ -12,9 +12,10 @@ Generate a timeline from issues, PRs, and git log across arbitrary repos.
 
 ## Why
 
-<!-- UNVERIFIED: general-knowledge claim about GitHub Insights/Pulse scope, confirm before merge -->
-GitHub's built-in Insights and Pulse views are scoped to a single repository, so keeping tabs
-on activity across several repos means opening each one separately. This action generates a
+GitHub's [Pulse](https://docs.github.com/en/repositories/viewing-activity-and-data-for-your-repository/viewing-a-summary-of-repository-activity)
+and [repository graphs](https://docs.github.com/en/repositories/viewing-activity-and-data-for-your-repository/about-repository-graphs)
+show activity for one repository at a time, so keeping tabs on several repos means checking
+each one, or assembling cross-repo searches or Projects by hand. This action generates a
 cross-repo activity timeline — as embeddable Markdown and an auto-theming SVG chart — that you
 can drop into any README or tracking repo, with no hosted dashboard to run or maintain.
 
