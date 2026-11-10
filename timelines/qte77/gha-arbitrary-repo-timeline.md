@@ -8,13 +8,8 @@
 
 - [ISSUE #238] feat: publish cross-repo overview via GitHub Pages (2026-09-18) [open]
 - [ISSUE #109] feat: account-level meta tracker — repos timeline, theme inference, external contributions (2026-05-09) [open]
-- [ISSUE #108] feat: temporal analysis of contributions (when contributors are active) (2026-05-09) [open]
 - [ISSUE #83] consider replacing hand-rolled awk SVG renderer with mermaid or vega-lite (2026-05-08) [open]
-- [PR #308] chore: update timelines (2026-11-09) [open]
-- [PR #307] chore: update timelines (2026-11-08) [open]
-- [PR #306] chore: update timelines (2026-11-07) [open]
-- [PR #296] docs(changelog): add entries for #86, #87 and #108 (2026-10-29) [open]
-- [PR #295] feat: opt-in contributor timing analysis (INCLUDE_CONTRIBUTOR_TIMING) (2026-10-29) [open]
+- [PR #311] chore(deps): Bump the github-actions group with 2 updates (2026-11-10) [open]
 <!-- open-section-end -->
 
 ## History
@@ -26,6 +21,14 @@
 - [PR #304] chore: update timelines (2026-11-05) [closed]
 - [PR #303] chore: update timelines (2026-11-04) [closed]
 - [PR #302] chore: update timelines (2026-11-03) [closed]
+- [ISSUE #108] feat: temporal analysis of contributions (when contributors are active) (2026-05-09) [closed]
+- [PR #312] fix(ci): weekly timeline schedule; auto-merge snapshot PRs and close superseded ones (2026-11-10) [closed]
+- [PR #310] chore: update timelines (2026-11-10) [closed]
+- [PR #308] chore: update timelines (2026-11-09) [closed]
+- [PR #307] chore: update timelines (2026-11-08) [closed]
+- [PR #306] chore: update timelines (2026-11-07) [closed]
+- [PR #296] docs(changelog): add entries for #86, #87 and #108 (2026-10-29) [closed]
+- [PR #295] feat: opt-in contributor timing analysis (INCLUDE_CONTRIBUTOR_TIMING) (2026-10-29) [closed]
 
 </details>
 
