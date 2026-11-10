@@ -25,6 +25,8 @@ jobs:
         with:
           REPOS: ${{ github.event.inputs.repos || vars.TIMELINE_REPOS || 'qte77/gha-arbitrary-repo-timeline' }}
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Weekly schedule, two-week lookback: one missed run backfills itself.
+          DAYS: '14'
       - name: Commit if changed
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

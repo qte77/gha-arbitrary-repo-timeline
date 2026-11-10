@@ -149,6 +149,9 @@
 @test "update-timeline workflow runs weekly, not daily" {
     grep -qE "cron: '[0-9]+ [0-9]+ \* \* [0-6]'" .github/workflows/update-timeline.yml
     ! grep -q "cron: '0 6 \* \* \*'" .github/workflows/update-timeline.yml
+    # Reason: a 14-day lookback on a weekly run backfills one missed run; dedup
+    # by item ID and the per-day TSV override keep the overlap from duplicating.
+    grep -q "DAYS: '14'" .github/workflows/update-timeline.yml
 }
 
 # Reason: an immediate merge right after PR creation hits the ruleset's required
