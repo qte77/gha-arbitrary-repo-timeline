@@ -15,7 +15,7 @@
 - [PR #265] docs: update SBOM (2026-11-10) [open]
 - [PR #263] docs: update SBOM (2026-11-09) [open]
 - [PR #261] docs: update SBOM (2026-11-09) [open]
-- [PR #259] chore(deps): Bump the actions-version-updates group with 3 updates (2026-11-09) [open]
+- [PR #259] chore(deps): Bump the actions-version-updates group across 1 directory with 3 updates (2026-11-09) [open]
 - [PR #258] docs: update SBOM (2026-11-08) [open]
 - [PR #257] docs: update SBOM (2026-11-02) [open]
 <!-- open-section-end -->

@@ -66,9 +66,9 @@
       <title>2026-11-09 total: 2</title>
     </g>
     <g class="day" transform="translate(670,0)">
-      <rect class="bar-pr-merged" x="0" y="145.0" width="78" height="35.0"><title>2026-11-10 pr-merged: 2</title></rect>
-      <rect class="bar-pr-opened" x="0" y="110.0" width="78" height="35.0"><title>2026-11-10 pr-opened: 2</title></rect>
-      <title>2026-11-10 total: 4</title>
+      <rect class="bar-pr-merged" x="0" y="127.5" width="78" height="52.5"><title>2026-11-10 pr-merged: 3</title></rect>
+      <rect class="bar-pr-opened" x="0" y="75.0" width="78" height="52.5"><title>2026-11-10 pr-opened: 3</title></rect>
+      <title>2026-11-10 total: 6</title>
     </g>
   </a>
   <text class="axis-label" x="30" y="194">2026-10-28</text>

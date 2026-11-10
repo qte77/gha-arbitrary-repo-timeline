@@ -91,10 +91,10 @@
     </g>
     <g class="day" transform="translate(702,0)">
       <rect class="bar-pr-closed" x="0" y="169.2" width="46" height="10.8"><title>2026-11-10 pr-closed: 3</title></rect>
-      <rect class="bar-pr-merged" x="0" y="144.1" width="46" height="25.1"><title>2026-11-10 pr-merged: 7</title></rect>
-      <rect class="bar-pr-opened" x="0" y="122.6" width="46" height="21.5"><title>2026-11-10 pr-opened: 6</title></rect>
-      <rect class="bar-issue-resolved" x="0" y="119.0" width="46" height="3.6"><title>2026-11-10 issue-resolved: 1</title></rect>
-      <title>2026-11-10 total: 17</title>
+      <rect class="bar-pr-merged" x="0" y="122.6" width="46" height="46.7"><title>2026-11-10 pr-merged: 13</title></rect>
+      <rect class="bar-pr-opened" x="0" y="79.5" width="46" height="43.1"><title>2026-11-10 pr-opened: 12</title></rect>
+      <rect class="bar-issue-resolved" x="0" y="75.9" width="46" height="3.6"><title>2026-11-10 issue-resolved: 1</title></rect>
+      <title>2026-11-10 total: 29</title>
     </g>
   </a>
   <text class="axis-label" x="30" y="194">2026-10-27</text>

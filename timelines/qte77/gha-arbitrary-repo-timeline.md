@@ -83,6 +83,12 @@
 - [PR #254] chore: update timelines (2026-09-22) [closed]
 - [PR #253] chore: update timelines (2026-09-21) [closed]
 - [PR #252] chore: update timelines (2026-09-20) [closed]
+- [PR #321] chore: remove timeline files for repos no longer tracked (2026-11-10) [closed]
+- [PR #320] docs(readme): ground the Why claim in GitHub's docs (2026-11-10) [closed]
+- [PR #319] perf(ci): one tree request for the timeline snapshot; log API budget (2026-11-10) [closed]
+- [PR #318] fix: skip malformed REPOS entries instead of writing stray files (2026-11-10) [closed]
+- [PR #317] docs: document this repo's scheduled timeline run (2026-11-10) [closed]
+- [PR #316] chore: update timelines (2026-11-10) [closed]
 
 </details>
 
