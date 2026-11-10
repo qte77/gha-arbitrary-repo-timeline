@@ -19,9 +19,14 @@ completed successfully —
 
 All Wave A/T0 branches (remote + local) and worktrees have been deleted. `main` is at `567657c`.
 
-**What's next, in order:** start Wave B (W2-1 → W2-2, and W4-1) from fresh worktrees off current
-`main` — both W1-3 and W3-1's prerequisites are now satisfied. Do not start a Wave B row until its
-`depends-on` row is merged (both now are).
+**Wave B is built (2026-10-29), awaiting owner merge:** W2-1 (#86) → PR #293, W2-2 (#87) → PR
+#294, W4-1 (#108) → PR #295, changelog → PR #296. Merge in that order; #294 has a one-line
+conflict with #293 in the remaining-work table (keep both rows' edits).
+
+**What's next, in order:** W2-3 (#238, GitHub Pages) once #294 is merged — it also needs Pages
+enabled with `build_type: workflow` in repo settings (owner). #109 Tier 2/3 stays owner-gated
+(file as follow-up issues). #110 item 7 for timing (per-contributor vs aggregate) is an open owner
+decision raised in PR #295.
 
 **The loop (per row):**
 
