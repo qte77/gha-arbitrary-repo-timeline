@@ -190,6 +190,15 @@
     grep -q 'gh api rate_limit' .github/workflows/update-timeline.yml
 }
 
+# Reason: the 14-day lookback absorbs one missed weekly run but not two, so a
+# failure must be visible: open (or comment on) one tracking issue.
+@test "update-timeline workflow opens or updates an issue when a run fails" {
+    grep -q 'if: failure()' .github/workflows/update-timeline.yml
+    grep -q 'gh issue create' .github/workflows/update-timeline.yml
+    grep -q 'gh issue comment' .github/workflows/update-timeline.yml
+    grep -q '^  issues: write' .github/workflows/update-timeline.yml
+}
+
 @test "collect-issues.sh fetches all states" {
     grep -q 'state=all' scripts/collect-issues.sh
 }

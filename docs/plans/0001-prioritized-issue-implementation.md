@@ -24,6 +24,9 @@ changelog → #296. Same day: T0-H (#312) fixed the stuck snapshot PRs and moved
 weekly schedule; T0-I set 21 tracked repos; T0-K/T0-L (#315) added the leftover-branch sweep and a
 14-day lookback, verified by run 42812693281 (snapshot #316 auto-merged, leftovers swept). The
 scheduled run's settings are documented in `docs/pipeline.md` § "This repo's scheduled run".
+Follow-ups the same day: T0-M (#318), T0-N (#319), T0-O (#320), T0-J (#321), T0-P (local worktree
+cleanup), T0-Q (this PR). Run 42834903178 verified #319: snapshot #322 (12 files, one tree request)
+auto-merged.
 
 **What's next, in order:** nothing agent-runnable is open. Owner-deferred (2026-11-10): #83 close, W2-3 (#238 Pages, also needs Pages
 enabled with `build_type: workflow`), #109 Tier 2/3. #110 item 7 for timing (per-contributor vs
@@ -633,7 +636,12 @@ suggestion. Do not build speculatively ahead of Tier 1 landing.
 | T0-K | Leftover snapshot branches: #313/#314 auto-merged but `delete_branch_on_merge` left `auto-timeline-20261110-114249` / `-115047` (seen in CodeFactor's branch list, confirmed via the branches API) | done | — | — | **merged: #315**, verified by run 42812693281 (both leftovers deleted). Each run deletes `auto-timeline-*` branches with no open PR, before the "No changes" exit; the latest merged snapshot's branch stays until the next run (deleted by hand once, for #316). CodeFactor lists `auto-timeline-20260612-073852`, first as "last activity failed", now as "Disabled"; that branch no longer exists on GitHub, so it is a stale CodeFactor entry with nothing to fix in this repo |
 | T0-L | Weekly runs with the default 7-day lookback lose a week for good if one run fails | done | — | — | **merged: #315** — workflow passes `DAYS: '14'`; overlap is safe (History dedups by item ID, activity TSV overrides per day) |
 | T0-I | Track more public qte77 repos in the scheduled timeline | done | — | — | **set 2026-11-10** (owner-approved): `vars.TIMELINE_REPOS` = this repo + 11 `gha-*` actions + 9 main projects (21 total); verified by dispatched run 42810588388 → snapshot PR #314 auto-merged, index lists all 21 |
-| T0-J | Stale per-repo files under `timelines/qte77/` for repos no longer tracked (`.github`, `coding-agent-eval`, `gha-biorxiv-stats-action`, `ai-agents-research`, `agentic-codebase-to-scientific-report`, `qte77`) plus an empty-name `qte77/.md` from 2026-06-14 | done | — | — | **this PR** — owner chose delete (2026-11-10): 7 timeline MDs + 10 matching `assets/qte77/*-activity.{svg,tsv}` removed; no inbound links. Root cause of `qte77/.md` fixed in #318 |
+| T0-J | Stale per-repo files under `timelines/qte77/` for repos no longer tracked (`.github`, `coding-agent-eval`, `gha-biorxiv-stats-action`, `ai-agents-research`, `agentic-codebase-to-scientific-report`, `qte77`) plus an empty-name `qte77/.md` from 2026-06-14 | done | — | — | **merged: #321** — owner chose delete (2026-11-10): 7 timeline MDs + 10 matching `assets/qte77/*-activity.{svg,tsv}` removed; no inbound links. Root cause of `qte77/.md` fixed in #318 |
+| T0-M | Malformed `REPOS` entries (`qte77/`, `../x`) wrote stray files | done | — | — | **merged: #318** — `valid_repo_entry()` skips them with a warning |
+| T0-N | Snapshot commit made one blob POST per file (65 for 21 repos) against a secondary limit of 80 content-creating requests per minute | done | — | — | **merged: #319** — inline tree content (one request) + REST budget log; verified by run 42834903178 |
+| T0-O | README "Why" claim marked UNVERIFIED | done | — | — | **merged: #320** — narrowed to Pulse and repository graphs, linked to GitHub's docs |
+| T0-P | Stale local worktree `~/wt/cloud-gha-arbitrary-repo-timeline` (clean, 10 commits behind) | done | — | — | removed 2026-11-10 (owner-approved) |
+| T0-Q | Failed weekly runs went unnoticed (14-day lookback absorbs only one) | done | — | — | **this PR** — failure step opens or comments on one `Timeline update failed` issue (`issues: write`) |
 | — | #83 — close (decision recorded; both consumers shipped in #232 and #294) | owner | deferred | — | **deferred by owner 2026-11-10** |
 | — | #109 Tier 2/3 | owner (file as follow-up issues) | deferred | W3-2 | not started in this arc; **deferred by owner 2026-11-10** |
 
