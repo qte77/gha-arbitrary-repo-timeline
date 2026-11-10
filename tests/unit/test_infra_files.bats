@@ -142,13 +142,13 @@
 
 @test "update-timeline workflow's API-built commit sets no author or committer (so GitHub signs it)" {
     grep -q 'gh api "repos/$REPO/git/commits"' .github/workflows/update-timeline.yml
-    ! grep -q 'author:' .github/workflows/update-timeline.yml
-    ! grep -q 'committer:' .github/workflows/update-timeline.yml
+    ! grep -q 'author:' .github/workflows/update-timeline.yml || false
+    ! grep -q 'committer:' .github/workflows/update-timeline.yml || false
 }
 
 @test "update-timeline workflow runs weekly, not daily" {
     grep -qE "cron: '[0-9]+ [0-9]+ \* \* [0-6]'" .github/workflows/update-timeline.yml
-    ! grep -q "cron: '0 6 \* \* \*'" .github/workflows/update-timeline.yml
+    ! grep -q "cron: '0 6 \* \* \*'" .github/workflows/update-timeline.yml || false
     # Reason: a 14-day lookback on a weekly run backfills one missed run; dedup
     # by item ID and the per-day TSV override keep the overlap from duplicating.
     grep -q "DAYS: '14'" .github/workflows/update-timeline.yml
@@ -158,9 +158,9 @@
 # CodeFactor check before it reports (HTTP 405), so snapshot PRs piled up unmerged.
 @test "update-timeline workflow queues auto-merge instead of merging immediately" {
     grep -q 'gh pr merge "$PR_NUM" --auto --squash' .github/workflows/update-timeline.yml
-    ! grep -q 'pulls/$PR_NUM/merge' .github/workflows/update-timeline.yml
+    ! grep -q 'pulls/$PR_NUM/merge' .github/workflows/update-timeline.yml || false
     # deleting the head branch right away would close the queued PR
-    ! grep -q 'git/refs/heads/$BRANCH" -X DELETE' .github/workflows/update-timeline.yml
+    ! grep -q 'git/refs/heads/$BRANCH" -X DELETE' .github/workflows/update-timeline.yml || false
 }
 
 @test "update-timeline workflow closes superseded snapshot PRs" {
@@ -408,11 +408,20 @@
 }
 
 @test "no workflow file or action.yaml references an action by a bare version tag" {
-    ! grep -rE "uses: actions/(checkout|cache)@v[0-9]" .github/workflows/ action.yaml
-    ! grep -rE "uses: github/codeql-action/(init|analyze)@v[0-9]" .github/workflows/
+    ! grep -rE "uses: actions/(checkout|cache)@v[0-9]" .github/workflows/ action.yaml || false
+    ! grep -rE "uses: github/codeql-action/(init|analyze)@v[0-9]" .github/workflows/ || false
 }
 
 @test "CONTRIBUTING.md documents Git & CI conventions (branch protection, SHA pinning, allow-list)" {
     grep -q '^## Git & CI conventions$' CONTRIBUTING.md
     grep -q 'sha_pinning_required' CONTRIBUTING.md
+}
+
+# Reason: bash's errexit ignores a negated command, so a `! cmd` line that is
+# not the last line of a test can never fail it (verified on Bats 1.13).
+# Write `! cmd || false` instead.
+@test "every negated assertion in the BATS suite can fail its test" {
+    run grep -nE '^\s+! ' tests/unit/*.bats
+    offenders=$(printf '%s\n' "$output" | grep -v '|| false$' || true)
+    [ -z "$offenders" ] || { echo "$offenders"; false; }
 }

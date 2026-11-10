@@ -60,7 +60,7 @@ teardown() {
     run "$SCRIPT" qte77/example --state open
     [ "$status" -eq 0 ]
     grep -q 'state=open' "$MOCK_LOG"
-    ! grep -q 'since=' "$MOCK_LOG"
+    ! grep -q 'since=' "$MOCK_LOG" || false
 }
 
 @test "--state open paginates" {

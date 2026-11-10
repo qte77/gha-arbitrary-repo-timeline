@@ -34,6 +34,10 @@ This project follows test-driven development. Tests live under `tests/unit/` as
 BATS files. New behavior should start with a failing test (RED), then minimal
 code to pass (GREEN), then refactor.
 
+Write negated assertions as `! cmd || false`. Bash's errexit ignores a negated
+command, so a plain `! cmd` line can never fail a test unless it is the test's
+last line. A test in `tests/unit/test_infra_files.bats` enforces this.
+
 See `tests/unit/test_infra_files.bats` and `tests/unit/test_generate_timeline.bats`
 for patterns.
 
