@@ -19,14 +19,13 @@ completed successfully —
 
 All Wave A/T0 branches (remote + local) and worktrees have been deleted. `main` is at `567657c`.
 
-**Wave B is built (2026-10-29), awaiting owner merge:** W2-1 (#86) → PR #293, W2-2 (#87) → PR
-#294, W4-1 (#108) → PR #295, changelog → PR #296. Merge in that order; #294 has a one-line
-conflict with #293 in the remaining-work table (keep both rows' edits).
+**Wave B is merged (2026-11-10):** W2-1 (#86) → #293, W2-2 (#87) → #294, W4-1 (#108) → #295,
+changelog → #296. T0-H fixes the stuck snapshot PRs and moves the timeline to a weekly schedule.
 
-**What's next, in order:** W2-3 (#238, GitHub Pages) once #294 is merged — it also needs Pages
-enabled with `build_type: workflow` in repo settings (owner). #109 Tier 2/3 stays owner-gated
-(file as follow-up issues). #110 item 7 for timing (per-contributor vs aggregate) is an open owner
-decision raised in PR #295.
+**What's next, in order:** nothing agent-runnable is open. Owner-deferred (2026-11-10): T0-I
+(choose more repos for `vars.TIMELINE_REPOS`), #83 close, W2-3 (#238 Pages, also needs Pages
+enabled with `build_type: workflow`), #109 Tier 2/3. #110 item 7 for timing (per-contributor vs
+aggregate) is an open owner decision raised in PR #295.
 
 **The loop (per row):**
 
@@ -154,7 +153,7 @@ gh workflow run update-timeline.yml   # manual snapshot trigger (workflow_dispat
 | Data collectors | `scripts/collect-activity-counts.sh` (67) · `scripts/collect-issues.sh` (12, already emits `state`) · `scripts/collect-prs.sh` (10, already emits `state`) · `scripts/common.sh` (9, has `days_ago()`) | |
 | Tests | `tests/unit/test_generate_timeline.bats`, `test_render_activity_svg.bats`, `test_collect_activity_counts.bats`, `test_infra_files.bats`, `test_merge_activity_tsv.bats` · fixtures in `tests/fixtures/*.json`/`*.tsv` | TDD via BATS, Red→Green (`CONTRIBUTING.md:31-38`). |
 | Release pipeline (pre-#174) | `.github/workflows/bump-and-release.yaml` (122 lines, `workflow_dispatch` only) · `.github/scripts/delete_branch_pr_tag.sh` · `pyproject.toml:10-45` (`[tool.bumpversion]`, patches `pyproject.toml`/`README.md`/`CHANGELOG.md`) | No scriv in this repo (`changelog.d/` absent, confirmed). Existing SHA-pin precedent for reusable workflows: `.github/workflows/lint-md-links.yml:17`. |
-| Other workflows | `.github/workflows/update-timeline.yml` (`schedule` 06:00 UTC daily + `workflow_dispatch` with optional `repos` input, falls back to `vars.TIMELINE_REPOS`; permissions `contents:write, pull-requests:write, issues:read`; "Commit if changed" step does `git add timelines/ assets/` — **directory-level add, new files under those dirs need no workflow change**) · `test.yml` · `codeql.yaml` · `lint-md-links.yml` | |
+| Other workflows | `.github/workflows/update-timeline.yml` (`schedule` Monday 06:00 UTC weekly + `workflow_dispatch` with optional `repos` input, falls back to `vars.TIMELINE_REPOS`; permissions `contents:write, pull-requests:write, issues:read`; "Commit if changed" step does `git add timelines/ assets/` — **directory-level add, new files under those dirs need no workflow change**) · `test.yml` · `codeql.yaml` · `lint-md-links.yml` | |
 | Docs | `README.md` (72 lines, current) · `CONTRIBUTING.md` (1462 bytes: `make` targets, TDD convention, Conventional Commits via `.gitmessage`) · `CHANGELOG.md` · **no `AGENTS.md`** · **`docs/` did not exist before this file** | |
 | Output layout | `timelines/qte77/*.md` (self-tracking + other tracked repos) · `assets/qte77/*-activity.{svg,tsv}` | Confirms the action tracks itself. |
 
@@ -625,10 +624,13 @@ suggestion. Do not build speculatively ahead of Tier 1 landing.
 | W3-1 | #110 + #4 — contributor collection + privacy gate | done (`repository_visibility` verified live, see T0-G) | A | — | **merged: [#234](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/234)** |
 | W3-2 | #109 Tier 1 — account discovery + lifespan Gantt | done (gate-scope default still pending maintainer confirmation) | A | — | **merged: [#232](https://github.com/qte77/gha-arbitrary-repo-timeline/pull/232)** |
 | W2-1 | #86 — rolling Open + collapsed History sections | done | B | W1-3 merged ✅ | merged (#293, 2026-10-31) |
-| W2-2 | #87 — cross-repo overview SVG + timelines/README.md index | done | B | — (built off `main`; regions disjoint from W2-1) | **PR open (closes #87)** — awaiting owner merge |
-| W2-3 | [#238](https://github.com/qte77/gha-arbitrary-repo-timeline/issues/238) — publish cross-repo overview via GitHub Pages (workflow-based deploy, per user request, modeled on `qte77/agent-readiness-kit`'s `pages.yml` approach) | agent | B | W2-2 merged | not started — user confirmed: wait for #87's index, don't publish raw `timelines/` early |
-| W4-1 | #108 — contributor timing analysis | done | B | W3-1 merged ✅ | **PR open (closes #108)** — awaiting owner merge |
-| — | #109 Tier 2/3 | owner (file as follow-up issues) | deferred | W3-2 | not started in this arc |
+| W2-2 | #87 — cross-repo overview SVG + timelines/README.md index | done | B | — (built off `main`; regions disjoint from W2-1) | **merged: #294** |
+| W2-3 | [#238](https://github.com/qte77/gha-arbitrary-repo-timeline/issues/238) — publish cross-repo overview via GitHub Pages (workflow-based deploy, per user request, modeled on `qte77/agent-readiness-kit`'s `pages.yml` approach) | owner | deferred | W2-2 merged ✅ | **deferred by owner 2026-11-10** — unblocked since #294; also needs Pages enabled (`build_type: workflow`). Done when the overview is served from Pages |
+| W4-1 | #108 — contributor timing analysis | done | B | W3-1 merged ✅ | **merged: #295** (closed #108); changelog in #296 |
+| T0-H | Snapshot PRs stuck open (`#306`–`#310`): immediate merge hit HTTP 405 before `CodeFactor` reported; move schedule to weekly | done | — | — | **this PR** — auto-merge + close superseded `auto-timeline-*` PRs + Monday cron; #310 merged, #306–#308 closed by hand |
+| T0-I | Track more public qte77 repos in the scheduled timeline | owner | deferred | — | candidate list proposed 2026-11-10; done when `vars.TIMELINE_REPOS` is set and the next weekly run renders them |
+| — | #83 — close (decision recorded; both consumers shipped in #232 and #294) | owner | deferred | — | **deferred by owner 2026-11-10** |
+| — | #109 Tier 2/3 | owner (file as follow-up issues) | deferred | W3-2 | not started in this arc; **deferred by owner 2026-11-10** |
 
 ---
 
