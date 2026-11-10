@@ -2,7 +2,7 @@
 
 | Name | Required | Default | Description |
 |------|----------|---------|-------------|
-| `REPOS` | Yes | | Comma-separated list of owner/repo pairs to monitor. An entry with no '/' is treated as an account (user or organization) login and produces an account-level repo lifespan timeline instead of a per-repo one. |
+| `REPOS` | Yes | | Comma-separated list of owner/repo pairs to monitor. An entry with no '/' is treated as an account (user or organization) login and produces an account-level repo lifespan timeline instead of a per-repo one. Malformed entries (empty owner or repo name, extra `/`, `.` or `..`) are skipped with a warning; empty entries are ignored. |
 | `OUTPUT_FILE` | No | `TIMELINE.md` | Path to write timeline markdown. |
 | `TOKEN` | No | `""` | GitHub token with read access to monitored repos. |
 | `INCLUDE_GIT_LOG` | No | `false` | Include recent git log entries in timeline. |

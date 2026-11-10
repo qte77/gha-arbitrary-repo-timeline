@@ -492,3 +492,38 @@ teardown_main_stubs() {
     [[ "$(open_region "$TIMELINE")" == *"PR #2"* ]]
     teardown_main_stubs
 }
+
+# --- REPOS entry validation ---
+
+@test "valid_repo_entry accepts owner/repo pairs and account logins" {
+    valid_repo_entry "acme/foo"
+    valid_repo_entry "qte77/.github"
+    valid_repo_entry "my-org/repo_name.v2"
+    valid_repo_entry "qte77"
+}
+
+@test "valid_repo_entry rejects empty names, traversal and extra slashes" {
+    ! valid_repo_entry "" || false
+    ! valid_repo_entry "acme/" || false
+    ! valid_repo_entry "/foo" || false
+    ! valid_repo_entry "../x" || false
+    ! valid_repo_entry "acme/.." || false
+    ! valid_repo_entry "acme/a/b" || false
+    ! valid_repo_entry "acme/foo bar" || false
+}
+
+# Reason: a trailing-slash entry ("qte77/") once wrote timelines/qte77/.md,
+# and "../x" would write outside timelines/.
+@test "main: skips malformed REPOS entries instead of writing stray files" {
+    setup_main_stubs
+    (
+        cd "$work_dir"
+        SCRIPT_DIR="$stub_dir"
+        INPUT_REPOS="acme/, acme/foo,../x,,acme/a/b" main >/dev/null 2>&1
+    )
+    [ -f "$work_dir/timelines/acme/foo.md" ]
+    [ ! -e "$work_dir/timelines/acme/.md" ]
+    [ ! -e "$work_dir/timelines/x.md" ]
+    [ ! -e "$work_dir/timelines/acme/b.md" ]
+    teardown_main_stubs
+}

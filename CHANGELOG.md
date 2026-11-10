@@ -81,6 +81,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Malformed `REPOS` entries are skipped with a warning instead of writing stray files: a trailing slash (`qte77/`) used to create `timelines/qte77/.md`, and an entry like `../x` could write outside `timelines/`
 - `update-timeline.yml` snapshot PRs no longer pile up unmerged: the workflow queues auto-merge instead of merging straight away (which the ruleset rejected with HTTP 405 before the required `CodeFactor` check reported), and closes any older open `auto-timeline-*` PR it supersedes. Every run also deletes leftover `auto-timeline-*` branches that have no open PR, because `delete_branch_on_merge` does not remove a branch after an auto-merge queued with `GITHUB_TOKEN`. The schedule moves from daily to weekly (Monday 06:00 UTC), with a 14-day lookback (`DAYS: '14'`) so one missed run backfills itself
 - `update-timeline.yml` creates its API commit with no author or committer, so GitHub signs it and it passes `required_signatures`; the custom `github-actions[bot]` identity (added for `require_extra_approval_for_unattributed_changes`, which does not apply here) stopped the signing. `CONTRIBUTING.md` and the BATS test follow; the codeql pin test no longer hard-codes one release
 - Activity SVG now refreshes every workflow run (was previously gated

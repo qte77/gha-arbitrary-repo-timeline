@@ -381,6 +381,16 @@ write_timelines_index() {
     echo "Overview updated: timelines/README.md, assets/overview.svg"
 }
 
+# True for an account login ("qte77") or an owner/repo pair ("qte77/.github").
+# Rejects empty parts, extra slashes and "."/".." names, which would otherwise
+# write stray files such as timelines/qte77/.md or paths outside timelines/.
+# Args: $1 = trimmed REPOS entry
+valid_repo_entry() {
+    local entry="$1"
+    [[ "$entry" =~ ^[A-Za-z0-9-]+(/[A-Za-z0-9._-]+)?$ ]] || return 1
+    [[ "${entry##*/}" != "." && "${entry##*/}" != ".." ]]
+}
+
 main() {
     assert_contributor_gate
 
@@ -394,6 +404,11 @@ main() {
     IFS=',' read -ra REPO_LIST <<<"$REPOS"
     for repo in "${REPO_LIST[@]}"; do
         repo=$(echo "$repo" | xargs) # trim whitespace
+        [[ -z "$repo" ]] && continue
+        if ! valid_repo_entry "$repo"; then
+            echo "WARN: skipping malformed REPOS entry '$repo' (expected owner/repo or an account login)" >&2
+            continue
+        fi
         if [[ "$repo" != */* ]]; then
             collect_account "$repo"
             continue
