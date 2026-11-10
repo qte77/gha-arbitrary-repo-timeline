@@ -51,12 +51,14 @@ jobs:
           BRANCH="auto-timeline-$DATE"
           BASE_SHA=$(gh api "repos/$REPO/git/ref/heads/main" --jq '.object.sha')
           BASE_TREE=$(gh api "repos/$REPO/git/commits/$BASE_SHA" --jq '.tree.sha')
+          # File contents go inline in the one "Create a tree" request, which writes
+          # every blob itself: one content-creating request instead of one per file
+          # (GitHub allows 80 per minute). Inline content is text; the generator only
+          # writes .md, .svg and .tsv files.
           echo '[]' > /tmp/tree_entries.json
           for file in $(git diff --cached --name-only); do
-            CONTENT=$(base64 -w0 "$file")
-            BLOB_SHA=$(gh api "repos/$REPO/git/blobs" -f content="$CONTENT" -f encoding=base64 --jq '.sha')
-            jq --arg path "$file" --arg sha "$BLOB_SHA" \
-              '. + [{"path": $path, "mode": "100644", "type": "blob", "sha": $sha}]' \
+            jq --arg path "$file" --rawfile content "$file" \
+              '. + [{"path": $path, "mode": "100644", "type": "blob", "content": $content}]' \
               /tmp/tree_entries.json > /tmp/tree_entries_tmp.json && mv /tmp/tree_entries_tmp.json /tmp/tree_entries.json
           done
           NEW_TREE=$(gh api "repos/$REPO/git/trees" \
@@ -77,4 +79,11 @@ jobs:
           # rejected by the ruleset. Auto-merge waits for them; the next run's sweep
           # (top of this step) deletes the merged branch.
           gh pr merge "$PR_NUM" --auto --squash -R "$REPO" --subject "chore: update timelines"
+      - name: Report remaining API budget
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # GITHUB_TOKEN gets 1,000 REST requests per hour per repo; this call is free.
+        run: |
+          gh api rate_limit --jq '.resources.core | "REST core: \(.remaining)/\(.limit) left, resets \(.reset | todate)"'
 ...
