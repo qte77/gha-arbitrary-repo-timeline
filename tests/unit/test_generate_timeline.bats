@@ -165,9 +165,9 @@ teardown() {
     replace_contributors_block "$OUTPUT_FILE" "- **alice** — 5 events"
     grep -q 'contributors-begin' "$OUTPUT_FILE"
     replace_contributors_block "$OUTPUT_FILE" ""
-    ! grep -q 'contributors-begin' "$OUTPUT_FILE"
-    ! grep -q 'contributors-end' "$OUTPUT_FILE"
-    ! grep -q 'alice' "$OUTPUT_FILE"
+    ! grep -q 'contributors-begin' "$OUTPUT_FILE" || false
+    ! grep -q 'contributors-end' "$OUTPUT_FILE" || false
+    ! grep -q 'alice' "$OUTPUT_FILE" || false
     grep -q '# owner/repo — Timeline' "$OUTPUT_FILE"
 }
 
@@ -194,8 +194,8 @@ teardown() {
     printf '{"repo":"owner/repo"}' > "$JSON_FILE"
     refresh_contributors_section "owner/repo" "$OUTPUT_FILE" "$JSON_FILE" "2026-04-01" "7"
     [ ! -f "$JSON_FILE" ]
-    ! grep -q 'contributors-begin' "$OUTPUT_FILE"
-    ! grep -q 'alice' "$OUTPUT_FILE"
+    ! grep -q 'contributors-begin' "$OUTPUT_FILE" || false
+    ! grep -q 'alice' "$OUTPUT_FILE" || false
     grep -q '# owner/repo — Timeline' "$OUTPUT_FILE"
 }
 
@@ -224,7 +224,7 @@ teardown() {
     [ "$status" -eq 0 ]
     [[ "$output" == *"WARN: contributor collection failed"* ]]
     [ ! -f "$JSON_FILE" ]
-    ! grep -q 'stale' "$OUTPUT_FILE"
+    ! grep -q 'stale' "$OUTPUT_FILE" || false
     SCRIPT_DIR="$ORIG_SCRIPT_DIR"
     rm -rf "$FAIL_DIR"
 }
@@ -370,13 +370,13 @@ open_region() {
 @test "prepend_history_entry is a no-op for empty items" {
     printf '# owner/repo — Timeline\n\n' > "$OUTPUT_FILE"
     prepend_history_entry "$OUTPUT_FILE" "2026-04-23" ""
-    ! grep -q '## History' "$OUTPUT_FILE"
+    ! grep -q '## History' "$OUTPUT_FILE" || false
 }
 
 @test "migrate_legacy_sections_to_history wraps date sections newest-first and keeps the rest" {
     printf '# owner/repo — Timeline\n\n<!-- activity-svg-embed -->\n![activity](x.svg)\n\n## 2026-04-20\n\n- [ISSUE #1] a (2026-04-20) [open]\n\n## 2026-04-21\n\n- [PR #2] b (2026-04-21) [open]\n\n<!-- contributors-begin -->\n- **alice**\n<!-- contributors-end -->\n' > "$OUTPUT_FILE"
     migrate_legacy_sections_to_history "$OUTPUT_FILE"
-    ! grep -q '^## 2026-04-2[01]$' "$OUTPUT_FILE"
+    ! grep -q '^## 2026-04-2[01]$' "$OUTPUT_FILE" || false
     [ "$(grep -c '^## History$' "$OUTPUT_FILE")" -eq 1 ]
     [ "$(grep -n '2026-04-21</summary>' "$OUTPUT_FILE" | cut -d: -f1)" -lt "$(grep -n '2026-04-20</summary>' "$OUTPUT_FILE" | cut -d: -f1)" ]
     [ "$(head -1 "$OUTPUT_FILE")" = "# owner/repo — Timeline" ]
@@ -442,7 +442,7 @@ teardown_main_stubs() {
     run_main
     [[ "$(open_region "$TIMELINE")" == *"[ISSUE #1] bug (2026-04-20) [open]"* ]]
     [[ "$(open_region "$TIMELINE")" == *"[PR #2] fix (2026-04-21) [open]"* ]]
-    ! grep -q '## History' "$TIMELINE"
+    ! grep -q '## History' "$TIMELINE" || false
     teardown_main_stubs
 }
 
@@ -475,7 +475,7 @@ teardown_main_stubs() {
     printf '# acme/foo — Timeline\n\n## 2026-04-20\n\n- [ISSUE #1] bug (2026-04-20) [open]\n\n' > "$TIMELINE"
     export STUB_OPEN_PRS="$PR2_OPEN" STUB_WINDOW_ISSUES="$ISSUE1_CLOSED"
     run_main
-    ! grep -q '^## 2026-04-20$' "$TIMELINE"
+    ! grep -q '^## 2026-04-20$' "$TIMELINE" || false
     grep -q '<summary>2026-04-20</summary>' "$TIMELINE"
     [[ "$(open_region "$TIMELINE")" == *"PR #2"* ]]
     # the closure is recorded even though the legacy log listed the issue as open

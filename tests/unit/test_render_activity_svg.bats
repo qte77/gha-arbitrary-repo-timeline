@@ -99,7 +99,7 @@ setup() {
     actual=$(printf '%s\n' "$output" | grep -cE '<g class="day"')
     [ "$actual" -eq "$expected" ]
     # Dates outside the window must NOT appear as data columns
-    ! printf '%s\n' "$output" | grep -qE '<g class="day"[^>]*>.*2026-04-04'
+    ! printf '%s\n' "$output" | grep -qE '<g class="day"[^>]*>.*2026-04-04' || false
 }
 
 @test "uses system font stack" {

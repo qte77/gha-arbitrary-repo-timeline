@@ -47,7 +47,7 @@ teardown() {
     run "$SCRIPT" qte77/example 2026-04-07
     [ "$status" -eq 0 ]
     grep -q 'state=all' "$MOCK_LOG"
-    ! grep -q 'state=open' "$MOCK_LOG"
+    ! grep -q 'state=open' "$MOCK_LOG" || false
     # Fixture: only PR #302 has updated_at (2026-04-08) >= since (2026-04-07);
     # #301 (2026-04-06) and #303 (2026-04-05) are updated before the bound.
     n=$(jq -s 'length' <<< "$output")
@@ -60,7 +60,7 @@ teardown() {
     run "$SCRIPT" qte77/example --state open
     [ "$status" -eq 0 ]
     grep -q 'state=open' "$MOCK_LOG"
-    ! grep -q 'since=' "$MOCK_LOG"
+    ! grep -q 'since=' "$MOCK_LOG" || false
 }
 
 @test "--state open paginates" {

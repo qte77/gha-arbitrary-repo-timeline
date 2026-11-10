@@ -138,7 +138,7 @@ teardown() {
 @test "no users/ API call is made when PROFILE_DETAILS is false (default)" {
     run "$SCRIPT" qte77/example 2026-04-01 7
     [ "$status" -eq 0 ]
-    ! grep -q '^users/' "$MOCK_LOG"
+    ! grep -q '^users/' "$MOCK_LOG" || false
     no_profile_keys=$(echo "$output" | jq -r '[.contributors[] | has("profile")] | any')
     [ "$no_profile_keys" = "false" ]
 }
