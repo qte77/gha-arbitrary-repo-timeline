@@ -50,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `update-timeline.yml` builds its snapshot commit with file contents inline in one "Create a tree" request instead of one blob request per changed file (65 for 21 repos), staying well under GitHub's secondary limit of 80 content-creating requests per minute; a final step logs the remaining REST budget
 - Timeline MD now has a rolling `## Open` section, rewritten every run
   from the live open-items query, and a collapsed `## History` of
   per-day `<details>` blocks (newest first) for closed items; existing

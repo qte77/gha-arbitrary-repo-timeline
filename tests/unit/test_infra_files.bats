@@ -178,6 +178,18 @@
     [ "$sweep" -lt "$early_exit" ]
 }
 
+# Reason: one blob POST per changed file (65 for 21 repos) runs into GitHub's
+# secondary limit of 80 content-creating requests per minute; inline tree
+# content creates every blob in the single "Create a tree" request.
+@test "update-timeline workflow sends file contents inline in one tree request" {
+    grep -q -- '--rawfile content "$file"' .github/workflows/update-timeline.yml
+    ! grep -q 'git/blobs' .github/workflows/update-timeline.yml || false
+}
+
+@test "update-timeline workflow logs the remaining API budget on every run" {
+    grep -q 'gh api rate_limit' .github/workflows/update-timeline.yml
+}
+
 @test "collect-issues.sh fetches all states" {
     grep -q 'state=all' scripts/collect-issues.sh
 }
