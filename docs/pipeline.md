@@ -47,7 +47,8 @@ runs the action on this repo itself and publishes the result to
 | `REPOS` | the `repos` input of a manual run, else the `TIMELINE_REPOS` repository variable (comma-separated `owner/repo` list), else this repo only |
 | Output | a `chore: update timelines` PR from an `auto-timeline-<UTC timestamp>` branch, set to auto-merge once the required `CodeFactor` check passes |
 | Cleanup | each run closes older open snapshot PRs and deletes `auto-timeline-*` branches that have no open PR |
-| API use | the snapshot commit sends all file contents inline in one "Create a tree" request (no per-file blob calls); the last step logs the remaining `GITHUB_TOKEN` REST budget (1,000 requests per hour per repo) |
+| API use | the snapshot commit sends all file contents inline in one "Create a tree" request (no per-file blob calls); the last step logs the remaining REST budget (a 21-repo run on 2026-11-10 left 4,974 of 5,000) |
+| Failure | a failed run opens one `Timeline update failed` issue, or comments on it if it is already open; close it once a run succeeds |
 
 To run it by hand for a different repo list:
 `gh workflow run update-timeline.yml -f repos="owner/repo1,owner/repo2"`.

@@ -14,7 +14,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  issues: read
+  issues: write  # read for the collectors, write for the failure issue
 
 jobs:
   update:
@@ -79,11 +79,29 @@ jobs:
           # rejected by the ruleset. Auto-merge waits for them; the next run's sweep
           # (top of this step) deletes the merged branch.
           gh pr merge "$PR_NUM" --auto --squash -R "$REPO" --subject "chore: update timelines"
+      # The 14-day lookback absorbs one missed weekly run, not two, so a failure is
+      # surfaced as one open tracking issue (later failures add a comment to it).
+      - name: Open or update an issue if the run failed
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          TITLE="Timeline update failed"
+          NUM=$(gh issue list -R "$REPO" --state open --search "\"$TITLE\" in:title" \
+            --json number,title --jq '[.[] | select(.title == "Timeline update failed")][0].number // empty')
+          if [[ -n "$NUM" ]]; then
+            gh issue comment "$NUM" -R "$REPO" --body "Failed again: $RUN_URL"
+          else
+            gh issue create -R "$REPO" --title "$TITLE" \
+              --body "The scheduled timeline update failed: $RUN_URL. Close this issue once a run succeeds."
+          fi
       - name: Report remaining API budget
         if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # GITHUB_TOKEN gets 1,000 REST requests per hour per repo; this call is free.
+        # rate_limit itself does not count against the budget.
         run: |
           gh api rate_limit --jq '.resources.core | "REST core: \(.remaining)/\(.limit) left, resets \(.reset | todate)"'
 ...

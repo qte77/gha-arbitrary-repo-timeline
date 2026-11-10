@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `update-timeline.yml` opens a `Timeline update failed` issue when a run fails, or comments on it if it is already open (the workflow's `issues` permission moves from `read` to `write`)
 - Themed activity SVG per repo at `assets/<owner>/<repo>-activity.svg`,
   embedded at the top of each timeline MD with `prefers-color-scheme`
   dark-mode and a clickable repo link (#84)
