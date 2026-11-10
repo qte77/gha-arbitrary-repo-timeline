@@ -149,6 +149,9 @@
 @test "update-timeline workflow runs weekly, not daily" {
     grep -qE "cron: '[0-9]+ [0-9]+ \* \* [0-6]'" .github/workflows/update-timeline.yml
     ! grep -q "cron: '0 6 \* \* \*'" .github/workflows/update-timeline.yml
+    # Reason: a 14-day lookback on a weekly run backfills one missed run; dedup
+    # by item ID and the per-day TSV override keep the overlap from duplicating.
+    grep -q "DAYS: '14'" .github/workflows/update-timeline.yml
 }
 
 # Reason: an immediate merge right after PR creation hits the ruleset's required
@@ -163,6 +166,16 @@
 @test "update-timeline workflow closes superseded snapshot PRs" {
     grep -q 'startswith("auto-timeline-")' .github/workflows/update-timeline.yml
     grep -q 'gh pr close' .github/workflows/update-timeline.yml
+}
+
+# Reason: delete_branch_on_merge did not remove the branches of the auto-merges
+# the workflow queues with GITHUB_TOKEN (#313/#314 left theirs), so each run
+# sweeps leftover snapshot branches itself, before the "No changes" early exit.
+@test "update-timeline workflow deletes leftover snapshot branches every run" {
+    grep -q 'git/matching-refs/heads/auto-timeline-' .github/workflows/update-timeline.yml
+    sweep=$(grep -n 'git/matching-refs/heads/auto-timeline-' .github/workflows/update-timeline.yml | cut -d: -f1)
+    early_exit=$(grep -n 'echo "No changes"' .github/workflows/update-timeline.yml | cut -d: -f1)
+    [ "$sweep" -lt "$early_exit" ]
 }
 
 @test "collect-issues.sh fetches all states" {

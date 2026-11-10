@@ -22,8 +22,8 @@ All Wave A/T0 branches (remote + local) and worktrees have been deleted. `main` 
 **Wave B is merged (2026-11-10):** W2-1 (#86) → #293, W2-2 (#87) → #294, W4-1 (#108) → #295,
 changelog → #296. T0-H fixes the stuck snapshot PRs and moves the timeline to a weekly schedule.
 
-**What's next, in order:** nothing agent-runnable is open. Owner-deferred (2026-11-10): T0-I
-(choose more repos for `vars.TIMELINE_REPOS`), #83 close, W2-3 (#238 Pages, also needs Pages
+**What's next, in order:** nothing agent-runnable is open. Owner-deferred (2026-11-10): T0-J
+(stale timeline files), #83 close, W2-3 (#238 Pages, also needs Pages
 enabled with `build_type: workflow`), #109 Tier 2/3. #110 item 7 for timing (per-contributor vs
 aggregate) is an open owner decision raised in PR #295.
 
@@ -153,7 +153,7 @@ gh workflow run update-timeline.yml   # manual snapshot trigger (workflow_dispat
 | Data collectors | `scripts/collect-activity-counts.sh` (67) · `scripts/collect-issues.sh` (12, already emits `state`) · `scripts/collect-prs.sh` (10, already emits `state`) · `scripts/common.sh` (9, has `days_ago()`) | |
 | Tests | `tests/unit/test_generate_timeline.bats`, `test_render_activity_svg.bats`, `test_collect_activity_counts.bats`, `test_infra_files.bats`, `test_merge_activity_tsv.bats` · fixtures in `tests/fixtures/*.json`/`*.tsv` | TDD via BATS, Red→Green (`CONTRIBUTING.md:31-38`). |
 | Release pipeline (pre-#174) | `.github/workflows/bump-and-release.yaml` (122 lines, `workflow_dispatch` only) · `.github/scripts/delete_branch_pr_tag.sh` · `pyproject.toml:10-45` (`[tool.bumpversion]`, patches `pyproject.toml`/`README.md`/`CHANGELOG.md`) | No scriv in this repo (`changelog.d/` absent, confirmed). Existing SHA-pin precedent for reusable workflows: `.github/workflows/lint-md-links.yml:17`. |
-| Other workflows | `.github/workflows/update-timeline.yml` (`schedule` Monday 06:00 UTC weekly + `workflow_dispatch` with optional `repos` input, falls back to `vars.TIMELINE_REPOS`; permissions `contents:write, pull-requests:write, issues:read`; "Commit if changed" step does `git add timelines/ assets/` — **directory-level add, new files under those dirs need no workflow change**) · `test.yml` · `codeql.yaml` · `lint-md-links.yml` | |
+| Other workflows | `.github/workflows/update-timeline.yml` (`schedule` Monday 06:00 UTC weekly, `DAYS: '14'` lookback + `workflow_dispatch` with optional `repos` input, falls back to `vars.TIMELINE_REPOS`; permissions `contents:write, pull-requests:write, issues:read`; "Commit if changed" step does `git add timelines/ assets/` — **directory-level add, new files under those dirs need no workflow change**) · `test.yml` · `codeql.yaml` · `lint-md-links.yml` | |
 | Docs | `README.md` (72 lines, current) · `CONTRIBUTING.md` (1462 bytes: `make` targets, TDD convention, Conventional Commits via `.gitmessage`) · `CHANGELOG.md` · **no `AGENTS.md`** · **`docs/` did not exist before this file** | |
 | Output layout | `timelines/qte77/*.md` (self-tracking + other tracked repos) · `assets/qte77/*-activity.{svg,tsv}` | Confirms the action tracks itself. |
 
@@ -627,8 +627,11 @@ suggestion. Do not build speculatively ahead of Tier 1 landing.
 | W2-2 | #87 — cross-repo overview SVG + timelines/README.md index | done | B | — (built off `main`; regions disjoint from W2-1) | **merged: #294** |
 | W2-3 | [#238](https://github.com/qte77/gha-arbitrary-repo-timeline/issues/238) — publish cross-repo overview via GitHub Pages (workflow-based deploy, per user request, modeled on `qte77/agent-readiness-kit`'s `pages.yml` approach) | owner | deferred | W2-2 merged ✅ | **deferred by owner 2026-11-10** — unblocked since #294; also needs Pages enabled (`build_type: workflow`). Done when the overview is served from Pages |
 | W4-1 | #108 — contributor timing analysis | done | B | W3-1 merged ✅ | **merged: #295** (closed #108); changelog in #296 |
-| T0-H | Snapshot PRs stuck open (`#306`–`#310`): immediate merge hit HTTP 405 before `CodeFactor` reported; move schedule to weekly | done | — | — | **this PR** — auto-merge + close superseded `auto-timeline-*` PRs + Monday cron; #310 merged, #306–#308 closed by hand |
-| T0-I | Track more public qte77 repos in the scheduled timeline | owner | deferred | — | candidate list proposed 2026-11-10; done when `vars.TIMELINE_REPOS` is set and the next weekly run renders them |
+| T0-H | Snapshot PRs stuck open (`#306`–`#310`): immediate merge hit HTTP 405 before `CodeFactor` reported; move schedule to weekly | done | — | — | **merged: #312** — auto-merge + close superseded `auto-timeline-*` PRs + Monday cron; #310 merged, #306–#308 closed by hand |
+| T0-K | Leftover snapshot branches: #313/#314 auto-merged but `delete_branch_on_merge` left `auto-timeline-20261110-114249` / `-115047` (seen in CodeFactor's branch list, confirmed via the branches API) | done | — | — | **this PR** — each run deletes `auto-timeline-*` branches with no open PR, before the "No changes" exit. CodeFactor also lists `auto-timeline-20260612-073852` ("last activity failed"); that branch no longer exists on GitHub, so it is a stale CodeFactor entry. Done when the next run leaves no merged `auto-timeline-*` branch |
+| T0-L | Weekly runs with the default 7-day lookback lose a week for good if one run fails | done | — | — | **this PR** — workflow passes `DAYS: '14'`; overlap is safe (History dedups by item ID, activity TSV overrides per day) |
+| T0-I | Track more public qte77 repos in the scheduled timeline | done | — | — | **set 2026-11-10** (owner-approved): `vars.TIMELINE_REPOS` = this repo + 11 `gha-*` actions + 9 main projects (21 total); verified by dispatched run 42810588388 → snapshot PR #314 auto-merged, index lists all 21 |
+| T0-J | Stale per-repo files under `timelines/qte77/` for repos no longer tracked (`.github`, `coding-agent-eval`, `gha-biorxiv-stats-action`, `ai-agents-research`, `agentic-codebase-to-scientific-report`, `qte77`) plus an empty-name `qte77/.md` from 2026-06-14 | owner | deferred | — | not in the index, nothing regenerates them; done when the owner decides keep vs delete (and, if delete, a PR removes them) |
 | — | #83 — close (decision recorded; both consumers shipped in #232 and #294) | owner | deferred | — | **deferred by owner 2026-11-10** |
 | — | #109 Tier 2/3 | owner (file as follow-up issues) | deferred | W3-2 | not started in this arc; **deferred by owner 2026-11-10** |
 
