@@ -22,8 +22,8 @@ All Wave A/T0 branches (remote + local) and worktrees have been deleted. `main` 
 **Wave B is merged (2026-11-10):** W2-1 (#86) → #293, W2-2 (#87) → #294, W4-1 (#108) → #295,
 changelog → #296. T0-H fixes the stuck snapshot PRs and moves the timeline to a weekly schedule.
 
-**What's next, in order:** nothing agent-runnable is open. Owner-deferred (2026-11-10): T0-I
-(choose more repos for `vars.TIMELINE_REPOS`), #83 close, W2-3 (#238 Pages, also needs Pages
+**What's next, in order:** nothing agent-runnable is open. Owner-deferred (2026-11-10): T0-J
+(stale timeline files), #83 close, W2-3 (#238 Pages, also needs Pages
 enabled with `build_type: workflow`), #109 Tier 2/3. #110 item 7 for timing (per-contributor vs
 aggregate) is an open owner decision raised in PR #295.
 
@@ -628,7 +628,8 @@ suggestion. Do not build speculatively ahead of Tier 1 landing.
 | W2-3 | [#238](https://github.com/qte77/gha-arbitrary-repo-timeline/issues/238) — publish cross-repo overview via GitHub Pages (workflow-based deploy, per user request, modeled on `qte77/agent-readiness-kit`'s `pages.yml` approach) | owner | deferred | W2-2 merged ✅ | **deferred by owner 2026-11-10** — unblocked since #294; also needs Pages enabled (`build_type: workflow`). Done when the overview is served from Pages |
 | W4-1 | #108 — contributor timing analysis | done | B | W3-1 merged ✅ | **merged: #295** (closed #108); changelog in #296 |
 | T0-H | Snapshot PRs stuck open (`#306`–`#310`): immediate merge hit HTTP 405 before `CodeFactor` reported; move schedule to weekly | done | — | — | **this PR** — auto-merge + close superseded `auto-timeline-*` PRs + Monday cron; #310 merged, #306–#308 closed by hand |
-| T0-I | Track more public qte77 repos in the scheduled timeline | owner | deferred | — | candidate list proposed 2026-11-10; done when `vars.TIMELINE_REPOS` is set and the next weekly run renders them |
+| T0-I | Track more public qte77 repos in the scheduled timeline | done | — | — | **set 2026-11-10** (owner-approved): `vars.TIMELINE_REPOS` = this repo + 11 `gha-*` actions + 9 main projects (21 total); verified by dispatched run 42810588388 → snapshot PR #314 auto-merged, index lists all 21 |
+| T0-J | Stale per-repo files under `timelines/qte77/` for repos no longer tracked (`.github`, `coding-agent-eval`, `gha-biorxiv-stats-action`, `ai-agents-research`, `agentic-codebase-to-scientific-report`, `qte77`) plus an empty-name `qte77/.md` from 2026-06-14 | owner | deferred | — | not in the index, nothing regenerates them; done when the owner decides keep vs delete (and, if delete, a PR removes them) |
 | — | #83 — close (decision recorded; both consumers shipped in #232 and #294) | owner | deferred | — | **deferred by owner 2026-11-10** |
 | — | #109 Tier 2/3 | owner (file as follow-up issues) | deferred | W3-2 | not started in this arc; **deferred by owner 2026-11-10** |
 
