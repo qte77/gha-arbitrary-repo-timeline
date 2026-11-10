@@ -61,10 +61,10 @@ jobs:
     if: needs.resolve.outputs.skip != 'true'
     permissions:
       contents: write
-    # 2026-09-01, qte77/.github@4801217. Explicit `tag:` (from `resolve`)
+    # 2026-11-10, qte77/.github@43ad121. Explicit `tag:` (from `resolve`)
     # instead of the reusable workflow's own "latest v*-tag" auto-resolve, so
     # it never picks up our locally-added floating v{MAJOR} tag by mistake.
-    uses: qte77/.github/.github/workflows/publish-release.yml@4801217a20922cd54187fc7e4c98c7ea78c0ec9a
+    uses: qte77/.github/.github/workflows/publish-release.yml@43ad1211e962f82fab823377dcc7272054d8196c
     with:
       tag: ${{ needs.resolve.outputs.tag }}
 
