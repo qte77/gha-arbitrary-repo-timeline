@@ -2,7 +2,42 @@
 
 <!-- activity-svg-embed -->
 ![activity](../../assets/qte77/doc-pipeline-engine-activity.svg)
-## 2026-04-29
+
+<!-- open-section-start -->
+## Open
+
+- [ISSUE #220] docs(landscape)+eval: evaluate PageIndex as a third RAG-indexing paradigm (process.md §4) (2026-10-09) [open]
+- [ISSUE #197] docs(landscape)+eval: benchmark GLiFormer as GLiNER2/NuExtract3 alternative (process.md §3 + §6) (2026-09-19) [open]
+- [ISSUE #196] docs(landscape): Jev / TypeSafe System One — record don't-adopt decision (2026-09-19) [open]
+- [ISSUE #142] feat: add a pipeline UI (estate vanilla-TS + Vite + qte77/brand) (2026-06-22) [open]
+- [ISSUE #140] chore: evaluate committing a redistribution-clean sample subset (supersede ADR-0010?) (2026-06-22) [open]
+- [ISSUE #63] Run-4 prototype results — 8-variant external + 2-pipeline comparison (2026-04-27) [open]
+- [PR #264] fix(ci): deploy docs on push to main, not on closed PRs (2026-11-10) [open]
+- [PR #263] docs: update SBOM (2026-11-09) [open]
+- [PR #261] docs: update SBOM (2026-11-09) [open]
+- [PR #259] chore(deps): Bump the actions-version-updates group with 3 updates (2026-11-09) [open]
+- [PR #258] docs: update SBOM (2026-11-08) [open]
+- [PR #257] docs: update SBOM (2026-11-02) [open]
+<!-- open-section-end -->
+
+## History
+
+<details><summary>2026-11-10</summary>
+
+- [PR #262] chore(release): bump 0.2.0 -> 0.3.0 (2026-11-09) [closed]
+- [PR #260] fix(claude): rewrite dead multi-colon permission rules in space form (2026-11-09) [closed]
+- [PR #256] docs: update SBOM (2026-11-02) [closed]
+- [PR #255] docs: update SBOM (2026-11-02) [closed]
+
+</details>
+
+<details><summary>2026-05-08</summary>
+
+- [PR #65] docs: update SBOM (2026-05-03) [open]
+
+</details>
+
+<details><summary>2026-04-29</summary>
 
 - [PR #61] feat: external one-shot evaluators (Anthropic SDK + CC CLI) (§0.2.3 PR B) (2026-04-27) [open]
 - [PR #60] chore(lint): bump SHA pin and apply inference fixes (2026-04-27) [closed]
@@ -59,6 +94,5 @@
 - [PR #6] feat: DiscoveryManifest fixtures + migrate scraping-landscape to polyfetch-scrape (2026-04-23) [closed]
 - [PR #5] docs: consolidate planning docs into architecture and roadmap (2026-04-22) [closed]
 - [PR #3] refactor: v0.1 cleanup, standalone framing, samples, and docs (2026-04-22) [closed]
-## 2026-05-08
 
-- [PR #65] docs: update SBOM (2026-05-03) [open]
+</details>

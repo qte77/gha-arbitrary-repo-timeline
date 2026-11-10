@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 760 240" width="760" height="240">
+  <style>
+    .page-bg { fill: #ffffff; }
+    .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 600; fill: #1f2328; }
+    .axis-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9px; fill: #656d76; }
+    .legend-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9px; fill: #656d76; }
+    .axis { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .bar-pr-opened { fill: #3fb950; }
+    .bar-pr-merged { fill: #a371f7; }
+    .bar-pr-closed { fill: #f85149; }
+    .bar-issue-opened { fill: #1f6feb; }
+    .bar-issue-resolved { fill: #56d364; }
+    .bar-issue-closed { fill: #8b949e; }
+    .bar-commit { fill: #d29922; }
+    a:hover .day rect { opacity: 0.85; }
+    @media (prefers-color-scheme: dark) {
+      .page-bg { fill: #0d1117; }
+      .title { fill: #e6edf3; }
+      .axis-label { fill: #8b949e; }
+      .legend-label { fill: #8b949e; }
+      .axis { stroke: #30363d; }
+    }
+  </style>
+  <rect class="page-bg" width="760" height="240" rx="6"/>
+  <text class="title" x="380" y="120" text-anchor="middle">no activity in window</text>
+</svg>

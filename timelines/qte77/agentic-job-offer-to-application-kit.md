@@ -2,7 +2,38 @@
 
 <!-- activity-svg-embed -->
 ![activity](../../assets/qte77/agentic-job-offer-to-application-kit-activity.svg)
-## 2026-06-14
+
+<!-- open-section-start -->
+## Open
+
+- [ISSUE #468] decision pre-filter: follow-ups (shared decide(), per-lane questions, re-validation) (2026-10-28) [open]
+- [ISSUE #453] feat(ingest): new ATS adapters — Workday, Haufe/Abacus umantis (2026-10-11) [open]
+- [ISSUE #452] feat: interview-prep workflow (new L3 stage) (2026-10-11) [open]
+- [ISSUE #451] feat(discovery): add EURES as a no-auth ingest source (2026-10-11) [open]
+- [ISSUE #427] feat(discovery): getcargo.ai/jobs adapter for GTM Engineer company-lead discovery (2026-09-03) [open]
+- [ISSUE #417] feat: tiered auto-open + browser prefill for application URLs (owner-approved fill-without-submit) (2026-09-01) [open]
+- [ISSUE #393] spike: evaluate BAML (typed LLM functions + prompt eval) at the portable-runner milestone (2026-08-23) [open]
+- [ISSUE #390] feat: package the job pipeline as a separate 'apply-kit' plugin (follow-up to evidence-guard) (2026-08-23) [open]
+- [ISSUE #389] feat: extract an evidence-grounding gate as a standalone 'evidence-guard' plugin (2026-08-23) [open]
+- [ISSUE #344] workflow: guard resume against a recomputed delta; document resume semantics (2026-07-22) [open]
+- [ISSUE #342] pipeline: automate the Workflow-to-persist hand-off (2026-07-22) [open]
+- [ISSUE #331] feat(discovery): phase-2 — HN "Who is hiring?" Algolia API (broader-than-YC) — DEFERRED (2026-07-16) [open]
+- [ISSUE #269] feat(trends): optional posted_at backfill series (survivorship-biased historical view) — DEFERRED (2026-07-08) [open]
+<!-- open-section-end -->
+
+## History
+
+<details><summary>2026-11-10</summary>
+
+- [PR #481] fix: match robots.txt rules per RFC 9309 on every Python (2026-11-10) [closed]
+- [PR #480] fix: run headless relevance slices read-only; record headless-run learnings (2026-11-10) [closed]
+- [PR #479] chore: git-ignore .claude/settings.local.json in the repo itself (2026-11-09) [closed]
+- [PR #478] chore(deps): bump the python-deps group with 8 updates (2026-11-05) [closed]
+- [PR #477] chore(ci): bump the github-actions group with 2 updates (2026-11-05) [closed]
+
+</details>
+
+<details><summary>2026-06-14</summary>
 
 - [ISSUE #57] docs: structural-integrity pass (rigor, DRY, scope separation) (2026-06-14) [closed]
 - [ISSUE #56] feat(prefill): application-question schema reach beyond Greenhouse (2026-06-14) [open]
@@ -74,3 +105,5 @@
 - [PR #3] docs: link polyfetch-scrape repo in ad-hoc usage note (2026-06-11) [closed]
 - [PR #2] docs: run polyfetch without installing (uv run --directory) (2026-06-11) [closed]
 - [PR #1] docs: concept — Stage-1 workflow + design for the application kit (2026-06-11) [closed]
+
+</details>
