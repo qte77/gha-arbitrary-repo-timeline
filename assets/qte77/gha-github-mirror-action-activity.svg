@@ -26,15 +26,20 @@
   <a xlink:href="https://github.com/qte77/gha-github-mirror-action">
     <line class="axis" x1="30" y1="180" x2="750" y2="180"/>
     <g class="day" transform="translate(30,0)">
-      <rect class="bar-pr-merged" x="0" y="133.3" width="359" height="46.7"><title>2026-11-07 pr-merged: 1</title></rect>
+      <rect class="bar-pr-merged" x="0" y="133.3" width="238" height="46.7"><title>2026-10-31 pr-merged: 1</title></rect>
+      <rect class="bar-issue-resolved" x="0" y="86.7" width="238" height="46.7"><title>2026-10-31 issue-resolved: 1</title></rect>
+      <title>2026-10-31 total: 2</title>
+    </g>
+    <g class="day" transform="translate(270,0)">
+      <rect class="bar-pr-merged" x="0" y="133.3" width="238" height="46.7"><title>2026-11-07 pr-merged: 1</title></rect>
       <title>2026-11-07 total: 1</title>
     </g>
-    <g class="day" transform="translate(391,0)">
-      <rect class="bar-pr-opened" x="0" y="40.0" width="359" height="140.0"><title>2026-11-10 pr-opened: 3</title></rect>
+    <g class="day" transform="translate(510,0)">
+      <rect class="bar-pr-opened" x="0" y="40.0" width="238" height="140.0"><title>2026-11-10 pr-opened: 3</title></rect>
       <title>2026-11-10 total: 3</title>
     </g>
   </a>
-  <text class="axis-label" x="30" y="194">2026-11-07</text>
+  <text class="axis-label" x="30" y="194">2026-10-31</text>
   <text class="axis-label" x="750" y="194" text-anchor="end">2026-11-10</text>
     <rect class="bar-pr-opened" x="30" y="224" width="8" height="8"/>
     <text class="legend-label" x="42" y="232">PR opened</text>

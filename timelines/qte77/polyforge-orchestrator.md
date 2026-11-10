@@ -21,5 +21,16 @@
 <details><summary>2026-11-10</summary>
 
 - [PR #90] chore(deps-dev): bump markdown-it from 14.3.0 to 14.3.3 in the npm_and_yarn group across 1 directory (2026-10-23) [closed]
+- [ISSUE #89] Migrate to AGENTS.md only — remove CLAUDE.md (qte77/qte77#190) (2026-10-03) [closed]
+- [ISSUE #79] Add goal_id to contributions.json plan schema (goal-campaign link) (2026-06-29) [closed]
+- [ISSUE #77] docs: adopt README doc-structure canon (2026-06-21) [closed]
+- [ISSUE #70] fix(setup_lychee): `tar xz -C ... lychee` likely misses binary inside wrapper dir (2026-05-25) [closed]
+- [ISSUE #64] Codespaces: gh-gpgsign fails in agent shells ("No secret key") — follow-up to #48 (2026-04-30) [closed]
+- [PR #100] docs(codespaces): replace the unverified signing caveat with the confirmed causes (2026-10-30) [closed]
+- [PR #99] docs(changelog): add entries for #70, #77, #79, #89 (2026-10-29) [closed]
+- [PR #98] docs: move to AGENTS.md only, remove CLAUDE.md (2026-10-29) [closed]
+- [PR #97] feat(schema): add optional goal_id to contributions plan def (2026-10-29) [closed]
+- [PR #96] docs(readme): adopt README doc-structure canon (2026-10-29) [closed]
+- [PR #95] fix(setup_lychee): install binary from release wrapper dir, drop sudo (2026-10-29) [closed]
 
 </details>

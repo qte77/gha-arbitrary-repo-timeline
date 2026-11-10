@@ -37,5 +37,6 @@
 - [PR #69] chore(deps-dev): bump @types/node from 22.20.3 to 26.6.2 (2026-09-28) [closed]
 - [PR #68] chore(deps-dev): bump vitest from 5.0.1 to 5.0.5 in the npm-minor-patch group across 1 directory (2026-09-28) [closed]
 - [PR #67] chore(scan): update scan results (2026-09-28) [closed]
+- [PR #92] docs: describe external projects by role, not name (2026-10-29) [closed]
 
 </details>

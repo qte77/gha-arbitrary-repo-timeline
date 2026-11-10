@@ -30,6 +30,20 @@
 - [PR #479] chore: git-ignore .claude/settings.local.json in the repo itself (2026-11-09) [closed]
 - [PR #478] chore(deps): bump the python-deps group with 8 updates (2026-11-05) [closed]
 - [PR #477] chore(ci): bump the github-actions group with 2 updates (2026-11-05) [closed]
+- [ISSUE #414] feat: detect evidence-library drift (gapNarrative and other fields change wording across rebuilds) (2026-09-01) [closed]
+- [ISSUE #366] offers: drift check — detect hand-edited or stale packs against their source (2026-08-09) [closed]
+- [ISSUE #341] docs: publish polyfetch-scrape source and setup (+ make doctor preflight) (2026-07-22) [closed]
+- [PR #476] feat: run the relevance screen headless and collect it from workflow journals (2026-11-02) [closed]
+- [PR #475] chore(sources): monthly source freshness (20261101) (2026-11-01) [closed]
+- [PR #474] docs: describe one more private repo by role (2026-10-29) [closed]
+- [PR #473] docs: describe private projects by role, not name (2026-10-29) [closed]
+- [PR #472] feat: stamp packs with their evidence-library version; add evidence-diff (2026-10-29) [closed]
+- [PR #471] feat: drift-check reports offer packs that no longer match result.json (2026-10-29) [closed]
+- [PR #470] feat: make doctor preflight for polyfetch, Chromium and the evidence library (2026-10-29) [closed]
+- [PR #469] docs: pause plan 014 and point its open work at issues (2026-10-28) [closed]
+- [PR #466] chore(deps): bump pillow from 12.3.0 to 13.0.0 (2026-10-24) [closed]
+- [PR #465] chore(deps): bump the python-deps group across 1 directory with 6 updates (2026-10-22) [closed]
+- [PR #456] chore(ci): bump the github-actions group across 1 directory with 5 updates (2026-10-15) [closed]
 
 </details>
 
