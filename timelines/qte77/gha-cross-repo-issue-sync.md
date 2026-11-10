@@ -17,5 +17,6 @@
 
 - [PR #87] chore(deps): bump callowayproject/bump-my-version from 1.4.1 to 1.6.3 (2026-10-26) [closed]
 - [PR #81] chore(deps): bump github/codeql-action from 4 to 4.37.4 (2026-08-03) [closed]
+- [PR #88] docs: describe the private tracker by role, not name (2026-10-29) [closed]
 
 </details>

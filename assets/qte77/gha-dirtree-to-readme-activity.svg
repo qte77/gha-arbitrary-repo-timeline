@@ -32,8 +32,9 @@
       <title>2026-11-09 total: 11</title>
     </g>
     <g class="day" transform="translate(391,0)">
-      <rect class="bar-pr-opened" x="0" y="167.3" width="359" height="12.7"><title>2026-11-10 pr-opened: 1</title></rect>
-      <title>2026-11-10 total: 1</title>
+      <rect class="bar-pr-merged" x="0" y="167.3" width="359" height="12.7"><title>2026-11-10 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="154.5" width="359" height="12.7"><title>2026-11-10 pr-opened: 1</title></rect>
+      <title>2026-11-10 total: 2</title>
     </g>
   </a>
   <text class="axis-label" x="30" y="194">2026-11-09</text>

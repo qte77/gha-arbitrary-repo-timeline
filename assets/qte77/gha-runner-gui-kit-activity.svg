@@ -22,5 +22,30 @@
     }
   </style>
   <rect class="page-bg" width="760" height="240" rx="6"/>
-  <text class="title" x="380" y="120" text-anchor="middle">no activity in window</text>
+  <text class="title" x="30" y="24">Activity</text>
+  <a xlink:href="https://github.com/qte77/gha-runner-gui-kit">
+    <line class="axis" x1="30" y1="180" x2="750" y2="180"/>
+    <g class="day" transform="translate(30,0)">
+      <rect class="bar-pr-opened" x="0" y="40.0" width="359" height="140.0"><title>2026-10-29 pr-opened: 1</title></rect>
+      <title>2026-10-29 total: 1</title>
+    </g>
+    <g class="day" transform="translate(391,0)">
+      <rect class="bar-pr-merged" x="0" y="40.0" width="359" height="140.0"><title>2026-10-31 pr-merged: 1</title></rect>
+      <title>2026-10-31 total: 1</title>
+    </g>
+  </a>
+  <text class="axis-label" x="30" y="194">2026-10-29</text>
+  <text class="axis-label" x="750" y="194" text-anchor="end">2026-10-31</text>
+    <rect class="bar-pr-opened" x="30" y="224" width="8" height="8"/>
+    <text class="legend-label" x="42" y="232">PR opened</text>
+    <rect class="bar-pr-merged" x="150" y="224" width="8" height="8"/>
+    <text class="legend-label" x="162" y="232">PR merged</text>
+    <rect class="bar-pr-closed" x="270" y="224" width="8" height="8"/>
+    <text class="legend-label" x="282" y="232">PR closed</text>
+    <rect class="bar-issue-opened" x="390" y="224" width="8" height="8"/>
+    <text class="legend-label" x="402" y="232">Issue opened</text>
+    <rect class="bar-issue-resolved" x="510" y="224" width="8" height="8"/>
+    <text class="legend-label" x="522" y="232">Issue resolved</text>
+    <rect class="bar-issue-closed" x="630" y="224" width="8" height="8"/>
+    <text class="legend-label" x="642" y="232">Issue closed</text>
 </svg>

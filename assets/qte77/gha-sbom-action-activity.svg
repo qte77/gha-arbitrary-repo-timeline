@@ -26,18 +26,27 @@
   <a xlink:href="https://github.com/qte77/gha-sbom-action">
     <line class="axis" x1="30" y1="180" x2="750" y2="180"/>
     <g class="day" transform="translate(30,0)">
-      <rect class="bar-pr-closed" x="0" y="145.0" width="359" height="35.0"><title>2026-11-07 pr-closed: 1</title></rect>
-      <rect class="bar-pr-merged" x="0" y="75.0" width="359" height="70.0"><title>2026-11-07 pr-merged: 2</title></rect>
+      <rect class="bar-issue-opened" x="0" y="145.0" width="178" height="35.0"><title>2026-11-02 issue-opened: 1</title></rect>
+      <title>2026-11-02 total: 1</title>
+    </g>
+    <g class="day" transform="translate(210,0)">
+      <rect class="bar-pr-closed" x="0" y="145.0" width="178" height="35.0"><title>2026-11-07 pr-closed: 1</title></rect>
+      <rect class="bar-pr-merged" x="0" y="75.0" width="178" height="70.0"><title>2026-11-07 pr-merged: 2</title></rect>
       <title>2026-11-07 total: 3</title>
     </g>
-    <g class="day" transform="translate(391,0)">
-      <rect class="bar-pr-merged" x="0" y="145.0" width="359" height="35.0"><title>2026-11-09 pr-merged: 1</title></rect>
-      <rect class="bar-pr-opened" x="0" y="40.0" width="359" height="105.0"><title>2026-11-09 pr-opened: 3</title></rect>
+    <g class="day" transform="translate(390,0)">
+      <rect class="bar-pr-merged" x="0" y="145.0" width="178" height="35.0"><title>2026-11-09 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="40.0" width="178" height="105.0"><title>2026-11-09 pr-opened: 3</title></rect>
       <title>2026-11-09 total: 4</title>
     </g>
+    <g class="day" transform="translate(570,0)">
+      <rect class="bar-pr-merged" x="0" y="145.0" width="178" height="35.0"><title>2026-11-10 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="110.0" width="178" height="35.0"><title>2026-11-10 pr-opened: 1</title></rect>
+      <title>2026-11-10 total: 2</title>
+    </g>
   </a>
-  <text class="axis-label" x="30" y="194">2026-11-07</text>
-  <text class="axis-label" x="750" y="194" text-anchor="end">2026-11-09</text>
+  <text class="axis-label" x="30" y="194">2026-11-02</text>
+  <text class="axis-label" x="750" y="194" text-anchor="end">2026-11-10</text>
     <rect class="bar-pr-opened" x="30" y="224" width="8" height="8"/>
     <text class="legend-label" x="42" y="232">PR opened</text>
     <rect class="bar-pr-merged" x="150" y="224" width="8" height="8"/>

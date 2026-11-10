@@ -19,5 +19,6 @@
 
 - [PR #73] chore(deps): Bump astral-sh/uv from 0.12.5 to 0.13.6 in /bench/fly (2026-11-02) [closed]
 - [PR #71] chore(ci): Bump the github-actions group across 1 directory with 3 updates (2026-10-26) [closed]
+- [PR #70] chore(deps): Bump astral-sh/uv from 0.12.5 to 0.13.5 in /bench/fly (2026-10-26) [closed]
 
 </details>

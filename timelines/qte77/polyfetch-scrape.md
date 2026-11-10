@@ -31,5 +31,16 @@
 - [PR #276] chore(deps): bump the python-deps group across 1 directory with 5 updates (2026-11-05) [closed]
 - [PR #270] chore(ci): bump the github-actions group across 1 directory with 3 updates (2026-10-29) [closed]
 - [PR #269] chore(deps): bump the python-deps group across 1 directory with 4 updates (2026-10-29) [closed]
+- [ISSUE #260] fetch: an unfollowed 302 on the httpx tier is returned as success (exit 0, 0 bytes) while curl_cffi follows it (2026-10-16) [closed]
+- [ISSUE #256] patchright tier: reading content during a client-side redirect raises Patchright's raw 'page is navigating' error (2026-10-11) [closed]
+- [ISSUE #255] cli: --screenshot-out crashes with a raw FileNotFoundError when its parent directory does not exist (2026-10-11) [closed]
+- [ISSUE #254] fetch: a login wall (LinkedIn status 999 → /authwall) is returned as a normal response, not an error (2026-10-11) [closed]
+- [PR #275] chore(deps): bump filelock from 3.32.2 to 4.2.1 (2026-10-30) [closed]
+- [PR #274] fix(fetch): surface redirect_to for any 3xx; --show-body fails on an unfollowed redirect (2026-10-29) [closed]
+- [PR #273] fix(patchright): handle reading content during a client-side redirect (2026-10-29) [closed]
+- [PR #272] fix(fetch): treat a final status outside 2xx/3xx (e.g. 999 login wall) as an error (2026-10-29) [closed]
+- [PR #271] fix(cli): create missing output dirs instead of crashing on --screenshot-out (2026-10-29) [closed]
+- [PR #268] chore(ci): bump the github-actions group with 2 updates (2026-10-22) [closed]
+- [PR #267] chore(deps): bump the python-deps group with 3 updates (2026-10-22) [closed]
 
 </details>

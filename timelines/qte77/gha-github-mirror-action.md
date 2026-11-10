@@ -21,5 +21,7 @@
 <details><summary>2026-11-10</summary>
 
 - [PR #45] chore(deps): bump github/codeql-action from 4.37.4 to 4.39.1 in the github-actions-minor-patch group across 1 directory (2026-09-09) [closed]
+- [ISSUE #33] docs: adopt README doc-structure canon (2026-06-21) [closed]
+- [PR #49] docs: restructure README to qte77 canon, add CONTRIBUTING.md (2026-09-09) [closed]
 
 </details>
