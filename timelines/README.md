@@ -10,7 +10,7 @@
 | [qte77/gha-github-mirror-action](qte77/gha-github-mirror-action.md) | 3 | 6 | 2026-11-10 | [activity](../assets/qte77/gha-github-mirror-action-activity.svg) |
 | [qte77/gha-cross-repo-issue-sync](qte77/gha-cross-repo-issue-sync.md) | 2 | 2 | 2026-11-09 | [activity](../assets/qte77/gha-cross-repo-issue-sync-activity.svg) |
 | [qte77/gha-llms-txt-action](qte77/gha-llms-txt-action.md) | 0 | 3 | 2026-11-10 | [activity](../assets/qte77/gha-llms-txt-action-activity.svg) |
-| [qte77/gha-sbom-action](qte77/gha-sbom-action.md) | 2 | 1 | 2026-11-10 | [activity](../assets/qte77/gha-sbom-action-activity.svg) |
+| [qte77/gha-sbom-action](qte77/gha-sbom-action.md) | 2 | 2 | 2026-11-10 | [activity](../assets/qte77/gha-sbom-action-activity.svg) |
 | [qte77/gha-dirtree-to-readme](qte77/gha-dirtree-to-readme.md) | 7 | 1 | 2026-11-10 | [activity](../assets/qte77/gha-dirtree-to-readme-activity.svg) |
 | [qte77/gha-contribution-ascii](qte77/gha-contribution-ascii.md) | 0 | 1 | 2026-11-09 | [activity](../assets/qte77/gha-contribution-ascii-activity.svg) |
 | [qte77/gha-rxiv-feed-action](qte77/gha-rxiv-feed-action.md) | 2 | 5 | 2026-11-09 | [activity](../assets/qte77/gha-rxiv-feed-action-activity.svg) |

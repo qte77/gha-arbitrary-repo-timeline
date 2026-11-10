@@ -44,6 +44,7 @@
 - [PR #466] chore(deps): bump pillow from 12.3.0 to 13.0.0 (2026-10-24) [closed]
 - [PR #465] chore(deps): bump the python-deps group across 1 directory with 6 updates (2026-10-22) [closed]
 - [PR #456] chore(ci): bump the github-actions group across 1 directory with 5 updates (2026-10-15) [closed]
+- [PR #482] fix: refresh marks postings that polyfetch reports as gone stale (2026-11-10) [closed]
 
 </details>
 
