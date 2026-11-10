@@ -115,7 +115,9 @@ has changed before):
   (next section), not an enforced rule.
 - `required_status_checks` — the `CodeFactor` check must pass. CodeFactor reports a
   few seconds after a PR opens, so the update-timeline workflow queues auto-merge
-  (`gh pr merge --auto`) rather than merging its snapshot PR immediately.
+  (`gh pr merge --auto`) rather than merging its snapshot PR immediately. The repo's
+  `delete_branch_on_merge` setting does not remove the branch after such an auto-merge,
+  so the workflow deletes leftover `auto-timeline-*` branches itself on each run.
 - `code_quality` — enforced at `warnings` severity.
 
 ### Workflow convention: branch, validate, squash, delete
