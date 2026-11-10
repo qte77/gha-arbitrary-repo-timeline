@@ -33,3 +33,20 @@ mixed with per-repo entries in one comma-separated list. For example,
   chart (a Mermaid `gantt` block)
 - `qte77/gha-arbitrary-repo-timeline` (has a slash) produces the normal
   per-repo timeline at `timelines/qte77/gha-arbitrary-repo-timeline.md`
+
+## This repo's scheduled run
+
+[`.github/workflows/update-timeline.yml`](../.github/workflows/update-timeline.yml)
+runs the action on this repo itself and publishes the result to
+[`timelines/README.md`](../timelines/README.md).
+
+| Setting | Value |
+|---|---|
+| Schedule | weekly, Monday 06:00 UTC (`cron: '0 6 * * 1'`) |
+| `DAYS` | `14`: two weeks back on a weekly run, so one missed run fills itself in; the overlap is deduplicated |
+| `REPOS` | the `repos` input of a manual run, else the `TIMELINE_REPOS` repository variable (comma-separated `owner/repo` list), else this repo only |
+| Output | a `chore: update timelines` PR from an `auto-timeline-<UTC timestamp>` branch, set to auto-merge once the required `CodeFactor` check passes |
+| Cleanup | each run closes older open snapshot PRs and deletes `auto-timeline-*` branches that have no open PR |
+
+To run it by hand for a different repo list:
+`gh workflow run update-timeline.yml -f repos="owner/repo1,owner/repo2"`.

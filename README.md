@@ -62,7 +62,9 @@ Contributors can stop future collection, and maintainers can remove past output;
 <details>
 <summary>Live SVG and TSV example (click to expand)</summary>
 
-This repo's own timeline is regenerated on every workflow run. See
+This repo's own timeline is regenerated every week, together with the other repos in the
+cross-repo index [`timelines/README.md`](timelines/README.md) (schedule and repo list:
+[`docs/pipeline.md`](docs/pipeline.md#this-repos-scheduled-run)). See
 [`timelines/qte77/gha-arbitrary-repo-timeline.md`](timelines/qte77/gha-arbitrary-repo-timeline.md)
 for the live MD and the chart below for the live SVG (auto-themes
 in both GitHub light and dark modes):
