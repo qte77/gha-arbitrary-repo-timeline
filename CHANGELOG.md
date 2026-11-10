@@ -81,6 +81,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `update-timeline.yml` snapshot PRs no longer pile up unmerged: the workflow queues auto-merge instead of merging straight away (which the ruleset rejected with HTTP 405 before the required `CodeFactor` check reported), and closes any older open `auto-timeline-*` PR it supersedes. The schedule moves from daily to weekly (Monday 06:00 UTC)
 - `update-timeline.yml` creates its API commit with no author or committer, so GitHub signs it and it passes `required_signatures`; the custom `github-actions[bot]` identity (added for `require_extra_approval_for_unattributed_changes`, which does not apply here) stopped the signing. `CONTRIBUTING.md` and the BATS test follow; the codeql pin test no longer hard-codes one release
 - Activity SVG now refreshes every workflow run (was previously gated
   on having new MD items, so the 30-day chart went stale when the

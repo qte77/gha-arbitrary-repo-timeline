@@ -113,7 +113,9 @@ has changed before):
   `allowed_merge_methods` is `["merge", "squash", "rebase"]` — the ruleset
   does not itself force squash; squash-over-rebase is project convention
   (next section), not an enforced rule.
-- `required_status_checks` — the `CodeFactor` check must pass.
+- `required_status_checks` — the `CodeFactor` check must pass. CodeFactor reports a
+  few seconds after a PR opens, so the update-timeline workflow queues auto-merge
+  (`gh pr merge --auto`) rather than merging its snapshot PR immediately.
 - `code_quality` — enforced at `warnings` severity.
 
 ### Workflow convention: branch, validate, squash, delete

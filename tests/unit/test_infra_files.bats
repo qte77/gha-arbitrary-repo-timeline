@@ -146,6 +146,25 @@
     ! grep -q 'committer:' .github/workflows/update-timeline.yml
 }
 
+@test "update-timeline workflow runs weekly, not daily" {
+    grep -qE "cron: '[0-9]+ [0-9]+ \* \* [0-6]'" .github/workflows/update-timeline.yml
+    ! grep -q "cron: '0 6 \* \* \*'" .github/workflows/update-timeline.yml
+}
+
+# Reason: an immediate merge right after PR creation hits the ruleset's required
+# CodeFactor check before it reports (HTTP 405), so snapshot PRs piled up unmerged.
+@test "update-timeline workflow queues auto-merge instead of merging immediately" {
+    grep -q 'gh pr merge "$PR_NUM" --auto --squash' .github/workflows/update-timeline.yml
+    ! grep -q 'pulls/$PR_NUM/merge' .github/workflows/update-timeline.yml
+    # deleting the head branch right away would close the queued PR
+    ! grep -q 'git/refs/heads/$BRANCH" -X DELETE' .github/workflows/update-timeline.yml
+}
+
+@test "update-timeline workflow closes superseded snapshot PRs" {
+    grep -q 'startswith("auto-timeline-")' .github/workflows/update-timeline.yml
+    grep -q 'gh pr close' .github/workflows/update-timeline.yml
+}
+
 @test "collect-issues.sh fetches all states" {
     grep -q 'state=all' scripts/collect-issues.sh
 }
