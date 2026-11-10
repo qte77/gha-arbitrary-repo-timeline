@@ -25,8 +25,7 @@ weekly schedule; T0-I set 21 tracked repos; T0-K/T0-L (#315) added the leftover-
 14-day lookback, verified by run 42812693281 (snapshot #316 auto-merged, leftovers swept). The
 scheduled run's settings are documented in `docs/pipeline.md` § "This repo's scheduled run".
 
-**What's next, in order:** nothing agent-runnable is open. Owner-deferred (2026-11-10): T0-J
-(stale timeline files), #83 close, W2-3 (#238 Pages, also needs Pages
+**What's next, in order:** nothing agent-runnable is open. Owner-deferred (2026-11-10): #83 close, W2-3 (#238 Pages, also needs Pages
 enabled with `build_type: workflow`), #109 Tier 2/3. #110 item 7 for timing (per-contributor vs
 aggregate) is an open owner decision raised in PR #295.
 
@@ -634,7 +633,7 @@ suggestion. Do not build speculatively ahead of Tier 1 landing.
 | T0-K | Leftover snapshot branches: #313/#314 auto-merged but `delete_branch_on_merge` left `auto-timeline-20261110-114249` / `-115047` (seen in CodeFactor's branch list, confirmed via the branches API) | done | — | — | **merged: #315**, verified by run 42812693281 (both leftovers deleted). Each run deletes `auto-timeline-*` branches with no open PR, before the "No changes" exit; the latest merged snapshot's branch stays until the next run (deleted by hand once, for #316). CodeFactor lists `auto-timeline-20260612-073852`, first as "last activity failed", now as "Disabled"; that branch no longer exists on GitHub, so it is a stale CodeFactor entry with nothing to fix in this repo |
 | T0-L | Weekly runs with the default 7-day lookback lose a week for good if one run fails | done | — | — | **merged: #315** — workflow passes `DAYS: '14'`; overlap is safe (History dedups by item ID, activity TSV overrides per day) |
 | T0-I | Track more public qte77 repos in the scheduled timeline | done | — | — | **set 2026-11-10** (owner-approved): `vars.TIMELINE_REPOS` = this repo + 11 `gha-*` actions + 9 main projects (21 total); verified by dispatched run 42810588388 → snapshot PR #314 auto-merged, index lists all 21 |
-| T0-J | Stale per-repo files under `timelines/qte77/` for repos no longer tracked (`.github`, `coding-agent-eval`, `gha-biorxiv-stats-action`, `ai-agents-research`, `agentic-codebase-to-scientific-report`, `qte77`) plus an empty-name `qte77/.md` from 2026-06-14 | owner | deferred | — | not in the index, nothing regenerates them; done when the owner decides keep vs delete (and, if delete, a PR removes them) |
+| T0-J | Stale per-repo files under `timelines/qte77/` for repos no longer tracked (`.github`, `coding-agent-eval`, `gha-biorxiv-stats-action`, `ai-agents-research`, `agentic-codebase-to-scientific-report`, `qte77`) plus an empty-name `qte77/.md` from 2026-06-14 | done | — | — | **this PR** — owner chose delete (2026-11-10): 7 timeline MDs + 10 matching `assets/qte77/*-activity.{svg,tsv}` removed; no inbound links. Root cause of `qte77/.md` fixed in #318 |
 | — | #83 — close (decision recorded; both consumers shipped in #232 and #294) | owner | deferred | — | **deferred by owner 2026-11-10** |
 | — | #109 Tier 2/3 | owner (file as follow-up issues) | deferred | W3-2 | not started in this arc; **deferred by owner 2026-11-10** |
 
