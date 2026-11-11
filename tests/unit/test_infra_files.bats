@@ -69,9 +69,12 @@
     grep -q 'force=true' .github/workflows/publish-release.yml
 }
 
-@test "lint-md-links workflow's reusable-workflow pin matches the other qte77/.github callers (no stale-commit drift)" {
+@test "all qte77/.github reusable-workflow callers share one pin (no stale-commit drift)" {
     [ -f .github/workflows/lint-md-links.yml ]
-    grep -qE 'uses: qte77/\.github/\.github/workflows/lint-md-links\.yml@4801217a20922cd54187fc7e4c98c7ea78c0ec9a' .github/workflows/lint-md-links.yml
+    pins=$(grep -ohE 'uses: qte77/\.github/\.github/workflows/[a-z-]+\.yml@[0-9a-f]{40}' .github/workflows/*.yml |
+        sed 's/.*@//' | sort -u)
+    [ "$(grep -ohE 'uses: qte77/\.github/' .github/workflows/*.yml | wc -l)" -eq 4 ]
+    [ "$(printf '%s\n' "$pins" | wc -l)" -eq 1 ]
 }
 
 @test "codeql workflow exists with workflow_dispatch" {

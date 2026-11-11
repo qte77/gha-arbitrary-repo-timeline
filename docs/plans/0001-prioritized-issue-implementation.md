@@ -213,6 +213,7 @@ with a one-line link to new `docs/inputs.md`, new `## Refs` section before `## L
 old `README.md:24-32`. No information lost.
 
 **Required companion diff — `pyproject.toml:29-32`:**
+
 ```diff
          [[tool.bumpversion.files]]
          filename = "README.md"
@@ -221,6 +222,7 @@ old `README.md:24-32`. No information lost.
 +        search = "![Version](https://img.shields.io/badge/version-{current_version}-blue)"
 +        replace = "![Version](https://img.shields.io/badge/version-{new_version}-blue)"
 ```
+
 Must land in the **same PR** as the README badge-color change (see watch-outs above).
 
 **BATS impact:** breaks nothing existing. Recommend adding a new test asserting the
@@ -274,12 +276,14 @@ guardrail, so migrating away from it is a strict improvement.
 workflow file — breaks the moment that string moves into the reusable workflow) and `:64-66`
 (asserts `delete_branch_pr_tag.sh` executable — breaks if deleted) **must be rewritten in the same
 PR**, e.g.:
+
 ```bats
 @test "bump-version workflow calls the qte77/.github reusable workflow" {
     [ -f .github/workflows/bump-version.yml ]
     grep -q 'qte77/.github/.github/workflows/bump-version.yml@' .github/workflows/bump-version.yml
 }
 ```
+
 Add equivalent tests for `tag-release.yml` and `publish-release.yml`. Note `make validate` does
 not lint workflow YAML at all (no yamllint/actionlint target in `Makefile`) — these grep-based
 BATS tests are the only local guard against drift.
@@ -340,8 +344,8 @@ anything currently in the file — extra test coverage on malformed/missing-mark
 ### #87 — cross-repo overview SVG + timelines/README.md index (M, assuming #86-prep lands first; L otherwise)
 
 Sequencing reason, precisely: #87's open PR/issue counts should reuse the **same
-`--state open` collector flag** #86-prep introduces, called per repo and counted — not parse
-#86's rendered markdown (which would couple #87 to #86's markdown formatting, fragile).
+`--state open` collector flag** #86-prep introduces, called per repo and counted — not parse #86's
+rendered markdown (which would couple #87 to #86's markdown formatting, fragile).
 
 - New `scripts/render-overview-svg.sh` (heatmap, per the #83 decision) — reads all
   `assets/*/*-activity.tsv` files (already populated by the existing per-repo TSV pipeline,
@@ -441,6 +445,7 @@ JSONL `{"login","type":"pr"|"issue"|"commit","timestamp"}`. Separate API calls f
    `gh api users/$login`, jq allowlist `location, company, bio` only — the filter itself never
    selects `.email`, so leakage is structurally impossible, not just redacted after the fact.
 6. Output `assets/<owner>/<repo>-contributors.json`:
+
    ```json
    {
      "repo": "owner/repo", "scraped_at": "...", "window_days": 7, "since": "...",
@@ -473,6 +478,7 @@ manual maintainer commit or history rewrite.
 
 **BATS test plan** (new `tests/unit/test_collect_contributors.bats` + gate tests folded into
 `test_infra_files.bats`/`test_generate_timeline.bats`):
+
 - Gate exits 1 on `CONTRIBUTORS=true` + `visibility=public`; exits 1 on **unset** visibility
   (fail closed); passes on private/internal; no-op when all three flags false; exits 1 when
   `PROFILE_DETAILS=true` but `CONTRIBUTORS=false`.
