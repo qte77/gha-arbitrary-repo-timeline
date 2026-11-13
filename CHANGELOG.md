@@ -52,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - The four `qte77/.github` reusable workflows (bump-version, tag-release, publish-release, lint-md-links) are re-pinned from `4801217` to `43ad121`. Upstream changes: the bump commit is now created via `createCommitOnBranch`, so GitHub signs it; optional App-token and monorepo inputs; a `tag` output on tag-release; and lint-md-links keeps one failure issue per ref. All new inputs are optional and left at their defaults. A test now checks that all four callers share one pin
+- `tag-release.yml`, `bump-version.yml` and `publish-release.yml` re-pinned `43ad121` → `qte77/.github@a32769a` (main, 2026-11-12, qte77/.github#64). Only internal action pins changed upstream between these two commits; inputs/outputs used here are unchanged. `lint-md-links.yml` is untouched by this change
 - `update-timeline.yml` builds its snapshot commit with file contents inline in one "Create a tree" request instead of one blob request per changed file (65 for 21 repos), staying well under GitHub's secondary limit of 80 content-creating requests per minute; a final step logs the remaining REST budget
 - Timeline MD now has a rolling `## Open` section, rewritten every run
   from the live open-items query, and a collapsed `## History` of
