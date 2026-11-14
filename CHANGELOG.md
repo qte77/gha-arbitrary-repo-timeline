@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [0.2.0] - 2026-11-14
+
 ### Added
 
 - `update-timeline.yml` opens a `Timeline update failed` issue when a run fails, or comments on it if it is already open (the workflow's `issues` permission moves from `read` to `write`)
