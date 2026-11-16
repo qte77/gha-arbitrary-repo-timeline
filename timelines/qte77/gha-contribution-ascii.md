@@ -10,6 +10,13 @@
 
 ## History
 
+<details><summary>2026-11-16</summary>
+
+- [PR #107] ci: pin workflow actions to full commit SHAs (2026-11-12) [closed]
+- [PR #106] chore(deps): bump callowayproject/bump-my-version from 1.6.3 to 1.8.1 (2026-11-11) [closed]
+
+</details>
+
 <details><summary>2026-11-10</summary>
 
 - [PR #105] PR bump-14-main [skip ci bump] (2026-11-09) [closed]

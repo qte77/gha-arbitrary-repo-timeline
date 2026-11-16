@@ -6,10 +6,17 @@
 ## Open
 
 - [ISSUE #20] docs: adopt README doc-structure canon (2026-06-21) [open]
-- [PR #23] chore: stop tracking .claude/settings.local.json (2026-11-09) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-16</summary>
+
+- [PR #25] ci: add grouped Dependabot config for GitHub Actions (2026-11-11) [closed]
+- [PR #24] fix(ci): ignore placeholder links and drop dead rickxie.cn citation (2026-11-11) [closed]
+- [PR #23] chore: stop tracking .claude/settings.local.json (2026-11-09) [closed]
+
+</details>
 
 <details><summary>2026-11-10</summary>
 

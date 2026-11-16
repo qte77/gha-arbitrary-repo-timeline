@@ -12,15 +12,34 @@
 - [ISSUE #142] feat: add a pipeline UI (estate vanilla-TS + Vite + qte77/brand) (2026-06-22) [open]
 - [ISSUE #140] chore: evaluate committing a redistribution-clean sample subset (supersede ADR-0010?) (2026-06-22) [open]
 - [ISSUE #63] Run-4 prototype results — 8-variant external + 2-pipeline comparison (2026-04-27) [open]
-- [PR #265] docs: update SBOM (2026-11-10) [open]
-- [PR #263] docs: update SBOM (2026-11-09) [open]
-- [PR #261] docs: update SBOM (2026-11-09) [open]
-- [PR #259] chore(deps): Bump the actions-version-updates group across 1 directory with 3 updates (2026-11-09) [open]
-- [PR #258] docs: update SBOM (2026-11-08) [open]
-- [PR #257] docs: update SBOM (2026-11-02) [open]
+- [PR #279] fix(deps): bump opentelemetry-api to 1.45.2 (GHSA-mf5v-w3w3-f6cg) (2026-11-15) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-16</summary>
+
+- [PR #278] docs: update SBOM (2026-11-15) [closed]
+- [PR #277] docs: update SBOM (2026-11-14) [closed]
+- [PR #276] docs: update SBOM (2026-11-14) [closed]
+- [PR #275] chore(release): bump 0.3.0 -> 0.3.1 (2026-11-14) [closed]
+- [PR #274] docs: update SBOM (2026-11-13) [closed]
+- [PR #273] ci(release): re-pin qte77/.github release workflows to main a32769a (2026-11-13) [closed]
+- [PR #272] docs: update SBOM (2026-11-12) [closed]
+- [PR #271] fix(deps): bump brotlicffi to 1.2.1.0 (GHSA-9v8h-qqgm-4m35) (2026-11-12) [closed]
+- [PR #270] docs: update SBOM (2026-11-12) [closed]
+- [PR #269] fix(deps): bump certifi to 2026.10.23 (GHSA-6q48-6c7w-9gw2) (2026-11-12) [closed]
+- [PR #268] docs: update SBOM (2026-11-11) [closed]
+- [PR #267] ci(sbom): pin gha-sbom-action v0.1.2 so SBOM commits are signed (2026-11-11) [closed]
+- [PR #266] ci(release): re-pin qte77/.github to 43ad121; publish the Release in the tag run (2026-11-11) [closed]
+- [PR #265] docs: update SBOM (2026-11-10) [closed]
+- [PR #263] docs: update SBOM (2026-11-09) [closed]
+- [PR #261] docs: update SBOM (2026-11-09) [closed]
+- [PR #259] chore(deps): Bump the actions-version-updates group across 1 directory with 3 updates (2026-11-09) [closed]
+- [PR #258] docs: update SBOM (2026-11-08) [closed]
+- [PR #257] docs: update SBOM (2026-11-02) [closed]
+
+</details>
 
 <details><summary>2026-11-10</summary>
 

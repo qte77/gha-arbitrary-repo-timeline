@@ -9,10 +9,21 @@
 - [ISSUE #238] feat: publish cross-repo overview via GitHub Pages (2026-09-18) [open]
 - [ISSUE #109] feat: account-level meta tracker — repos timeline, theme inference, external contributions (2026-05-09) [open]
 - [ISSUE #83] consider replacing hand-rolled awk SVG renderer with mermaid or vega-lite (2026-05-08) [open]
-- [PR #311] chore(deps): Bump the github-actions group with 2 updates (2026-11-10) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-16</summary>
+
+- [PR #327] chore(release): bump 0.1.0 → 0.2.0 (2026-11-14) [closed]
+- [PR #326] ci(release): re-pin qte77/.github release workflows to main a32769a (2026-11-13) [closed]
+- [PR #325] ci: re-pin qte77/.github reusable workflows to 43ad121 (2026-11-10) [closed]
+- [PR #324] test: make negated BATS assertions able to fail (2026-11-10) [closed]
+- [PR #323] ci(timeline): open or update an issue when a run fails (2026-11-10) [closed]
+- [PR #322] chore: update timelines (2026-11-10) [closed]
+- [PR #311] chore(deps): Bump the github-actions group with 2 updates (2026-11-10) [closed]
+
+</details>
 
 <details><summary>2026-11-10</summary>
 

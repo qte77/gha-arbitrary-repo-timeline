@@ -5,7 +5,9 @@
 <!-- open-section-start -->
 ## Open
 
-- [ISSUE #262] Review follow-ups: read-once cache hardening + small doc fixes (2026-10-26) [open]
+- [ISSUE #291] read-once: refresh snapshot on TTL expiry; doc and test gaps from #290 review (2026-11-16) [open]
+- [ISSUE #282] gha-dev: skill for the SHA-pin + grouped Dependabot brief (2026-11-12) [open]
+- [ISSUE #281] cc-meta: tracking — hook-driven compaction (PreCompact snapshot + post-compaction re-onboarding) (2026-11-12) [open]
 - [ISSUE #243] Proposal: merge workspace-setup and workspace-sandbox (shared files, mutually exclusive) (2026-10-11) [open]
 - [ISSUE #242] SKILL.md: Claude Code keys nested under metadata: are ignored (decision needed) (2026-10-11) [open]
 - [ISSUE #236] pages-ops: finish the plugin (design snapshot sync, Pages build, agent-readiness and live checks, deploy) (2026-10-11) [open]
@@ -21,13 +23,30 @@
 - [ISSUE #125] refactor: consider merging security-audit into codebase-tools (2026-04-21) [open]
 - [ISSUE #101] Evaluate Graphify for skill dependency graph and cross-plugin analysis (2026-04-09) [open]
 - [ISSUE #75] cc-voice: implement STT via Moonshine (/listen) (2026-04-05) [open]
-- [PR #275] ci: bump the github-actions group with 3 updates (2026-11-08) [open]
 - [PR #201] docs(agent-requests): flag the cc-meta MEMORY.md seed hook for retirement (2026-08-23) [open]
 - [PR #200] feat(workspace-setup,workspace-sandbox): add unattended-execution rule (2026-08-18) [open]
 - [PR #197] [PARKED] feat: add unattended-run kit to workspace-setup deployed set (pre-stages qte77 arc-003) (2026-07-28) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-16</summary>
+
+- [ISSUE #278] Issue-triage smoke test (will be closed) (2026-11-11) [closed]
+- [ISSUE #262] Review follow-ups: read-once cache hardening + small doc fixes (2026-10-26) [closed]
+- [PR #290] fix(read-once): private per-user cache, owned-dir checks, safe snapshots; #262 doc fixes (2026-11-15) [closed]
+- [PR #289] docs(rules): unattended runs: compaction hook, wait-don't-poll, reachable goals (2026-11-14) [closed]
+- [PR #288] ci(release): re-pin qte77/.github release workflows to main a32769a (2026-11-13) [closed]
+- [PR #287] docs(rules): a required check that never reports blocks merging for good (2026-11-13) [closed]
+- [PR #286] ci(codeql): label codeql-action pins with their real version (v4.39.3) (2026-11-12) [closed]
+- [PR #285] feat(rust-dev): lints, hostile input, wasm determinism, canonical sources (2026-11-12) [closed]
+- [PR #284] fix: correct stale cc-voice repo pointer and README claims (2026-11-12) [closed]
+- [PR #283] ci: bump gha-issue-triage to v0.7.1 (2026-11-12) [closed]
+- [PR #280] ci: bump gha-issue-triage to v0.6.0 (2026-11-11) [closed]
+- [PR #279] fix(ci): create research-sync label before research-monitor opens issue (2026-11-11) [closed]
+- [PR #275] ci: bump the github-actions group with 3 updates (2026-11-08) [closed]
+
+</details>
 
 <details><summary>2026-11-10</summary>
 

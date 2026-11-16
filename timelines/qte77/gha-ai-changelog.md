@@ -7,10 +7,16 @@
 
 - [ISSUE #42] chore(ci): adopt qte77/.github reusable release workflows (2026-06-28) [open]
 - [ISSUE #39] docs: adopt README doc-structure canon (2026-06-21) [open]
-- [PR #51] chore(deps): bump callowayproject/bump-my-version from 1.6.3 to 1.8.1 (2026-11-08) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-16</summary>
+
+- [PR #52] ci: pin workflow actions to full commit SHAs (2026-11-12) [closed]
+- [PR #51] chore(deps): bump callowayproject/bump-my-version from 1.6.3 to 1.8.1 (2026-11-08) [closed]
+
+</details>
 
 <details><summary>2026-11-10</summary>
 

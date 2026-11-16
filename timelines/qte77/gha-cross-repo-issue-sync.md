@@ -7,11 +7,17 @@
 
 - [ISSUE #79] chore(ci): adopt qte77/.github reusable release workflows (2026-06-28) [open]
 - [ISSUE #57] chore: publish to GitHub Marketplace (2026-04-05) [open]
-- [PR #90] PR bump-11-main [skip ci bump] (2026-11-09) [open]
-- [PR #89] chore(deps): bump callowayproject/bump-my-version from 1.6.3 to 1.8.1 (2026-11-09) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-16</summary>
+
+- [PR #91] ci: pin actions to commit SHAs, group Dependabot actions updates (2026-11-11) [closed]
+- [PR #90] PR bump-11-main [skip ci bump] (2026-11-09) [closed]
+- [PR #89] chore(deps): bump callowayproject/bump-my-version from 1.6.3 to 1.8.1 (2026-11-09) [closed]
+
+</details>
 
 <details><summary>2026-11-10</summary>
 
