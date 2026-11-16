@@ -7,11 +7,19 @@
 
 - [ISSUE #42] ci: Lint MD and Links ends in startup_failure since the Actions allow-list change (2026-11-10) [open]
 - [ISSUE #37] SBOM PRs can't merge under signed-commit and required-CodeQL rules without manual steps (2026-11-02) [open]
-- [PR #41] chore(deps): Bump astral-sh/setup-uv from 10.3.0 to 10.3.3 in the actions-version-updates group (2026-11-10) [open]
-- [PR #39] chore(release): bump 0.1.1 → 0.1.2 (2026-11-09) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-16</summary>
+
+- [PR #45] ci(release): re-pin qte77/.github release workflows to main a32769a (2026-11-13) [closed]
+- [PR #44] chore(release): bump 0.1.1 → 0.1.2 (2026-11-11) [closed]
+- [PR #43] ci(release): re-pin qte77/.github to 43ad121; publish the Release in the tag run (2026-11-11) [closed]
+- [PR #41] chore(deps): Bump astral-sh/setup-uv from 10.3.0 to 10.3.3 in the actions-version-updates group across 1 directory (2026-11-10) [closed]
+- [PR #39] chore(release): bump 0.1.1 → 0.1.2 (2026-11-09) [closed]
+
+</details>
 
 <details><summary>2026-11-10</summary>
 

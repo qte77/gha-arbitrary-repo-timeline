@@ -5,6 +5,9 @@
 <!-- open-section-start -->
 ## Open
 
+- [ISSUE #106] Multi-session steering: closed session hierarchy, inbound settings per role, merge-gate script (2026-11-13) [open]
+- [ISSUE #104] Actions-policy script: report tag-pinned uses: refs and settings drift, apply on request (2026-11-12) [open]
+- [ISSUE #103] Estate sweep: mark Dependabot alerts already fixed on the default branch (2026-11-12) [open]
 - [ISSUE #94] Port the cloud-session lane scripts (wave, goal, salvage, salvage-pr) into scripts/ (2026-10-29) [open]
 - [ISSUE #92] cc-parallel.sh follow-ups after #91: cost field, budget cap, concurrency, ad-hoc permission mode, resume (2026-10-24) [open]
 - [ISSUE #88] config: repos.conf and contributions.json disagree; pending tasks lack issue anchors (2026-10-03) [open]
@@ -17,6 +20,16 @@
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-16</summary>
+
+- [ISSUE #102] Port the estate status sweep into scripts/ (public by default, --scope switch, fail on empty scan) (2026-11-12) [closed]
+- [PR #108] fix(security): override minimatch and katex past upstream's stale ranges (2026-11-13) [closed]
+- [PR #107] ci: add a CodeQL workflow (python) (2026-11-13) [closed]
+- [PR #105] feat(scripts): port the estate status sweep into scripts/ (public by default, --scope switch) (2026-11-12) [closed]
+- [PR #101] fix(security): bump markdownlint-cli to unblock the js-yaml Dependabot update (2026-11-11) [closed]
+
+</details>
 
 <details><summary>2026-11-10</summary>
 

@@ -6,6 +6,9 @@
 <!-- open-section-start -->
 ## Open
 
+- [ISSUE #499] slug_probe: check host before treating a redirect as a board-listing bounce (2026-11-15) [open]
+- [ISSUE #490] chore(sources): triage default-seed boards that 404 on ingest (2026-11-11) [open]
+- [ISSUE #489] relevance: screen leaves deal_breaker empty for location, language and export limits (2026-11-11) [open]
 - [ISSUE #468] decision pre-filter: follow-ups (shared decide(), per-lane questions, re-validation) (2026-10-28) [open]
 - [ISSUE #453] feat(ingest): new ATS adapters — Workday, Haufe/Abacus umantis (2026-10-11) [open]
 - [ISSUE #452] feat: interview-prep workflow (new L3 stage) (2026-10-11) [open]
@@ -22,6 +25,25 @@
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-16</summary>
+
+- [ISSUE #488] bug: refresh treats a redirect to the board listing as a live posting (2026-11-11) [closed]
+- [ISSUE #487] bug: re-persisting a pack keeps a stale coverage-report.md (2026-11-11) [closed]
+- [PR #498] fix(refresh): treat a redirect to the board listing as gone (2026-11-15) [closed]
+- [PR #497] fix(persist): remove stale coverage-report.md when pack has no must_haves (2026-11-15) [closed]
+- [PR #496] docs: neutral wording for operator commands in older plans (2026-11-14) [closed]
+- [PR #495] ci(release): re-pin qte77/.github release workflows to main a32769a (2026-11-13) [closed]
+- [PR #494] ci: bump gha-issue-triage to v0.7.1 (2026-11-12) [closed]
+- [PR #493] chore(deps): bump the python-deps group with 3 updates (2026-11-12) [closed]
+- [PR #492] chore(ci): bump the github-actions group with 3 updates (2026-11-12) [closed]
+- [PR #491] docs: fold each docs/handoffs file into its plan (2026-11-12) [closed]
+- [PR #486] docs: architecture notes that persist-offer removes stale check files (2026-11-11) [closed]
+- [PR #485] fix: persist-offer removes a stale check file when the re-check is clean (2026-11-11) [closed]
+- [PR #484] ci: bump gha-issue-triage to v0.6.0 (2026-11-11) [closed]
+- [PR #483] fix: tailor CVs state each fact once (2026-11-11) [closed]
+
+</details>
 
 <details><summary>2026-11-10</summary>
 

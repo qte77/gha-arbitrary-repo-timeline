@@ -19,6 +19,26 @@
 
 ## History
 
+<details><summary>2026-11-16</summary>
+
+- [PR #110] feat(release): v0.6.1 (2026-11-15) [closed]
+- [PR #109] fix(eval): parse fenced JSON extraction replies; log parse failures (2026-11-14) [closed]
+- [PR #108] ci(release): re-pin qte77/.github release workflows to main a32769a (2026-11-13) [closed]
+- [PR #107] ci: add a CodeQL workflow (python, actions) (2026-11-13) [closed]
+- [PR #106] chore(deps-dev): bump complexipy from 5.4.1 to 8.3.0 (2026-11-12) [closed]
+- [PR #105] chore(deps): bump the uv-version-updates group with 5 updates (2026-11-12) [closed]
+- [PR #104] chore(deps): bump astral-sh/setup-uv from 8.1.0 to 10.3.3 (2026-11-12) [closed]
+- [PR #103] chore(deps): bump actions/setup-python from 6.2.0 to 7.1.0 (2026-11-12) [closed]
+- [PR #102] chore(deps): bump actions/download-artifact from 7.0.0 to 8.0.2 (2026-11-12) [closed]
+- [PR #101] chore(deps): bump actions/checkout from 6.0.2 to 7.0.1 (2026-11-12) [closed]
+- [PR #100] chore(deps): bump actions/upload-artifact from 7.0.1 to 7.0.2 in the actions-version-updates group (2026-11-12) [closed]
+- [PR #99] ci(dependabot): add grouped github-actions and uv updates (2026-11-12) [closed]
+- [PR #98] docs(readme): link the estate decision-model conventions (2026-11-12) [closed]
+- [PR #97] feat(release): v0.6.0 (2026-11-11) [closed]
+- [PR #96] Route relevance through decide() with chat fallback (2026-11-11) [closed]
+
+</details>
+
 <details><summary>2026-11-10</summary>
 
 - [ISSUE #80] eval-papers.yaml v0.4.0 passes --max-llm-calls unconditionally — older eval_ref pins exit 2 (workflow/script pin-skew) (2026-07-23) [closed]

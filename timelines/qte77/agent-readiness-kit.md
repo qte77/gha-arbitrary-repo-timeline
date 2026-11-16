@@ -14,15 +14,26 @@
 - [ISSUE #17] Revisit dns-aid signal once a DNS agent-identity draft reaches consensus (2026-09-17) [open]
 - [ISSUE #6] crosswalk.ts places api-catalog under Discovery; isitagentready.com groups it under "Protocol Discovery" — reconcile against upstream table (2026-09-16) [open]
 - [ISSUE #5] Candidate crosswalk signal gaps surfaced by ora.ai / isitagentready.com comparison: a11y, WebMCP, Link response headers, ARD (2026-09-16) [open]
-- [PR #98] chore(deps-dev): bump the worker-npm-minor-patch group in /worker with 3 updates (2026-11-09) [open]
-- [PR #97] chore(deps-dev): bump @types/node from 22.20.3 to 26.6.6 (2026-11-09) [open]
-- [PR #96] chore(deps-dev): bump vitest from 5.0.5 to 5.1.0 in the npm-minor-patch group (2026-11-09) [open]
-- [PR #95] chore(deps): bump the actions-minor-patch group with 2 updates (2026-11-09) [open]
-- [PR #94] chore(scan): update scan results (2026-11-09) [open]
-- [PR #93] chore(scan): update scan results (2026-11-02) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-16</summary>
+
+- [PR #104] chore(deps-dev): bump the worker-npm-minor-patch group in /worker with 2 updates (2026-11-14) [closed]
+- [PR #103] chore(deps-dev): bump @types/node from 22.20.3 to 22.20.5 in the npm-minor-patch group (2026-11-14) [closed]
+- [PR #102] chore(deps): ignore @types/node majors while the runtime is Node 22 (2026-11-14) [closed]
+- [PR #101] docs: neutral wording for operator commands in older plans (2026-11-14) [closed]
+- [PR #100] chore(scan): re-scan agenthud-agui-a2ui and qte77-github-io (2026-11-13) [closed]
+- [PR #99] fix(ci): commit scan results through the Git Data API so they are signed (2026-11-11) [closed]
+- [PR #98] chore(deps-dev): bump the worker-npm-minor-patch group in /worker with 3 updates (2026-11-09) [closed]
+- [PR #97] chore(deps-dev): bump @types/node from 22.20.3 to 26.6.6 (2026-11-09) [closed]
+- [PR #96] chore(deps-dev): bump vitest from 5.0.5 to 5.1.0 in the npm-minor-patch group (2026-11-09) [closed]
+- [PR #95] chore(deps): bump the actions-minor-patch group with 2 updates (2026-11-09) [closed]
+- [PR #94] chore(scan): update scan results (2026-11-09) [closed]
+- [PR #93] chore(scan): update scan results (2026-11-02) [closed]
+
+</details>
 
 <details><summary>2026-11-10</summary>
 

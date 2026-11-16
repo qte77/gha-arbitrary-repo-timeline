@@ -8,17 +8,35 @@
 
 - [ISSUE #418] feat(backtest): private-repo cache so point-in-time statement history stops aging out (2026-09-25) [open]
 - [ISSUE #294] docs(plans): refine the plan convention + integrate it across the doc system (issues/roadmap/architecture/PRD) (2026-06-14) [open]
-- [PR #533] chore(universe): refresh aggregated-scores-best preset (2026-11-08) [open]
-- [PR #532] chore(universe): refresh aggregated-scores-worst preset (2026-11-08) [open]
-- [PR #531] docs: update SBOM (2026-11-08) [open]
-- [PR #530] docs: update SBOM (2026-11-07) [open]
-- [PR #529] docs: update SBOM (2026-11-07) [open]
-- [PR #526] chore(universe): refresh aggregated-scores-worst preset (2026-11-01) [open]
-- [PR #525] chore(universe): refresh aggregated-scores-best preset (2026-11-01) [open]
-- [PR #524] docs: update SBOM (2026-11-01) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-16</summary>
+
+- [ISSUE #534] Issue-triage smoke test (will be closed) (2026-11-11) [closed]
+- [PR #546] chore(universe): refresh aggregated-scores-worst preset (2026-11-15) [closed]
+- [PR #545] chore(universe): refresh aggregated-scores-best preset (2026-11-15) [closed]
+- [PR #544] docs: update SBOM (2026-11-15) [closed]
+- [PR #543] docs: update SBOM (2026-11-13) [closed]
+- [PR #542] chore(deps): Bump soupsieve from 2.9.2 to 4.0 in the python-security group across 1 directory (2026-11-13) [closed]
+- [PR #541] docs: update SBOM (2026-11-12) [closed]
+- [PR #540] ci: bump gha-issue-triage to v0.7.1 (2026-11-12) [closed]
+- [PR #539] chore(ci): Bump the github-actions group across 1 directory with 2 updates (2026-11-12) [closed]
+- [PR #538] chore(deps): Bump the python-deps group with 3 updates (2026-11-12) [closed]
+- [PR #537] ci: bump gha-issue-triage to v0.6.0 (2026-11-11) [closed]
+- [PR #536] ci(sbom): pin gha-sbom-action v0.1.2 so SBOM commits are signed (2026-11-11) [closed]
+- [PR #535] fix(ci): commit universe preset refresh through the Git Data API so it is signed (2026-11-11) [closed]
+- [PR #533] chore(universe): refresh aggregated-scores-best preset (2026-11-08) [closed]
+- [PR #532] chore(universe): refresh aggregated-scores-worst preset (2026-11-08) [closed]
+- [PR #531] docs: update SBOM (2026-11-08) [closed]
+- [PR #530] docs: update SBOM (2026-11-07) [closed]
+- [PR #529] docs: update SBOM (2026-11-07) [closed]
+- [PR #526] chore(universe): refresh aggregated-scores-worst preset (2026-11-01) [closed]
+- [PR #525] chore(universe): refresh aggregated-scores-best preset (2026-11-01) [closed]
+- [PR #524] docs: update SBOM (2026-11-01) [closed]
+
+</details>
 
 <details><summary>2026-11-10</summary>
 

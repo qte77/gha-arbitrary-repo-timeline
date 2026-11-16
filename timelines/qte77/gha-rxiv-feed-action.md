@@ -10,11 +10,23 @@
 - [ISSUE #99] Add SocArxiv (OSF-backed) fetcher behind SERVER dispatch (2026-05-20) [open]
 - [ISSUE #98] Add weekly SVG visualization (bash+awk, GH light/dark) (2026-05-20) [open]
 - [ISSUE #69] Add chemRxiv support (separate fetcher behind SERVER dispatch) (2026-05-06) [open]
-- [PR #241] chore(release): bump 0.2.4 → 0.3.0 (2026-11-09) [open]
-- [PR #240] Chore(deps): bump the codeql-action group with 3 updates (2026-11-09) [open]
+- [PR #248] chore: update ./data/biorxiv (2026-11-16) [open]
+- [PR #247] chore: update ./data/medrxiv (2026-11-16) [open]
+- [PR #246] chore: update ./data/biorxiv (2026-11-16) [open]
+- [PR #245] chore: update ./data/arxiv (2026-11-16) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-16</summary>
+
+- [PR #244] chore(release): bump 0.2.4 → 0.3.0 (2026-11-14) [closed]
+- [PR #243] ci(release): re-pin qte77/.github release workflows to main a32769a (2026-11-13) [closed]
+- [PR #242] chore(dependabot): group security and minor/patch updates per ecosystem (2026-11-12) [closed]
+- [PR #241] chore(release): bump 0.2.4 → 0.3.0 (2026-11-09) [closed]
+- [PR #240] Chore(deps): bump the codeql-action group across 1 directory with 3 updates (2026-11-09) [closed]
+
+</details>
 
 <details><summary>2026-11-10</summary>
 
