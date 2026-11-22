@@ -17,9 +17,14 @@ name: Publish Release
 # "latest v*-tag" sort ordering against our own floating v{MAJOR} tags.
 
 on:
+  # zizmor: ignore[dangerous-triggers] -- workflow_run is required (a GITHUB_TOKEN push
+  # never fires push: workflows, see above). Safe here: the upstream "Tag Release" runs only
+  # on push to main, `branches: [main]` pins that, no PR code is checked out, and the
+  # only secret is the read/contents-scoped GITHUB_TOKEN.
   workflow_run:
     workflows: ["Tag Release"]
     types: [completed]
+    branches: [main]
 
 jobs:
   resolve:
