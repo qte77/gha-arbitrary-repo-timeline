@@ -17,13 +17,23 @@ name: Publish Release
 # "latest v*-tag" sort ordering against our own floating v{MAJOR} tags.
 
 on:
+  # zizmor: ignore[dangerous-triggers] -- workflow_run is required (a GITHUB_TOKEN push
+  # never fires push: workflows, see above). The resolve job only proceeds for a successful
+  # "Tag Release" run that was triggered by a push in this repository (event == push and
+  # head_repository == this repository), and the publishing jobs require resolve to
+  # succeed. Token scope: contents read in resolve, contents write only in publish and
+  # move-floating-major-tag.
   workflow_run:
     workflows: ["Tag Release"]
     types: [completed]
+    branches: [main]
 
 jobs:
   resolve:
-    if: github.event.workflow_run.conclusion == 'success'
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -58,7 +68,7 @@ jobs:
 
   publish:
     needs: resolve
-    if: needs.resolve.outputs.skip != 'true'
+    if: needs.resolve.result == 'success' && needs.resolve.outputs.skip != 'true'
     permissions:
       contents: write
     # 2026-11-10, qte77/.github@43ad121. Explicit `tag:` (from `resolve`)
@@ -76,7 +86,7 @@ jobs:
     # it locally on every publish, distinct from the delete-on-failure
     # behavior intentionally dropped from the old pipeline.
     needs: [resolve, publish]
-    if: needs.resolve.outputs.skip != 'true'
+    if: needs.resolve.result == 'success' && needs.resolve.outputs.skip != 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: write
