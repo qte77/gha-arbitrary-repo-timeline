@@ -6,11 +6,39 @@
 <!-- open-section-start -->
 ## Open
 
+- [ISSUE #563] Collect daily SPY options open-interest levels (plan 011) (2026-11-22) [open]
 - [ISSUE #418] feat(backtest): private-repo cache so point-in-time statement history stops aging out (2026-09-25) [open]
-- [ISSUE #294] docs(plans): refine the plan convention + integrate it across the doc system (issues/roadmap/architecture/PRD) (2026-06-14) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-23</summary>
+
+- [ISSUE #294] docs(plans): refine the plan convention + integrate it across the doc system (issues/roadmap/architecture/PRD) (2026-06-14) [closed]
+- [PR #569] docs: options OI cron + private cache in architecture and roadmap (2026-11-22) [closed]
+- [PR #568] docs: update llms.txt (2026-11-22) [closed]
+- [PR #567] docs: update llms.txt (2026-11-22) [closed]
+- [PR #566] ci(options-oi): weekday SPY options OI levels workflow (plan 011 row 4) (2026-11-22) [closed]
+- [PR #565] docs(adr): ADR-0015, collect SPY options OI levels (plan 011 row 1) (2026-11-22) [closed]
+- [PR #564] feat(options-oi): collect SPY option open-interest levels (plan 011 row 2) (2026-11-22) [closed]
+- [PR #562] docs(plans): plan 011, daily options open-interest level collection (proposed) (2026-11-22) [closed]
+- [PR #561] docs: update SBOM (2026-11-22) [closed]
+- [PR #560] feat(backtest): restore and save results/prices via a private cache repo (#418) (2026-11-22) [closed]
+- [PR #559] docs(plans): delete shipped plans, keep only open plan 009 (2026-11-22) [closed]
+- [PR #558] ci: pin qte77/.github reusable workflows to v0.1.2 (2026-11-22) [closed]
+- [PR #557] docs: update SBOM (2026-11-22) [closed]
+- [PR #556] fix(sentiment): stop persisting S&P 500 and VIX index levels from CNN F&G (2026-11-22) [closed]
+- [PR #555] chore(claude): set Claude Code env and refresh the statusline (2026-11-22) [closed]
+- [PR #554] chore(universe): refresh aggregated-scores-best preset (2026-11-22) [closed]
+- [PR #553] chore(universe): refresh aggregated-scores-worst preset (2026-11-22) [closed]
+- [PR #552] docs: update SBOM (2026-11-22) [closed]
+- [PR #551] chore(deps): Bump wcmatch from 10.1 to 11.2 in the python-security group across 1 directory (2026-11-20) [closed]
+- [PR #550] ci: least-privilege permissions and no workflow_run for the universe builder (2026-11-20) [closed]
+- [PR #549] docs: update SBOM (2026-11-20) [closed]
+- [PR #548] chore(ci): Bump the github-actions group with 3 updates (2026-11-19) [closed]
+- [PR #547] chore(deps): Bump the python-deps group with 3 updates (2026-11-19) [closed]
+
+</details>
 
 <details><summary>2026-11-16</summary>
 

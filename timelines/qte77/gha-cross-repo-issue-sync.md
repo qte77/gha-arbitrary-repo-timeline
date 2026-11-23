@@ -11,6 +11,14 @@
 
 ## History
 
+<details><summary>2026-11-23</summary>
+
+- [PR #94] fix(ci): pass workflow expressions through env in bump-and-release (2026-11-22) [closed]
+- [PR #93] ci: pin action version comments to exact tags (2026-11-22) [closed]
+- [PR #92] chore(claude): set Claude Code output and autocompact env (2026-11-22) [closed]
+
+</details>
+
 <details><summary>2026-11-16</summary>
 
 - [PR #91] ci: pin actions to commit SHAs, group Dependabot actions updates (2026-11-11) [closed]

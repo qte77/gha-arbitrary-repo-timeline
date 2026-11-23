@@ -13,6 +13,16 @@
 
 ## History
 
+<details><summary>2026-11-23</summary>
+
+- [ISSUE #145] track: AGENTS.md fallback rollout + local cleanup (ai-agents-research plan 0015 row 13-A2) (2026-11-22) [closed]
+- [PR #148] ci(bump-version): refresh the shared bump workflow pin (2026-11-22) [closed]
+- [PR #147] fix(ci): scope bump-version permissions to the bump job and drop secrets: inherit (2026-11-22) [closed]
+- [PR #146] fix(ci): restrict the publish trigger to push runs from this repository (2026-11-22) [closed]
+- [PR #144] chore(deps): Bump the github-actions group with 4 updates (2026-11-16) [closed]
+
+</details>
+
 <details><summary>2026-11-16</summary>
 
 - [ISSUE #139] decide shadow: cf backend off-by-one, overflow on huge ints, stale checkout pin (2026-11-12) [closed]

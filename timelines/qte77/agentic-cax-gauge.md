@@ -13,6 +13,23 @@
 
 ## History
 
+<details><summary>2026-11-23</summary>
+
+- [PR #121] docs(plan): status update 2026-11-22 (2026-11-22) [closed]
+- [PR #120] docs(landscape): LEAP71 as a whole: 21 repos, Chondrite and typed quantities (2026-11-22) [closed]
+- [PR #119] test(bench): known-bad controls from agent-CAD videos (BENCH-3 item 2) (2026-11-22) [closed]
+- [PR #118] docs(landscape): captions-off cause for 2 videos; YouTube RSS works from runners (§3.8) (2026-11-22) [closed]
+- [PR #117] docs(landscape): what 12 more agent-CAD transcripts show (§3.8) (2026-11-22) [closed]
+- [PR #116] feat(bench): briefs 16–18 from The Stack Underflow's labs (credited) (2026-11-22) [closed]
+- [PR #115] docs: focus on the checking half agent-CAD demos skip; QuickTube transcripts; licence nuance (2026-11-22) [closed]
+- [PR #114] docs(landscape): videos, transcripts and model repositories (§3.8) (2026-11-22) [closed]
+- [PR #113] chore(claude): set Claude Code output and autocompact env (2026-11-22) [closed]
+- [PR #112] docs: document provenance.py switches, index §3.7.2, CI link-flake learning (2026-11-21) [closed]
+- [PR #111] chore(deps): Bump node from 22-bookworm-slim to 25-bookworm-slim in /bench/fly (2026-11-16) [closed]
+- [PR #110] chore(deps): Bump astral-sh/uv from 0.13.7 to 0.13.8 in /bench/fly (2026-11-16) [closed]
+
+</details>
+
 <details><summary>2026-11-16</summary>
 
 - [ISSUE #16] M2 — The honest gate (preflight, viewer, browser, render, report, cli) (2026-09-19) [closed]

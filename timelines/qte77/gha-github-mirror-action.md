@@ -15,6 +15,20 @@
 
 ## History
 
+<details><summary>2026-11-23</summary>
+
+- [PR #65] chore(hub): pin the mirror action at v0.2.0 (2026-11-20) [closed]
+- [PR #64] chore(release): bump 0.1.0 → 0.2.0 (2026-11-20) [closed]
+- [PR #63] feat(hub): wire pull mode, gate PATs on their URLs, fix matrix output (2026-11-20) [closed]
+- [PR #62] docs(plan): sync arc 0001 status, record pull-mode requirement (2026-11-18) [closed]
+- [PR #61] fix(docs): exempt PR template from MD041 (2026-11-18) [closed]
+- [PR #60] chore(deps): bump qte77/.github/.github/workflows/lint-md-links.yml from 5dfff1f73ac7241ef37b6103e04d2a8373ff68a4 to 5ab0cecea3fee43a9c8f5858f7970a088313115e (2026-11-17) [closed]
+- [PR #59] chore(deps): bump qte77/.github/.github/workflows/publish-release.yml from 4801217a20922cd54187fc7e4c98c7ea78c0ec9a to 5ab0cecea3fee43a9c8f5858f7970a088313115e (2026-11-17) [closed]
+- [PR #58] chore(deps): bump qte77/.github/.github/workflows/tag-release.yml from 4801217a20922cd54187fc7e4c98c7ea78c0ec9a to 5ab0cecea3fee43a9c8f5858f7970a088313115e (2026-11-17) [closed]
+- [PR #57] chore(deps): bump qte77/.github/.github/workflows/bump-version.yml from 4801217a20922cd54187fc7e4c98c7ea78c0ec9a to 1aca0d7a65544327646027b7bce8393508578852 (2026-11-17) [closed]
+
+</details>
+
 <details><summary>2026-11-16</summary>
 
 - [PR #56] chore(deps): bump the github-codeql-action group with 2 updates (2026-11-12) [closed]

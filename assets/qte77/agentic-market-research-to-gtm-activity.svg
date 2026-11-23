@@ -26,30 +26,48 @@
   <a xlink:href="https://github.com/qte77/agentic-market-research-to-gtm">
     <line class="axis" x1="30" y1="180" x2="750" y2="180"/>
     <g class="day" transform="translate(30,0)">
-      <rect class="bar-pr-opened" x="0" y="145.0" width="142" height="35.0"><title>2026-10-29 pr-opened: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="145.0" width="78" height="35.0"><title>2026-10-29 pr-opened: 1</title></rect>
       <title>2026-10-29 total: 1</title>
     </g>
-    <g class="day" transform="translate(174,0)">
-      <rect class="bar-pr-merged" x="0" y="145.0" width="142" height="35.0"><title>2026-11-02 pr-merged: 1</title></rect>
-      <rect class="bar-issue-resolved" x="0" y="110.0" width="142" height="35.0"><title>2026-11-02 issue-resolved: 1</title></rect>
+    <g class="day" transform="translate(110,0)">
+      <rect class="bar-pr-merged" x="0" y="145.0" width="78" height="35.0"><title>2026-11-02 pr-merged: 1</title></rect>
+      <rect class="bar-issue-resolved" x="0" y="110.0" width="78" height="35.0"><title>2026-11-02 issue-resolved: 1</title></rect>
       <title>2026-11-02 total: 2</title>
     </g>
-    <g class="day" transform="translate(318,0)">
-      <rect class="bar-pr-opened" x="0" y="145.0" width="142" height="35.0"><title>2026-11-09 pr-opened: 1</title></rect>
+    <g class="day" transform="translate(190,0)">
+      <rect class="bar-pr-opened" x="0" y="145.0" width="78" height="35.0"><title>2026-11-09 pr-opened: 1</title></rect>
       <title>2026-11-09 total: 1</title>
     </g>
-    <g class="day" transform="translate(462,0)">
-      <rect class="bar-pr-merged" x="0" y="110.0" width="142" height="70.0"><title>2026-11-11 pr-merged: 2</title></rect>
-      <rect class="bar-pr-opened" x="0" y="40.0" width="142" height="70.0"><title>2026-11-11 pr-opened: 2</title></rect>
+    <g class="day" transform="translate(270,0)">
+      <rect class="bar-pr-merged" x="0" y="110.0" width="78" height="70.0"><title>2026-11-11 pr-merged: 2</title></rect>
+      <rect class="bar-pr-opened" x="0" y="40.0" width="78" height="70.0"><title>2026-11-11 pr-opened: 2</title></rect>
       <title>2026-11-11 total: 4</title>
     </g>
-    <g class="day" transform="translate(606,0)">
-      <rect class="bar-pr-merged" x="0" y="145.0" width="142" height="35.0"><title>2026-11-12 pr-merged: 1</title></rect>
+    <g class="day" transform="translate(350,0)">
+      <rect class="bar-pr-merged" x="0" y="145.0" width="78" height="35.0"><title>2026-11-12 pr-merged: 1</title></rect>
       <title>2026-11-12 total: 1</title>
+    </g>
+    <g class="day" transform="translate(430,0)">
+      <rect class="bar-pr-opened" x="0" y="145.0" width="78" height="35.0"><title>2026-11-17 pr-opened: 1</title></rect>
+      <title>2026-11-17 total: 1</title>
+    </g>
+    <g class="day" transform="translate(510,0)">
+      <rect class="bar-pr-opened" x="0" y="145.0" width="78" height="35.0"><title>2026-11-18 pr-opened: 1</title></rect>
+      <title>2026-11-18 total: 1</title>
+    </g>
+    <g class="day" transform="translate(590,0)">
+      <rect class="bar-pr-merged" x="0" y="75.0" width="78" height="105.0"><title>2026-11-20 pr-merged: 3</title></rect>
+      <rect class="bar-pr-opened" x="0" y="40.0" width="78" height="35.0"><title>2026-11-20 pr-opened: 1</title></rect>
+      <title>2026-11-20 total: 4</title>
+    </g>
+    <g class="day" transform="translate(670,0)">
+      <rect class="bar-pr-merged" x="0" y="145.0" width="78" height="35.0"><title>2026-11-22 pr-merged: 1</title></rect>
+      <rect class="bar-pr-opened" x="0" y="110.0" width="78" height="35.0"><title>2026-11-22 pr-opened: 1</title></rect>
+      <title>2026-11-22 total: 2</title>
     </g>
   </a>
   <text class="axis-label" x="30" y="194">2026-10-29</text>
-  <text class="axis-label" x="750" y="194" text-anchor="end">2026-11-12</text>
+  <text class="axis-label" x="750" y="194" text-anchor="end">2026-11-22</text>
     <rect class="bar-pr-opened" x="30" y="224" width="8" height="8"/>
     <text class="legend-label" x="42" y="232">PR opened</text>
     <rect class="bar-pr-merged" x="150" y="224" width="8" height="8"/>

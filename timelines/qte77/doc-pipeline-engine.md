@@ -12,10 +12,25 @@
 - [ISSUE #142] feat: add a pipeline UI (estate vanilla-TS + Vite + qte77/brand) (2026-06-22) [open]
 - [ISSUE #140] chore: evaluate committing a redistribution-clean sample subset (supersede ADR-0010?) (2026-06-22) [open]
 - [ISSUE #63] Run-4 prototype results — 8-variant external + 2-pipeline comparison (2026-04-27) [open]
-- [PR #279] fix(deps): bump opentelemetry-api to 1.45.2 (GHSA-mf5v-w3w3-f6cg) (2026-11-15) [open]
+- [PR #289] docs: update SBOM (2026-11-22) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-23</summary>
+
+- [PR #288] chore(devcontainer): pin the Node feature to 24 (2026-11-22) [closed]
+- [PR #287] docs: update SBOM (2026-11-22) [closed]
+- [PR #286] docs: update SBOM (2026-11-22) [closed]
+- [PR #285] ci: pin action version comments to exact tags (2026-11-22) [closed]
+- [PR #284] docs: update SBOM (2026-11-22) [closed]
+- [PR #283] chore(claude): set Claude Code env and refresh the statusline (2026-11-22) [closed]
+- [PR #282] docs: update SBOM (2026-11-22) [closed]
+- [PR #281] chore(deps): Bump wcmatch from 10.1 to 11.2 in the uv group across 1 directory (2026-11-21) [closed]
+- [PR #280] docs: update SBOM (2026-11-17) [closed]
+- [PR #279] fix(deps): bump opentelemetry-api to 1.45.2 (GHSA-mf5v-w3w3-f6cg) (2026-11-15) [closed]
+
+</details>
 
 <details><summary>2026-11-16</summary>
 

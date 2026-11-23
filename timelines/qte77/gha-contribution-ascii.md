@@ -10,6 +10,12 @@
 
 ## History
 
+<details><summary>2026-11-23</summary>
+
+- [PR #108] chore(deps): bump qte77/.github/.github/workflows/lint-md-links.yml from 5dfff1f73ac7241ef37b6103e04d2a8373ff68a4 to 5ab0cecea3fee43a9c8f5858f7970a088313115e (2026-11-18) [closed]
+
+</details>
+
 <details><summary>2026-11-16</summary>
 
 - [PR #107] ci: pin workflow actions to full commit SHAs (2026-11-12) [closed]

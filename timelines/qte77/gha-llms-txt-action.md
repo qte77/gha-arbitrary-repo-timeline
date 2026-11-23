@@ -11,6 +11,18 @@
 
 ## History
 
+<details><summary>2026-11-23</summary>
+
+- [PR #30] fix(ci): use the exact tag in actions/checkout version comments (2026-11-22) [closed]
+- [PR #29] fix(ci): correct action version comments flagged by zizmor (2026-11-22) [closed]
+- [PR #28] chore(deps): bump qte77/.github/.github/workflows/lint-actions.yml from afd639d96fffa8e59873a9b352d575a9a627236d to 4613389d22779a8d8ba623a418f7c94415e49da9 (2026-11-21) [closed]
+- [PR #27] chore(deps): bump qte77/.github/.github/workflows/publish-release.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 4613389d22779a8d8ba623a418f7c94415e49da9 (2026-11-21) [closed]
+- [PR #26] chore(deps): bump qte77/.github/.github/workflows/lint-md-links.yml from 5dfff1f73ac7241ef37b6103e04d2a8373ff68a4 to 4613389d22779a8d8ba623a418f7c94415e49da9 (2026-11-21) [closed]
+- [PR #25] chore(deps): bump qte77/.github/.github/workflows/tag-release.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 4613389d22779a8d8ba623a418f7c94415e49da9 (2026-11-21) [closed]
+- [PR #24] chore(deps): bump qte77/.github/.github/workflows/bump-version.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 4613389d22779a8d8ba623a418f7c94415e49da9 (2026-11-21) [closed]
+
+</details>
+
 <details><summary>2026-11-16</summary>
 
 - [ISSUE #17] ci: adopt actionlint + zizmor for GitHub Actions hygiene (2026-06-29) [closed]

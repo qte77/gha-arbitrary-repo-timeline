@@ -13,6 +13,16 @@
 
 ## History
 
+<details><summary>2026-11-23</summary>
+
+- [PR #332] fix(ci): restrict the publish-release workflow_run trigger to main (2026-11-22) [closed]
+- [PR #331] ci: pin action version comments to exact tags (2026-11-22) [closed]
+- [PR #330] chore(claude): set Claude Code output and autocompact env (2026-11-22) [closed]
+- [PR #329] chore(deps): Bump the github-actions group with 4 updates (2026-11-17) [closed]
+- [PR #328] chore: update timelines (2026-11-16) [closed]
+
+</details>
+
 <details><summary>2026-11-16</summary>
 
 - [PR #327] chore(release): bump 0.1.0 → 0.2.0 (2026-11-14) [closed]

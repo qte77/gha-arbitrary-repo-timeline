@@ -6,7 +6,6 @@
 ## Open
 
 - [ISSUE #77] ora.ai relevance on platform subdomains (*.pages.dev) flips API checks from n/a to fail (2026-10-06) [open]
-- [ISSUE #74] oraAi: POST /api/scan serves a cached result, so scans after a deploy never see the change (2026-10-06) [open]
 - [ISSUE #43] Crosswalk principle: present-but-non-functional discovery docs should score worse than absent ones (2026-09-18) [open]
 - [ISSUE #25] [agent-readiness] sortmy-london remediation (2026-09-17) [open]
 - [ISSUE #24] [agent-readiness] agenthud-agui-a2ui remediation (2026-09-17) [open]
@@ -17,6 +16,20 @@
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-23</summary>
+
+- [ISSUE #74] oraAi: POST /api/scan serves a cached result, so scans after a deploy never see the change (2026-10-06) [closed]
+- [PR #112] ci: pin action version comments to exact tags (2026-11-22) [closed]
+- [PR #111] chore(deps-dev): bump the worker-npm-minor-patch group in /worker with 3 updates (2026-11-22) [closed]
+- [PR #110] chore(deps): bump astral-sh/setup-uv from 10.3.3 to 10.4.0 in the actions-minor-patch group (2026-11-22) [closed]
+- [PR #109] chore(deps-dev): bump vitest from 5.1.0 to 5.1.1 in the npm-minor-patch group (2026-11-22) [closed]
+- [PR #108] chore(node): move to Node 24 only (2026-11-22) [closed]
+- [PR #107] feat(oraAi): opt-in fresh scan via ora.ai's documented force flag (2026-11-21) [closed]
+- [PR #106] chore(deps-dev): bump the worker-npm-minor-patch group in /worker with 2 updates (2026-11-16) [closed]
+- [PR #105] chore(scan): update scan results (2026-11-16) [closed]
+
+</details>
 
 <details><summary>2026-11-16</summary>
 
