@@ -7,7 +7,6 @@
 
 - [ISSUE #292] Persistent browser profile (user_data_dir) for session continuity across runs (2026-11-12) [open]
 - [ISSUE #282] Analyse a page's embedded video: find the media URL, download it, extract frames (2026-11-12) [open]
-- [ISSUE #261] fetch: streaming to disk — fetch() holds the whole body in memory (2026-10-18) [open]
 - [ISSUE #240] security(ssrf): DNS-rebinding TOCTOU, multi-hop redirects, browser subresources (follow-up to #181) (2026-09-30) [open]
 - [ISSUE #228] Datacenter-egress bot-challenges survive all three tiers — proxy passthrough proposal (2026-09-25) [open]
 - [ISSUE #218] Third-party project mentions need manual redaction (2026-09-21) [open]
@@ -18,6 +17,23 @@
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-23</summary>
+
+- [ISSUE #304] fetch(stream_to): review follow-ups from #302 (fsync, symlink note, cleanup errors, timeout<=0, tests) (2026-11-21) [closed]
+- [ISSUE #303] cli: polyfetch fetch --output FILE streams the body to disk (CLI half of #261) (2026-11-21) [closed]
+- [ISSUE #261] fetch: streaming to disk — fetch() holds the whole body in memory (2026-10-18) [closed]
+- [PR #309] docs(plans): close plan 008; op1 decided, rely on web-flow signed squash merges (2026-11-22) [closed]
+- [PR #308] fix(stream): stream_to and fetch --output review follow-ups (2026-11-22) [closed]
+- [PR #307] feat(cli): fetch --output FILE streams the body to disk (#303) (2026-11-22) [closed]
+- [PR #306] ci: pin action version comments to exact tags (2026-11-22) [closed]
+- [PR #305] chore(claude): set Claude Code env and refresh the statusline (2026-11-22) [closed]
+- [PR #302] feat(fetch): stream a 2xx body to disk with stream_to=Path (2026-11-21) [closed]
+- [PR #301] ci(markdownlint): skip scriv fragments and .claude files (2026-11-20) [closed]
+- [PR #300] chore(deps): bump the python-deps group across 1 directory with 3 updates (2026-11-19) [closed]
+- [PR #299] chore(ci): bump qte77/.github/.github/workflows/lint-md-links.yml from 5dfff1f73ac7241ef37b6103e04d2a8373ff68a4 to 5ab0cecea3fee43a9c8f5858f7970a088313115e in the github-actions group (2026-11-19) [closed]
+
+</details>
 
 <details><summary>2026-11-16</summary>
 

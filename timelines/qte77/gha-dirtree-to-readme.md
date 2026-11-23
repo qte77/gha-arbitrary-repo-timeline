@@ -6,11 +6,20 @@
 ## Open
 
 - [ISSUE #95] chore(ci): adopt qte77/.github reusable release workflows (2026-06-28) [open]
-- [PR #108] chore(deps-dev): bump griffe from 1.5.4 to 2.4.1 (2026-11-09) [open]
-- [PR #104] chore(deps): bump callowayproject/bump-my-version from 1.4.1 to 1.8.1 (2026-11-09) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-23</summary>
+
+- [PR #121] fix(ci): pass workflow expressions through env in bump workflow (2026-11-22) [closed]
+- [PR #120] chore(deps): bump wcmatch from 10.0 to 11.2 in the uv group across 1 directory (2026-11-22) [closed]
+- [PR #119] chore(claude): set Claude Code output and autocompact env (2026-11-22) [closed]
+- [PR #118] chore(deps): bump astral-sh/setup-uv from 10.3.3 to 10.4.0 (2026-11-22) [closed]
+- [PR #108] chore(deps-dev): bump griffe from 1.5.4 to 2.4.1 (2026-11-09) [closed]
+- [PR #104] chore(deps): bump callowayproject/bump-my-version from 1.4.1 to 1.8.1 (2026-11-09) [closed]
+
+</details>
 
 <details><summary>2026-11-16</summary>
 

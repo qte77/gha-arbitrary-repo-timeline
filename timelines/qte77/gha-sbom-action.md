@@ -5,11 +5,21 @@
 <!-- open-section-start -->
 ## Open
 
-- [ISSUE #42] ci: Lint MD and Links ends in startup_failure since the Actions allow-list change (2026-11-10) [open]
 - [ISSUE #37] SBOM PRs can't merge under signed-commit and required-CodeQL rules without manual steps (2026-11-02) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-23</summary>
+
+- [ISSUE #42] ci: Lint MD and Links ends in startup_failure since the Actions allow-list change (2026-11-10) [closed]
+- [PR #50] chore(deps): Bump qte77/.github/.github/workflows/bump-version.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 4613389d22779a8d8ba623a418f7c94415e49da9 (2026-11-20) [closed]
+- [PR #49] chore(deps): Bump qte77/.github/.github/workflows/publish-release.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 4613389d22779a8d8ba623a418f7c94415e49da9 (2026-11-20) [closed]
+- [PR #48] chore(deps): Bump qte77/.github/.github/workflows/lint-md-links.yml from 5dfff1f73ac7241ef37b6103e04d2a8373ff68a4 to 4613389d22779a8d8ba623a418f7c94415e49da9 (2026-11-20) [closed]
+- [PR #47] chore(deps): Bump qte77/.github/.github/workflows/tag-release.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 4613389d22779a8d8ba623a418f7c94415e49da9 (2026-11-20) [closed]
+- [PR #46] fix: keep one SBOM PR per repo and auto-merge it (2026-11-17) [closed]
+
+</details>
 
 <details><summary>2026-11-16</summary>
 

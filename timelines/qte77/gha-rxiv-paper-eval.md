@@ -5,10 +5,9 @@
 <!-- open-section-start -->
 ## Open
 
+- [ISSUE #111] Extraction: 31 % of replies fail to parse on llama-3.3-70b (W45); consider JSON mode or a retry (2026-11-17) [open]
 - [ISSUE #79] chore(ci): adopt qte77/.github reusable release workflows (2026-06-28) [open]
 - [ISSUE #76] Sparse biorxiv feed weeks → self-test is low-signal (W24 had 1 row, 0 relevant) (2026-06-27) [open]
-- [ISSUE #72] fix(dedup): key dedup on paper IDs / raw feed, not LLM-generated summaries (2026-06-22) [open]
-- [ISSUE #71] fix(triage): key triage branch on week/run-id, not date, to avoid same-day collisions (2026-06-22) [open]
 - [ISSUE #70] docs: adopt README doc-structure canon (2026-06-21) [open]
 - [ISSUE #63] fix(eval): keyword pre-filter drops short acronyms (AMP, LLM, RNA) (2026-05-25) [open]
 - [ISSUE #59] feat(workflow): quota-resilience fallback when primary provider hits rate limit (2026-05-25) [open]
@@ -18,6 +17,26 @@
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-23</summary>
+
+- [ISSUE #72] fix(dedup): key dedup on paper IDs / raw feed, not LLM-generated summaries (2026-06-22) [closed]
+- [ISSUE #71] fix(triage): key triage branch on week/run-id, not date, to avoid same-day collisions (2026-06-22) [closed]
+- [PR #124] feat(release): v0.7.1 (2026-11-22) [closed]
+- [PR #123] feat(release): v0.7.1 (2026-11-22) [closed]
+- [PR #122] fix(extract): a failed retry call still counts as a parse failure (2026-11-22) [closed]
+- [PR #121] feat(release): v0.7.0 (2026-11-22) [closed]
+- [PR #120] feat(release): v0.7.0 (2026-11-22) [closed]
+- [PR #119] feat(extract): retry an unparseable extraction reply once; report the parse-failure yield (2026-11-22) [closed]
+- [PR #118] chore(claude): set Claude Code output and autocompact env (2026-11-22) [closed]
+- [PR #117] ci(eval): check out qte77/.github at the v0.1.2 release commit (2026-11-21) [closed]
+- [PR #116] ci(release): pin release workflows to qte77/.github v0.1.1 in tag form (2026-11-21) [closed]
+- [PR #115] chore(deps-dev): bump complexipy from 8.3.0 to 9.0.0 (2026-11-19) [closed]
+- [PR #114] chore(deps-dev): bump ruff from 0.17.4 to 0.17.5 in the uv-version-updates group (2026-11-19) [closed]
+- [PR #113] chore(deps): bump qte77/.github/.github/workflows/publish-release.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 5ab0cecea3fee43a9c8f5858f7970a088313115e (2026-11-19) [closed]
+- [PR #112] chore(deps): bump qte77/.github/.github/workflows/tag-release.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 5ab0cecea3fee43a9c8f5858f7970a088313115e (2026-11-19) [closed]
+
+</details>
 
 <details><summary>2026-11-16</summary>
 

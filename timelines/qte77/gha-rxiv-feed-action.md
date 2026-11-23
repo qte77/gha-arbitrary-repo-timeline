@@ -10,13 +10,29 @@
 - [ISSUE #99] Add SocArxiv (OSF-backed) fetcher behind SERVER dispatch (2026-05-20) [open]
 - [ISSUE #98] Add weekly SVG visualization (bash+awk, GH light/dark) (2026-05-20) [open]
 - [ISSUE #69] Add chemRxiv support (separate fetcher behind SERVER dispatch) (2026-05-06) [open]
-- [PR #248] chore: update ./data/biorxiv (2026-11-16) [open]
-- [PR #247] chore: update ./data/medrxiv (2026-11-16) [open]
-- [PR #246] chore: update ./data/biorxiv (2026-11-16) [open]
-- [PR #245] chore: update ./data/arxiv (2026-11-16) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-23</summary>
+
+- [PR #259] chore: update ./data/biorxiv (2026-11-23) [closed]
+- [PR #258] chore: update ./data/medrxiv (2026-11-23) [closed]
+- [PR #257] chore: update ./data/biorxiv (2026-11-23) [closed]
+- [PR #256] chore: update ./data/arxiv (2026-11-23) [closed]
+- [PR #255] ci(release): pin release workflows to qte77/.github v0.1.1 in tag form (2026-11-21) [closed]
+- [PR #254] Chore(deps): bump qte77/.github/.github/workflows/lint-md-links.yml from 5dfff1f73ac7241ef37b6103e04d2a8373ff68a4 to 4613389d22779a8d8ba623a418f7c94415e49da9 (2026-11-19) [closed]
+- [PR #253] Chore(deps): bump qte77/.github/.github/workflows/bump-version.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 4613389d22779a8d8ba623a418f7c94415e49da9 (2026-11-19) [closed]
+- [PR #252] Chore(deps): bump qte77/.github/.github/workflows/publish-release.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 4613389d22779a8d8ba623a418f7c94415e49da9 (2026-11-19) [closed]
+- [PR #251] Chore(deps): bump qte77/.github/.github/workflows/tag-release.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 5ab0cecea3fee43a9c8f5858f7970a088313115e (2026-11-19) [closed]
+- [PR #250] chore: update ./data/arxiv (2026-11-17) [closed]
+- [PR #249] fix(action): merge the data PR once required checks pass (2026-11-17) [closed]
+- [PR #248] chore: update ./data/biorxiv (2026-11-16) [closed]
+- [PR #247] chore: update ./data/medrxiv (2026-11-16) [closed]
+- [PR #246] chore: update ./data/biorxiv (2026-11-16) [closed]
+- [PR #245] chore: update ./data/arxiv (2026-11-16) [closed]
+
+</details>
 
 <details><summary>2026-11-16</summary>
 

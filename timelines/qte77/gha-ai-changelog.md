@@ -11,6 +11,12 @@
 
 ## History
 
+<details><summary>2026-11-23</summary>
+
+- [PR #53] chore(claude): set Claude Code output and autocompact env (2026-11-22) [closed]
+
+</details>
+
 <details><summary>2026-11-16</summary>
 
 - [PR #52] ci: pin workflow actions to full commit SHAs (2026-11-12) [closed]

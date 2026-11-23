@@ -6,7 +6,6 @@
 <!-- open-section-start -->
 ## Open
 
-- [ISSUE #499] slug_probe: check host before treating a redirect as a board-listing bounce (2026-11-15) [open]
 - [ISSUE #490] chore(sources): triage default-seed boards that 404 on ingest (2026-11-11) [open]
 - [ISSUE #489] relevance: screen leaves deal_breaker empty for location, language and export limits (2026-11-11) [open]
 - [ISSUE #468] decision pre-filter: follow-ups (shared decide(), per-lane questions, re-validation) (2026-10-28) [open]
@@ -25,6 +24,23 @@
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-23</summary>
+
+- [ISSUE #499] slug_probe: check host before treating a redirect as a board-listing bounce (2026-11-15) [closed]
+- [PR #510] chore(deps): bump wcmatch from 10.1 to 11.2 (2026-11-22) [closed]
+- [PR #509] ci: pin action version comments to exact tags (2026-11-22) [closed]
+- [PR #508] chore(claude): set Claude Code output and autocompact env (2026-11-22) [closed]
+- [PR #507] chore(ci): bump qte77/.github/.github/workflows/tag-release.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 5ab0cecea3fee43a9c8f5858f7970a088313115e (2026-11-19) [closed]
+- [PR #506] chore(ci): bump qte77/.github/.github/workflows/bump-version.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 5ab0cecea3fee43a9c8f5858f7970a088313115e (2026-11-19) [closed]
+- [PR #505] chore(ci): bump qte77/.github/.github/workflows/publish-release.yml from a32769a925e4d056b5d389ad727f7831973f7161 to 5ab0cecea3fee43a9c8f5858f7970a088313115e (2026-11-19) [closed]
+- [PR #504] chore(deps): bump complexipy from 8.3.0 to 9.0.0 in the python-deps-major group (2026-11-19) [closed]
+- [PR #503] chore(ci): bump qte77/.github/.github/workflows/lint-md-links.yml from 5dfff1f73ac7241ef37b6103e04d2a8373ff68a4 to 5ab0cecea3fee43a9c8f5858f7970a088313115e (2026-11-19) [closed]
+- [PR #502] chore(deps): bump the python-deps group with 3 updates (2026-11-19) [closed]
+- [PR #501] chore(ci): bump qte77/gha-issue-triage from 0.7.1 to 0.7.2 in the github-actions group (2026-11-19) [closed]
+- [PR #500] fix(slug_probe): count a redirect as a listing bounce only on the same host (2026-11-17) [closed]
+
+</details>
 
 <details><summary>2026-11-16</summary>
 

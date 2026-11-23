@@ -5,7 +5,7 @@
 <!-- open-section-start -->
 ## Open
 
-- [ISSUE #291] read-once: refresh snapshot on TTL expiry; doc and test gaps from #290 review (2026-11-16) [open]
+- [ISSUE #296] Research Monitor: actionable findings (2026-11-18) (2026-11-18) [open]
 - [ISSUE #282] gha-dev: skill for the SHA-pin + grouped Dependabot brief (2026-11-12) [open]
 - [ISSUE #281] cc-meta: tracking — hook-driven compaction (PreCompact snapshot + post-compaction re-onboarding) (2026-11-12) [open]
 - [ISSUE #243] Proposal: merge workspace-setup and workspace-sandbox (shared files, mutually exclusive) (2026-10-11) [open]
@@ -23,12 +23,37 @@
 - [ISSUE #125] refactor: consider merging security-audit into codebase-tools (2026-04-21) [open]
 - [ISSUE #101] Evaluate Graphify for skill dependency graph and cross-plugin analysis (2026-04-09) [open]
 - [ISSUE #75] cc-voice: implement STT via Moonshine (/listen) (2026-04-05) [open]
-- [PR #201] docs(agent-requests): flag the cc-meta MEMORY.md seed hook for retirement (2026-08-23) [open]
-- [PR #200] feat(workspace-setup,workspace-sandbox): add unattended-execution rule (2026-08-18) [open]
+- [PR #311] ci: run check-mechanical-pr unit tests on PRs (2026-11-22) [open]
 - [PR #197] [PARKED] feat: add unattended-run kit to workspace-setup deployed set (pre-stages qte77 arc-003) (2026-07-28) [open]
 <!-- open-section-end -->
 
 ## History
+
+<details><summary>2026-11-23</summary>
+
+- [ISSUE #291] read-once: refresh snapshot on TTL expiry; doc and test gaps from #290 review (2026-11-16) [closed]
+- [PR #310] fix(gha-dev): harden check-mechanical-pr (prerelease tags, empty read sections) and add regression tests (2026-11-22) [closed]
+- [PR #309] fix(skills): hoist disable-model-invocation to top-level frontmatter (R59 PR2) (2026-11-22) [closed]
+- [PR #308] chore(devcontainer): pin the Node feature to 24 (2026-11-22) [closed]
+- [PR #307] feat(rules): promote review tiers, pause exit and PR inbox triage (2026-11-22) [closed]
+- [PR #306] fix(memory-hygiene): done/paths take a memory dir as given (0.1.2) (2026-11-22) [closed]
+- [PR #305] fix(workspace): turn the security-guidance LLM review back on in the settings templates (2026-11-22) [closed]
+- [PR #304] feat(workspace): make the security-guidance LLM review opt-in in the settings templates (2026-11-22) [closed]
+- [PR #303] feat(rules): a monitor step fails on any exit code it doesn't expect (2026-11-22) [closed]
+- [PR #302] fix(workspace): never edit a git-tracked .claude/settings.json from the setup hook (2026-11-22) [closed]
+- [PR #301] fix(skills): hoist and quote argument-hint; rename nested allowed-tools (2026-11-22) [closed]
+- [PR #300] docs(workspace): document the env defaults the settings templates ship (2026-11-22) [closed]
+- [PR #299] feat(memory-hygiene): scheduled auto-memory clean-up plugin (2026-11-22) [closed]
+- [PR #298] feat(workspace): statusline shows used share and compact point; env sets compaction at 50% (2026-11-22) [closed]
+- [PR #297] ci: bump the github-actions group across 1 directory with 2 updates (2026-11-22) [closed]
+- [PR #295] ci: run the read-once tests on PRs that touch the hook (2026-11-17) [closed]
+- [PR #294] fix: README and manifest drift (plan 0001 row 29) (2026-11-17) [closed]
+- [PR #293] fix(read-once): refresh the diff snapshot when the TTL expires (2026-11-17) [closed]
+- [PR #292] docs(plans): refresh plan 0001 status, verified drift list, new rows (2026-11-17) [closed]
+- [PR #201] docs(agent-requests): flag the cc-meta MEMORY.md seed hook for retirement (2026-08-23) [closed]
+- [PR #200] feat(workspace-setup,workspace-sandbox): add unattended-execution rule (2026-08-18) [closed]
+
+</details>
 
 <details><summary>2026-11-16</summary>
 
