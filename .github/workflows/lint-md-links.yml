@@ -14,5 +14,5 @@ permissions:
 
 jobs:
   lint:
-    uses: qte77/.github/.github/workflows/lint-md-links.yml@1aca0d7a65544327646027b7bce8393508578852  # main 2026-11-12 (qte77/.github#64), same pin as the release workflows
+    uses: qte77/.github/.github/workflows/lint-md-links.yml@1aca0d7a65544327646027b7bce8393508578852  # main 2026-11-12 (qte77/.github#64); tracks main, not the release workflows' tag pin
 ...

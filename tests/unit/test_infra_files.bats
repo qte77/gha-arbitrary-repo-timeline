@@ -69,11 +69,14 @@
     grep -q 'force=true' .github/workflows/publish-release.yml
 }
 
-@test "all qte77/.github reusable-workflow callers share one pin (no stale-commit drift)" {
+@test "the qte77/.github release-workflow callers share one pin (no stale-commit drift)" {
+    # Reason: release reusables are tag-pinned together; lint-md-links tracks main, so it is excluded.
     [ -f .github/workflows/lint-md-links.yml ]
-    pins=$(grep -ohE 'uses: qte77/\.github/\.github/workflows/[a-z-]+\.yml@[0-9a-f]{40}' .github/workflows/*.yml |
-        sed 's/.*@//' | sort -u)
+    grep -qE 'uses: qte77/\.github/\.github/workflows/lint-md-links\.yml@[0-9a-f]{40}' .github/workflows/lint-md-links.yml
+    pins=$(grep -ohE 'uses: qte77/\.github/\.github/workflows/(bump-version|tag-release|publish-release)\.yml@[0-9a-f]{40}' \
+        .github/workflows/*.yml | sed 's/.*@//' | sort -u)
     [ "$(grep -ohE 'uses: qte77/\.github/' .github/workflows/*.yml | wc -l)" -eq 4 ]
+    [ -n "$pins" ]
     [ "$(printf '%s\n' "$pins" | wc -l)" -eq 1 ]
 }
 
