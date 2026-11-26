@@ -21,7 +21,7 @@ jobs:
       pull-requests: write
     # 2026-11-10, qte77/.github@43ad121 (verified against this repo's own
     # pyproject.toml: no uv, no scriv/changelog.d/ — both stay off)
-    uses: qte77/.github/.github/workflows/bump-version.yml@1aca0d7a65544327646027b7bce8393508578852  # main 2026-11-12 (qte77/.github#64)
+    uses: qte77/.github/.github/workflows/bump-version.yml@aeef158fdd62a865aecd03571eaecbe3aa8169e4  # v0.1.2
     with:
       bump_type: ${{ inputs.bump_type }}
       use_uv: false

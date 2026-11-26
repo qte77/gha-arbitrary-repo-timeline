@@ -74,7 +74,7 @@ jobs:
     # 2026-11-10, qte77/.github@43ad121. Explicit `tag:` (from `resolve`)
     # instead of the reusable workflow's own "latest v*-tag" auto-resolve, so
     # it never picks up our locally-added floating v{MAJOR} tag by mistake.
-    uses: qte77/.github/.github/workflows/publish-release.yml@1aca0d7a65544327646027b7bce8393508578852  # main 2026-11-12 (qte77/.github#64)
+    uses: qte77/.github/.github/workflows/publish-release.yml@aeef158fdd62a865aecd03571eaecbe3aa8169e4  # v0.1.2
     with:
       tag: ${{ needs.resolve.outputs.tag }}
 
