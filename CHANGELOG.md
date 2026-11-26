@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `publish-release.yml` restricts its `workflow_run` trigger to push runs from this repository on `main` (the publishing jobs also require the resolve job to succeed) and carries a scoped inline zizmor ignore for `dangerous-triggers` with the reason (the trigger is required: a `GITHUB_TOKEN` tag push never fires `push:` workflows)
 - Claude Code `.claude/settings.json` sets `BASH_MAX_OUTPUT_LENGTH` to `15000` and
   `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` to `50` ([env vars](https://code.claude.com/docs/en/env-vars))
+- Release workflows (`bump-version`, `tag-release`, `publish-release`) re-pinned to the `qte77/.github` v0.1.2 tag commit in tag form (`@aeef158f…  # v0.1.2`), so Dependabot can follow qte77/.github releases (#335). The called files are unchanged except `bump-version`, which gains the optional `scriv_pin` input (not used here). The workflow test now checks that the three release callers share one pin; `lint-md-links` is left out because it tracks `main`.
 
 ---
 
